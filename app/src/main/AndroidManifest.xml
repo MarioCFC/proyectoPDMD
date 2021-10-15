@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoPDMD">
         <activity
+            android:name=".RegisterActivity"
+            android:exported="true" >
+<!--Lo de meta-data es para que aparezca la flecha hacia atra -->
+            <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".RegisterActivity" />
+
+        </activity>
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
