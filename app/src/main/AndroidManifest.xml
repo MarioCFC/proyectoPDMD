@@ -12,7 +12,7 @@
         <activity
             android:name=".RegisterActivity"
             android:exported="true" >
-<!--Lo de meta-data es para que aparezca la flecha hacia atra -->
+            <!--Lo de meta-data es para que aparezca la flecha hacia atra -->
             <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".RegisterActivity" />

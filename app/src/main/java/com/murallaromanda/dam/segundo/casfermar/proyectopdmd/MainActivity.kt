@@ -1,5 +1,6 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,14 +19,17 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.tvCreala.setOnClickListener(){
+        val sharedPref = this.getSharedPreferences(
+            getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+
+        binding.loginTvCreatIt.setOnClickListener(){
             val intent = Intent(this,RegisterActivity::class.java)
             startActivity(intent)
         }
 
-        binding.bLogin.setOnClickListener(){
-            var email = binding.tieEmail.text.toString()
-            var password = binding.tiePassword.text.toString()
+        binding.loginBtLogin.setOnClickListener(){
+            var email = binding.loginTieEmail.text.toString()
+            var password = binding.loginTiePassword.text.toString()
 
             Log.d("MainActivity","\nEmail: " + email + "\nPassword: " + password)
         }
