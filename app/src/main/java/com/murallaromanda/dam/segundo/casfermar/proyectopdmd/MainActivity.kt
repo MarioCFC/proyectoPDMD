@@ -19,9 +19,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val sharedPref = this.getSharedPreferences(
-            getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-
         binding.loginTvCreatIt.setOnClickListener(){
             val intent = Intent(this,RegisterActivity::class.java)
             startActivity(intent)
@@ -31,8 +28,16 @@ class MainActivity : AppCompatActivity() {
             var email = binding.loginTieEmail.text.toString()
             var password = binding.loginTiePassword.text.toString()
 
-            Log.d("MainActivity","\nEmail: " + email + "\nPassword: " + password)
+            if (usuarioEstaRegistrado(email,password)){
+                print("j")
+            }
         }
 
     }
+    fun usuarioEstaRegistrado(usuario:String,contraseña:String){
+        val sharedPref = this.getSharedPreferences(
+            getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+
+    }
+
 }
