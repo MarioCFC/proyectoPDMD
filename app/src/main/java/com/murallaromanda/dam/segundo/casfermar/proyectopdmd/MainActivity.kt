@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
 
             if (usuarioEstaRegistrado(email,password)){
                 print("j")
+
             }
         }
 
