@@ -27,11 +27,13 @@ class MainActivity : AppCompatActivity() {
         binding.loginBtLogin.setOnClickListener(){
             var email = binding.loginTieEmail.text.toString()
             var password = binding.loginTiePassword.text.toString()
-
+/*
             if (usuarioEstaRegistrado(email,password)){
                 print("j")
 
             }
+            */
+
         }
 
     }
