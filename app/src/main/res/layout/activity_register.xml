@@ -75,7 +75,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilConfirmPassword"
+        android:id="@+id/registerTilConfirmPassword"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         app:errorEnabled="true"
@@ -92,7 +92,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilPassword"
+        android:id="@+id/registerTilPassword"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         app:errorEnabled="true"
@@ -182,7 +182,7 @@
         android:layout_marginTop="20dp"
         android:text="Contraseña"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tilPassword"
+        app:layout_constraintEnd_toStartOf="@+id/registerTilPassword"
         app:layout_constraintHorizontal_bias="0.44"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline9"
