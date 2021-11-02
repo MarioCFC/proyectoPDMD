@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/ivCaratula"
-        android:layout_width="201px"
-        android:layout_height="298px"
+        android:layout_width="92dp"
+        android:layout_height="138dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.047"
