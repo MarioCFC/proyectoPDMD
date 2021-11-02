@@ -1,10 +1,10 @@
-package com.murallaromanda.dam.segundo.casfermar.proyectopdmd
+package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.MainActivity.Companion.gestSharedPreferences
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities.LoginActivity.Companion.gestSharedPreferences
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.ActivityRegisterBinding
 import java.util.regex.Pattern
 

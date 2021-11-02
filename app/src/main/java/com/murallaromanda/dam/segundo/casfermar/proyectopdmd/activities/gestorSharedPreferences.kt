@@ -1,4 +1,4 @@
-package com.murallaromanda.dam.segundo.casfermar.proyectopdmd
+package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities
 
 import android.content.Context
 import android.content.SharedPreferences

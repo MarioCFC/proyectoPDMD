@@ -1,4 +1,4 @@
-package com.murallaromanda.dam.segundo.casfermar.proyectopdmd
+package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities
 
 
 import android.content.Context
@@ -6,9 +6,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     /*Para poder usar en otras clases*/
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         gestSharedPreferences = gestorSharedPreferences(applicationContext)
 
         binding.loginTvCreatIt.setOnClickListener(){
-            val intent = Intent(this,RegisterActivity::class.java)
+            val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
 
@@ -51,8 +52,8 @@ class MainActivity : AppCompatActivity() {
 
             if(!interruptorError){
                 /*En el caso de que el login se produzca*/
-                /*val intent = Intent(this,RegisterActivity::class.java)
-                startActivity(intent)*/
+                val intent = Intent(this,ListActivity::class.java)
+                startActivity(intent)
                 Log.d("MainActivity","Logeo realizado")
             }
         }
