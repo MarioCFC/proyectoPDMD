@@ -2,30 +2,33 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_item"
     android:layout_width="match_parent"
     android:layout_height="150dp"
+    android:background="?android:attr/selectableItemBackground"
+    android:padding="5dp"
     tools:context=".activities.ListActivity">
 
     <ImageView
         android:id="@+id/ivCaratula"
-        android:layout_width="92dp"
+        android:layout_width="93dp"
         android:layout_height="138dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.047"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.025"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/tvTitulo"
         android:layout_width="160dp"
         android:layout_height="31dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-black"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.202"
+        app:layout_constraintHorizontal_bias="0.112"
         app:layout_constraintStart_toEndOf="@+id/ivCaratula"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,7 +36,7 @@
         android:id="@+id/tvGenero"
         android:layout_width="160dp"
         android:layout_height="17dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="@+id/tvTitulo"
         app:layout_constraintHorizontal_bias="0.0"
@@ -44,23 +47,26 @@
         android:id="@+id/tvDirector"
         android:layout_width="160dp"
         android:layout_height="17dp"
-        android:layout_marginTop="16dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/tvGenero"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/tvTitulo"
         app:layout_constraintTop_toBottomOf="@+id/tvGenero"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.387" />
 
     <TextView
         android:id="@+id/tvValoracion"
         android:layout_width="70dp"
-        android:layout_height="92dp"
-        android:layout_marginStart="28dp"
+        android:layout_height="97dp"
+        android:layout_marginStart="8dp"
+        android:gravity="center"
         android:text="TextView"
+        android:textAlignment="center"
+        android:textSize="34sp"
+        app:flow_verticalAlign="center"
         app:layout_constraintBottom_toBottomOf="@+id/tvDirector"
         app:layout_constraintStart_toEndOf="@+id/tvTitulo"
         app:layout_constraintTop_toTopOf="@+id/tvTitulo"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

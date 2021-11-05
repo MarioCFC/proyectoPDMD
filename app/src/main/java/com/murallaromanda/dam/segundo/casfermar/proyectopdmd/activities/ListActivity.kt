@@ -14,6 +14,7 @@ class ListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityListBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
 
@@ -24,7 +25,7 @@ class ListActivity : AppCompatActivity() {
         val lista = peliculaData.getLista()
 
         val layoutManager = LinearLayoutManager(this)
-        val adapter = ListaPeliculasAdapter(lista)
+        val adapter = ListaPeliculasAdapter(lista,this)
 
         binding.rvListaPeliculas.layoutManager = layoutManager
         binding.rvListaPeliculas.adapter = adapter
