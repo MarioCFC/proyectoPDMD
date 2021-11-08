@@ -10,7 +10,7 @@
     tools:context=".activities.ListActivity">
 
     <ImageView
-        android:id="@+id/ivCaratula"
+        android:id="@+id/ItemIvCaratula"
         android:layout_width="93dp"
         android:layout_height="138dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,7 +21,7 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/tvTitulo"
+        android:id="@+id/itemTvTitulo"
         android:layout_width="160dp"
         android:layout_height="31dp"
         android:layout_marginTop="16dp"
@@ -29,34 +29,34 @@
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.112"
-        app:layout_constraintStart_toEndOf="@+id/ivCaratula"
+        app:layout_constraintStart_toEndOf="@+id/ItemIvCaratula"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvGenero"
+        android:id="@+id/FilmDetailTvGenero"
         android:layout_width="160dp"
         android:layout_height="17dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
-        app:layout_constraintEnd_toEndOf="@+id/tvTitulo"
+        app:layout_constraintEnd_toEndOf="@+id/itemTvTitulo"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tvTitulo"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitulo" />
+        app:layout_constraintStart_toStartOf="@+id/itemTvTitulo"
+        app:layout_constraintTop_toBottomOf="@+id/itemTvTitulo" />
 
     <TextView
-        android:id="@+id/tvDirector"
+        android:id="@+id/ItemTvDirector"
         android:layout_width="160dp"
         android:layout_height="17dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/tvGenero"
+        app:layout_constraintEnd_toEndOf="@+id/FilmDetailTvGenero"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tvTitulo"
-        app:layout_constraintTop_toBottomOf="@+id/tvGenero"
+        app:layout_constraintStart_toStartOf="@+id/itemTvTitulo"
+        app:layout_constraintTop_toBottomOf="@+id/FilmDetailTvGenero"
         app:layout_constraintVertical_bias="0.387" />
 
     <TextView
-        android:id="@+id/tvValoracion"
+        android:id="@+id/ItemTvValoracion"
         android:layout_width="70dp"
         android:layout_height="97dp"
         android:layout_marginStart="8dp"
@@ -65,8 +65,8 @@
         android:textAlignment="center"
         android:textSize="34sp"
         app:flow_verticalAlign="center"
-        app:layout_constraintBottom_toBottomOf="@+id/tvDirector"
-        app:layout_constraintStart_toEndOf="@+id/tvTitulo"
-        app:layout_constraintTop_toTopOf="@+id/tvTitulo"
+        app:layout_constraintBottom_toBottomOf="@+id/ItemTvDirector"
+        app:layout_constraintStart_toEndOf="@+id/itemTvTitulo"
+        app:layout_constraintTop_toTopOf="@+id/itemTvTitulo"
         app:layout_constraintVertical_bias="0.2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

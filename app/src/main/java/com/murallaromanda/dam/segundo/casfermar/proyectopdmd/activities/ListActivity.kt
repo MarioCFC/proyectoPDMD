@@ -2,13 +2,11 @@ package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.inputmethod.InputBinding
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.adapters.ListaPeliculasAdapter
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.ActivityListBinding
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.data.PeliculaDataMock
-import java.util.zip.Inflater
 
 class ListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityListBinding
