@@ -14,7 +14,7 @@ class LoginActivity : AppCompatActivity() {
 
     /*Para poder usar en otras clases*/
     companion object{
-        lateinit var gestSharedPreferences: gestorSharedPreferences
+        lateinit var gestSharedPreferences: GestorSharedPreferences
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        gestSharedPreferences = gestorSharedPreferences(applicationContext)
+        gestSharedPreferences = GestorSharedPreferences(applicationContext)
 
         binding.loginTvCreatIt.setOnClickListener(){
             val intent = Intent(this, RegisterActivity::class.java)

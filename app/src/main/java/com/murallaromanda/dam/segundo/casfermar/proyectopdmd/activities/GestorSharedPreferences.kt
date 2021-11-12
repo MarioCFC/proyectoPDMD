@@ -3,7 +3,7 @@ package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities
 import android.content.Context
 import android.content.SharedPreferences
 
-class gestorSharedPreferences(val context: Context){
+class GestorSharedPreferences(val context: Context){
     val nombreArchivo = "baseDatos"
     /*Mirar el segundo parametro*/
     val preferencias = context.getSharedPreferences(nombreArchivo,0)

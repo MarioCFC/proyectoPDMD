@@ -25,7 +25,7 @@ class ListaPeliculasAdapter(val peliculas : List<Pelicula>, val miActivty:Activi
         val tvTitulo = itemView.findViewById<TextView>(R.id.itemTvTitulo)
         val tvGenero = itemView.findViewById<TextView>(R.id.FilmDetailTvGenero)
         val tvDirector = itemView.findViewById<TextView>(R.id.ItemTvDirector)
-        val tvValoracion = itemView.findViewById<TextView>(R.id.ItemTvValoracion)
+       // val tvValoracion = itemView.findViewById<TextView>(R.id.ItemTvValoracion)
         val ivCaratula = itemView.findViewById<ImageView>(R.id.ItemIvCaratula)
     }
 
@@ -44,8 +44,8 @@ class ListaPeliculasAdapter(val peliculas : List<Pelicula>, val miActivty:Activi
 
         var valoracion = pelicula.valoracion.toDouble()
 
-        holder.tvValoracion.setTextColor(elegirColor(valoracion))
-        holder.tvValoracion.setText(pelicula.valoracion)
+       // holder.tvValoracion.setTextColor(elegirColor(valoracion))
+        //holder.tvValoracion.setText(pelicula.valoracion)
 
         Picasso.get().isLoggingEnabled = true
         Picasso.get().load(pelicula.urlImagen).into(holder.ivCaratula)

@@ -3,70 +3,68 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_item"
-    android:layout_width="match_parent"
-    android:layout_height="150dp"
-    android:background="?android:attr/selectableItemBackground"
-    android:padding="5dp"
+    android:layout_width= "@dimen/ancho_item_pelicula"
+    android:layout_height="313dp"
+    android:layout_marginHorizontal="@dimen/margen_horizontal_item_pelicula"
+    android:layout_marginBottom="10dp"
+    android:background="#D3D3D3"
     tools:context=".activities.ListActivity">
 
+    <!-- La escala de la imagen es 1:1,355633802816901 siendo horizontal y vertical -->
     <ImageView
         android:id="@+id/ItemIvCaratula"
-        android:layout_width="93dp"
-        android:layout_height="138dp"
+        android:layout_width="@dimen/ancho_item_pelicula"
+        android:layout_height="244dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/itemTvTitulo"
-        android:layout_width="160dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="165dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="244dp"
         android:fontFamily="sans-serif-black"
+        android:gravity="center"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.112"
-        app:layout_constraintStart_toEndOf="@+id/ItemIvCaratula"
+        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/FilmDetailTvGenero"
-        android:layout_width="160dp"
-        android:layout_height="17dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="93dp"
+        android:layout_height="22dp"
+
+        android:gravity="center"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="@+id/itemTvTitulo"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/itemTvTitulo"
         app:layout_constraintTop_toBottomOf="@+id/itemTvTitulo" />
 
     <TextView
         android:id="@+id/ItemTvDirector"
-        android:layout_width="160dp"
-        android:layout_height="17dp"
+        android:layout_width="93dp"
+        android:layout_height="22dp"
+        android:gravity="center"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/FilmDetailTvGenero"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/itemTvTitulo"
         app:layout_constraintTop_toBottomOf="@+id/FilmDetailTvGenero"
-        app:layout_constraintVertical_bias="0.387" />
+        app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/ItemTvValoracion"
-        android:layout_width="70dp"
-        android:layout_height="97dp"
-        android:layout_marginStart="8dp"
-        android:gravity="center"
-        android:text="TextView"
-        android:textAlignment="center"
-        android:textSize="34sp"
-        app:flow_verticalAlign="center"
-        app:layout_constraintBottom_toBottomOf="@+id/ItemTvDirector"
-        app:layout_constraintStart_toEndOf="@+id/itemTvTitulo"
-        app:layout_constraintTop_toTopOf="@+id/itemTvTitulo"
-        app:layout_constraintVertical_bias="0.2" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="225dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
