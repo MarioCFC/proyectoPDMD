@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.Display
 import android.view.WindowManager
 import android.widget.GridLayout
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
@@ -18,6 +19,10 @@ import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.adapters.ListaPelic
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.ActivityListBinding
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.data.PeliculaDataMock
 import okhttp3.internal.Util
+import android.view.Gravity
+
+
+
 
 class ListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityListBinding
@@ -32,6 +37,7 @@ class ListActivity : AppCompatActivity() {
 
         val peliculaData = PeliculaDataMock()
         val lista = peliculaData.getLista()
+
 
 
 
@@ -65,4 +71,5 @@ class ListActivity : AppCompatActivity() {
     fun toPd(numero : Int): Int {
         return (numero / Resources.getSystem().displayMetrics.density ).toInt()
     }
+
 }

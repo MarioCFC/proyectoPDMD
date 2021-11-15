@@ -3,18 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_item"
-    android:layout_width= "@dimen/ancho_item_pelicula"
-    android:layout_height="313dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/margen_horizontal_item_pelicula"
     android:layout_marginBottom="10dp"
-    android:background="#D3D3D3"
+    android:layout_gravity="center"
+    android:background="@drawable/shape"
     tools:context=".activities.ListActivity">
 
     <!-- La escala de la imagen es 1:1,355633802816901 siendo horizontal y vertical -->
+
     <ImageView
         android:id="@+id/ItemIvCaratula"
-        android:layout_width="@dimen/ancho_item_pelicula"
-        android:layout_height="244dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -25,27 +27,30 @@
 
     <TextView
         android:id="@+id/itemTvTitulo"
-        android:layout_width="165dp"
+        android:layout_width="match_parent"
         android:layout_height="25dp"
-        android:layout_marginTop="244dp"
         android:fontFamily="sans-serif-black"
+        android:foregroundGravity="bottom"
         android:gravity="center"
         android:text="TextView"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/ItemIvCaratula" />
 
     <TextView
         android:id="@+id/FilmDetailTvGenero"
         android:layout_width="93dp"
         android:layout_height="22dp"
-
         android:gravity="center"
         android:text="TextView"
-        app:layout_constraintEnd_toEndOf="@+id/itemTvTitulo"
-        app:layout_constraintStart_toStartOf="@+id/itemTvTitulo"
-        app:layout_constraintTop_toBottomOf="@+id/itemTvTitulo" />
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.514"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/itemTvTitulo"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/ItemTvDirector"
@@ -53,18 +58,11 @@
         android:layout_height="22dp"
         android:gravity="center"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/FilmDetailTvGenero"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/itemTvTitulo"
-        app:layout_constraintTop_toBottomOf="@+id/FilmDetailTvGenero"
-        app:layout_constraintVertical_bias="0.0" />
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.542"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/FilmDetailTvGenero" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="225dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

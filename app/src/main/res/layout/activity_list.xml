@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/margen_horizontal_item_pelicula"
     android:orientation="vertical"
     android:layout_gravity="right"
     tools:context=".activities.ListActivity">
