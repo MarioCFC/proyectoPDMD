@@ -38,9 +38,9 @@ class ListaPeliculasAdapter(val peliculas : List<Pelicula>, val miActivty:Activi
     override fun onBindViewHolder(holder: PeliculaViewHolder, position: Int) {
         val pelicula = peliculas.get(position)
 
-        holder.tvTitulo.setText(pelicula.titulo)
-        holder.tvGenero.setText(pelicula.genero)
-        holder.tvDirector.setText(pelicula.director)
+        holder.tvTitulo.setText(formatearCadena(pelicula.titulo))
+        holder.tvGenero.setText(formatearCadena(pelicula.genero))
+        holder.tvDirector.setText(formatearCadena(pelicula.director))
 
         Picasso.get().isLoggingEnabled = true
         Picasso.get().load(pelicula.urlImagen).into(holder.ivCaratula)
@@ -50,6 +50,15 @@ class ListaPeliculasAdapter(val peliculas : List<Pelicula>, val miActivty:Activi
             intent.putExtra("pelicula", pelicula)
             miActivty.startActivity(intent)
         }
+
+    }
+
+    fun formatearCadena(cadena:String):String{
+        val tamañoCadena:Int = 17
+        if (cadena.length > tamañoCadena)
+            return cadena.substring(0,tamañoCadena -  1) + "..."
+        else
+            return cadena
 
     }
 

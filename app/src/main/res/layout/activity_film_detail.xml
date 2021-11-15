@@ -4,41 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="10dp"
     tools:context=".activities.FilmDetailActivity">
 
     <ImageView
         android:id="@+id/FilmDetaiIvCaratula"
         android:layout_width="137dp"
         android:layout_height="192dp"
-        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.058"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.029"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/FilmDetailTvTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="48dp"
+        android:fontFamily="sans-serif-black"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/FilmDetaiIvCaratula"
-        app:layout_constraintTop_toTopOf="@+id/FilmDetaiIvCaratula" />
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <TextView
         android:id="@+id/FilmDetailTvGenero"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toEndOf="@+id/FilmDetaiIvCaratula"
-        app:layout_constraintTop_toBottomOf="@+id/FilmDetailTvTitulo" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/FilmDetailTvTitulo"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <TextView
         android:id="@+id/FilmDetailTvDirector"
@@ -47,20 +47,55 @@
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="@+id/FilmDetaiIvCaratula"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toEndOf="@+id/FilmDetaiIvCaratula"
-        app:layout_constraintTop_toBottomOf="@+id/FilmDetailTvGenero"
-        app:layout_constraintVertical_bias="0.308" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/FilmDetailTvSinopsis"
-        android:layout_width="372dp"
-        android:layout_height="260dp"
-        android:editable="true"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:paddingHorizontal="10dp"
+        android:scrollbars="horizontal"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/FilmDetaiIvCaratula"
-        app:layout_constraintVertical_bias="0.247" />
+        app:layout_constraintVertical_bias="0.116" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Titulo:"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.18"
+        app:layout_constraintStart_toEndOf="@+id/FilmDetaiIvCaratula"
+        app:layout_constraintTop_toTopOf="@+id/FilmDetaiIvCaratula" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Genero:"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/FilmDetailTvTitulo"
+        app:layout_constraintTop_toBottomOf="@+id/FilmDetailTvTitulo" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Director/es:"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/FilmDetailTvGenero"
+        app:layout_constraintTop_toBottomOf="@+id/FilmDetailTvGenero" />
 </androidx.constraintlayout.widget.ConstraintLayout>

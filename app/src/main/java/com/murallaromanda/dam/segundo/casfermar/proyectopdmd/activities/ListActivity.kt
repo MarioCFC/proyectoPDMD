@@ -38,7 +38,7 @@ class ListActivity : AppCompatActivity() {
         val peliculaData = PeliculaDataMock()
         val lista = peliculaData.getLista()
 
-        val layoutManager = GridLayoutManager(this, calcularColumnasLista())
+        val layoutManager = GridLayoutManager(this,2 /*calcularColumnasLista()*/)
         val adapter = ListaPeliculasAdapter(lista,this)
 
         binding.rvListaPeliculas.layoutManager = layoutManager
@@ -67,7 +67,7 @@ class ListActivity : AppCompatActivity() {
     }
 
     fun toPd(numero : Int): Int {
-        return (numero / Resources.getSystem().displayMetrics.density ).toInt()
+        return (numero / Resources.getSystem().displayMetrics.density).toInt()
     }
 
 }
