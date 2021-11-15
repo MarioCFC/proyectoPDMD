@@ -42,11 +42,6 @@ class ListaPeliculasAdapter(val peliculas : List<Pelicula>, val miActivty:Activi
         holder.tvGenero.setText(pelicula.genero)
         holder.tvDirector.setText(pelicula.director)
 
-        var valoracion = pelicula.valoracion.toDouble()
-
-       // holder.tvValoracion.setTextColor(elegirColor(valoracion))
-        //holder.tvValoracion.setText(pelicula.valoracion)
-
         Picasso.get().isLoggingEnabled = true
         Picasso.get().load(pelicula.urlImagen).into(holder.ivCaratula)
 
@@ -58,17 +53,6 @@ class ListaPeliculasAdapter(val peliculas : List<Pelicula>, val miActivty:Activi
 
     }
 
-    fun elegirColor(valoracion:Double): Int {
-        var color: Int
-        if (valoracion < 5) {
-            color = Color.parseColor("#FF0000")
-        }else if(valoracion >= 5 && valoracion < 8) {
-            color = Color.parseColor("#FF9300")
-        }else{
-            color = Color.parseColor("#1D9A05")
-        }
-        return color
-    }
 
     override fun getItemCount() = peliculas.size
 }

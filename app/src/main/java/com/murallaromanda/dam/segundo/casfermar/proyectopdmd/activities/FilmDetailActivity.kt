@@ -14,10 +14,13 @@ class FilmDetailActivity() : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_film_detail)
-        val pelicula = intent.extras?.get("pelicula")
+        var pelicula = intent.extras?.get("pelicula") as Pelicula
 
         binding = ActivityFilmDetailBinding.inflate(layoutInflater)
-
+        binding.FilmDetailTvDirector.text = pelicula.director
+        binding.FilmDetailTvGenero.text = pelicula.genero
+        binding.FilmDetailTvSinopsis.text
+        binding.FilmDetailTvTitulo.text = pelicula.titulo
 
     }
 }

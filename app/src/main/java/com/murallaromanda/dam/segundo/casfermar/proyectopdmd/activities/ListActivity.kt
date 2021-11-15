@@ -38,10 +38,7 @@ class ListActivity : AppCompatActivity() {
         val peliculaData = PeliculaDataMock()
         val lista = peliculaData.getLista()
 
-
-
-
-        val layoutManager = GridLayoutManager(this,/*calcularColumnasLista()*/calcularColumnasLista())
+        val layoutManager = GridLayoutManager(this, calcularColumnasLista())
         val adapter = ListaPeliculasAdapter(lista,this)
 
         binding.rvListaPeliculas.layoutManager = layoutManager
@@ -49,6 +46,7 @@ class ListActivity : AppCompatActivity() {
     }
 
     //Creo que está molestando la densidad de pixeles
+    //En algunos dispositivos causa error
     fun calcularColumnasLista() : Int{
         val resultadoDivision = (getWidthPdDisplaySize() / (resources.getDimension(R.dimen.ancho_item_pelicula) + resources.getDimension(R.dimen.margen_horizontal_item_pelicula)))
 
