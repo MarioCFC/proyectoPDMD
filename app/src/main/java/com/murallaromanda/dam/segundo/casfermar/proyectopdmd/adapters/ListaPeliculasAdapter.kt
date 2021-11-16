@@ -19,13 +19,11 @@ import com.squareup.picasso.Picasso
 //Creo que le pasamos el mismo objeto para la activity y para el Context, revisar si se da pasado una sola vez
 class ListaPeliculasAdapter(val peliculas : List<Pelicula>, val miActivty:Activity) : RecyclerView.Adapter<ListaPeliculasAdapter.PeliculaViewHolder>() {
     class PeliculaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+
         //Mejor cambiarlo por el binding
         val layout_item = itemView.findViewById<ConstraintLayout>(R.id.layout_item)
-
         val tvTitulo = itemView.findViewById<TextView>(R.id.itemTvTitulo)
         val tvGenero = itemView.findViewById<TextView>(R.id.FilmDetailTvGenero)
-        val tvDirector = itemView.findViewById<TextView>(R.id.ItemTvDirector)
-       // val tvValoracion = itemView.findViewById<TextView>(R.id.ItemTvValoracion)
         val ivCaratula = itemView.findViewById<ImageView>(R.id.ItemIvCaratula)
     }
 
@@ -40,7 +38,6 @@ class ListaPeliculasAdapter(val peliculas : List<Pelicula>, val miActivty:Activi
 
         holder.tvTitulo.setText(formatearCadena(pelicula.titulo))
         holder.tvGenero.setText(formatearCadena(pelicula.genero))
-        holder.tvDirector.setText(formatearCadena(pelicula.director))
 
         Picasso.get().isLoggingEnabled = true
         Picasso.get().load(pelicula.urlImagen).into(holder.ivCaratula)
@@ -53,8 +50,10 @@ class ListaPeliculasAdapter(val peliculas : List<Pelicula>, val miActivty:Activi
 
     }
 
+    override fun getItemCount() = peliculas.size
+
     fun formatearCadena(cadena:String):String{
-        val tamañoCadena:Int = 17
+        val tamañoCadena:Int = 50
         if (cadena.length > tamañoCadena)
             return cadena.substring(0,tamañoCadena -  1) + "..."
         else
@@ -62,6 +61,4 @@ class ListaPeliculasAdapter(val peliculas : List<Pelicula>, val miActivty:Activi
 
     }
 
-
-    override fun getItemCount() = peliculas.size
 }
