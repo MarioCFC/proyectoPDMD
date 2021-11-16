@@ -20,8 +20,7 @@ import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.Activit
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.data.PeliculaDataMock
 import okhttp3.internal.Util
 import android.view.Gravity
-
-
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.DisplayMath
 
 
 class ListActivity : AppCompatActivity() {
@@ -38,12 +37,14 @@ class ListActivity : AppCompatActivity() {
         val peliculaData = PeliculaDataMock()
         val lista = peliculaData.getLista()
 
-        val layoutManager = GridLayoutManager(this,2 /*calcularColumnasLista()*/)
+        val layoutManager = GridLayoutManager(this,3)
         val adapter = ListaPeliculasAdapter(lista,this)
 
         binding.rvListaPeliculas.layoutManager = layoutManager
         binding.rvListaPeliculas.adapter = adapter
     }
+
+
 
     //Creo que está molestando la densidad de pixeles
     //En algunos dispositivos causa error
@@ -63,11 +64,9 @@ class ListActivity : AppCompatActivity() {
         //Obtenemos el tamaño del display
         val metrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(metrics)
-        return toPd(metrics.widthPixels)
+        return DisplayMath.toPd(metrics.widthPixels)
     }
 
-    fun toPd(numero : Int): Int {
-        return (numero / Resources.getSystem().displayMetrics.density).toInt()
-    }
+
 
 }
