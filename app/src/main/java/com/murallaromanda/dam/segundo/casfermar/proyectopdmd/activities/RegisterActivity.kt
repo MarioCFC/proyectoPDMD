@@ -34,6 +34,7 @@ class RegisterActivity : AppCompatActivity() {
 
             }
 
+            //Muestra de errores de validacion
             if (!validarEmail(email)){
                 binding.registerTilEmail.setError("Email no valido")
                 interruptorError = true
@@ -51,6 +52,7 @@ class RegisterActivity : AppCompatActivity() {
                 binding.registerTilPassword.setError("")
             }
 
+            //Si todo está bien guardamos
             if (!interruptorError){
                 gestSharedPreferences.setPreferencias(email,password)
                 onBackPressed()

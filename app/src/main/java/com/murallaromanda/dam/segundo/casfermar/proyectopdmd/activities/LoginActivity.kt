@@ -7,10 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.ActivityMainBinding
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.ActivityLoginBinding
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorSharedPreferences
 
 class LoginActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityLoginBinding
 
     /*Para poder usar en otras clases*/
     companion object{
@@ -18,10 +19,10 @@ class LoginActivity : AppCompatActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        supportActionBar?.hide()
 
         //Enlazamiento de los elementos de la vista
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         gestSharedPreferences = GestorSharedPreferences(applicationContext)
@@ -52,7 +53,7 @@ class LoginActivity : AppCompatActivity() {
 
             if(!interruptorError){
                 /*En el caso de que el login se produzca*/
-                val intent = Intent(this,ListActivity::class.java)
+                val intent = Intent(this,FilmListActivity::class.java)
                 startActivity(intent)
                 Log.d("MainActivity","Logeo realizado")
             }

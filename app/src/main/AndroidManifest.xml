@@ -15,7 +15,7 @@
             android:name=".activities.FilmDetailActivity"
             android:exported="true" />
         <activity
-            android:name=".activities.ListActivity"
+            android:name=".activities.FilmListActivity"
             android:exported="true"
             android:screenOrientation="portrait">
 

@@ -6,8 +6,6 @@ import android.text.method.ScrollingMovementMethod
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.ActivityFilmDetailBinding
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.ActivityListBinding
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.ActivityMainBinding
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Pelicula
 import com.squareup.picasso.Picasso
 

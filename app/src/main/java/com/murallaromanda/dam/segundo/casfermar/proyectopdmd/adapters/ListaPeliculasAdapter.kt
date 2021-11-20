@@ -1,15 +1,13 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.adapters
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities.FilmDetailActivity
@@ -21,14 +19,21 @@ class ListaPeliculasAdapter(val peliculas : List<Pelicula>, val miActivty:Activi
     class PeliculaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
         //Mejor cambiarlo por el binding
+        /*
         val layout_item = itemView.findViewById<ConstraintLayout>(R.id.layout_item)
         val tvTitulo = itemView.findViewById<TextView>(R.id.itemTvTitulo)
         val tvGenero = itemView.findViewById<TextView>(R.id.FilmDetailTvGenero)
         val ivCaratula = itemView.findViewById<ImageView>(R.id.ItemIvCaratula)
+        */
+
+        val layout_item = itemView.findViewById<LinearLayout>(R.id.card_item)
+        val tvTitulo = itemView.findViewById<TextView>(R.id.CardTvTitulo)
+        val tvGenero = itemView.findViewById<TextView>(R.id.CardTvGenero)
+        val ivCaratula = itemView.findViewById<ImageView>(R.id.CardIvCaratula)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PeliculaViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context).inflate(R.layout.item_pelicula_list, parent, false)
+        val layoutInflater = LayoutInflater.from(parent.context).inflate(R.layout.film_card_view, parent, false)
         return PeliculaViewHolder(layoutInflater)
     }
 
@@ -36,8 +41,8 @@ class ListaPeliculasAdapter(val peliculas : List<Pelicula>, val miActivty:Activi
     override fun onBindViewHolder(holder: PeliculaViewHolder, position: Int) {
         val pelicula = peliculas.get(position)
 
-        holder.tvTitulo.setText(formatearCadena(pelicula.titulo))
-        holder.tvGenero.setText(formatearCadena(pelicula.genero))
+        holder.tvTitulo.setText(pelicula.titulo)
+        holder.tvGenero.setText(pelicula.genero)
 
         Picasso.get().isLoggingEnabled = true
         Picasso.get().load(pelicula.urlImagen).into(holder.ivCaratula)

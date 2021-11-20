@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_gravity="right"
-    tools:context=".activities.ListActivity">
+    tools:context=".activities.FilmListActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_lista_peliculas"

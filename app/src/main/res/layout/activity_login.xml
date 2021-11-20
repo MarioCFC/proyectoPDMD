@@ -18,21 +18,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="170dp" />
+        app:layout_constraintGuide_begin="221dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="270dp" />
+        app:layout_constraintGuide_begin="340dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="251dp" />
+        app:layout_constraintGuide_begin="235dp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/loginTilEmail"
@@ -84,10 +84,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:text="No tienes una cuenta?"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginTvPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/loginTvPassword"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/loginTvCreatIt"
@@ -97,6 +99,7 @@
         android:layout_marginBottom="8dp"
         android:text="Creala"
         android:textColor="@color/Enlace"
+        app:layout_constraintBottom_toBottomOf="@+id/loginTvHasCount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.041"
         app:layout_constraintStart_toStartOf="@+id/guideline6"

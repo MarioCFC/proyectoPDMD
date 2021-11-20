@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<dimen name="padding_pantalla_default_vertical">16dp</dimen>
-	<dimen name="ancho_item_pelicula">43.1dp</dimen>
+	<dimen name="ancho_item_pelicula">180dp</dimen>
 	<dimen name="margen_horizontal_item_pelicula">5dp</dimen>
-	<dimen name="numero_columnas">16dp</dimen>
 </resources>
