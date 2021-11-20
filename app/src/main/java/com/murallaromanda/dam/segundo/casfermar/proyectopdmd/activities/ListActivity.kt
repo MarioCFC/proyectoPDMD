@@ -21,6 +21,17 @@ import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.data.Pelicul
 import okhttp3.internal.Util
 import android.view.Gravity
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.DisplayMath
+import android.view.WindowInsets
+
+import android.view.WindowMetrics
+
+import android.app.Activity
+import android.graphics.Insets
+
+import androidx.annotation.NonNull
+
+
+
 
 
 class ListActivity : AppCompatActivity() {
@@ -37,20 +48,21 @@ class ListActivity : AppCompatActivity() {
         val peliculaData = PeliculaDataMock()
         val lista = peliculaData.getLista()
 
-        var numeroColumnas = getResources().getDimension(R.dimen.numero_columnas);
-        val layoutManager = GridLayoutManager(this,2)
+        val layoutManager = GridLayoutManager(this,calcularColumnasLista())
         val adapter = ListaPeliculasAdapter(lista,this)
 
         binding.rvListaPeliculas.layoutManager = layoutManager
         binding.rvListaPeliculas.adapter = adapter
+
     }
 
 
 
-    //Creo que está molestando la densidad de pixeles
-    //En algunos dispositivos causa error
+    //Necesario hacerlo mas preciso, tener en cuenta la dp
     fun calcularColumnasLista() : Int{
-        val resultadoDivision = (getWidthPdDisplaySize() / (resources.getDimension(R.dimen.ancho_item_pelicula) + resources.getDimension(R.dimen.margen_horizontal_item_pelicula)))
+        val resultadoDivision = (getScreenWidth(this) / (resources.getDimension(R.dimen.ancho_item_pelicula) + resources.getDimension(R.dimen.margen_horizontal_item_pelicula)))
+
+        val densidad = DisplayMetrics().densityDpi
 
         if (resultadoDivision % 1 > 0.7)
             return resultadoDivision.toInt() - 1
@@ -60,13 +72,20 @@ class ListActivity : AppCompatActivity() {
             return resultadoDivision.toInt()
     }
     // 2.403 y 3.428
-
-    fun getWidthPdDisplaySize() : Int{
-        //Obtenemos el tamaño del display
-        val metrics = DisplayMetrics()
-        windowManager.defaultDisplay.getMetrics(metrics)
-        return DisplayMath.toPd(metrics.widthPixels)
+    fun getScreenWidth(activity: Activity): Int {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val windowMetrics = activity.windowManager.currentWindowMetrics
+            val insets: Insets = windowMetrics.windowInsets
+                .getInsetsIgnoringVisibility(WindowInsets.Type.systemBars())
+            windowMetrics.bounds.width() - insets.left - insets.right
+        } else {
+            val displayMetrics = DisplayMetrics()
+            activity.windowManager.defaultDisplay.getMetrics(displayMetrics)
+            displayMetrics.widthPixels
+        }
     }
+
+
 
 
 
