@@ -37,7 +37,8 @@ class ListActivity : AppCompatActivity() {
         val peliculaData = PeliculaDataMock()
         val lista = peliculaData.getLista()
 
-        val layoutManager = GridLayoutManager(this,3)
+        var numeroColumnas = getResources().getDimension(R.dimen.numero_columnas);
+        val layoutManager = GridLayoutManager(this,2)
         val adapter = ListaPeliculasAdapter(lista,this)
 
         binding.rvListaPeliculas.layoutManager = layoutManager
