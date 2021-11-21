@@ -1,11 +1,14 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities
 
+import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
+import android.widget.DatePicker
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities.LoginActivity.Companion.gestSharedPreferences
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.ActivityRegisterBinding
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.fragments.DatePickerFragment
 import java.util.regex.Pattern
 
 class RegisterActivity : AppCompatActivity() {
@@ -60,6 +63,10 @@ class RegisterActivity : AppCompatActivity() {
 
 
         }
+
+        binding.registerTieBirthday.setOnClickListener(){
+            mostrarCalendario()
+        }
     }
 
     fun validarEmail(email:String):Boolean{
@@ -69,5 +76,16 @@ class RegisterActivity : AppCompatActivity() {
 
     fun esMismaContraseña(password:String,confirmPassword:String):Boolean{
         return password.equals(confirmPassword)
+    }
+
+
+    private fun mostrarCalendario() {
+        //Añadimos al mes +1 ya que enero es 0 y luego los convertimos a String
+        val newFragment = DatePickerFragment.newInstance(DatePickerDialog.OnDateSetListener { _, year, mes, dia ->
+            val selectedDate = dia.toString() + " / " + (mes + 1) + " / " + year
+            binding.registerTieBirthday.setText(selectedDate)
+        })
+
+        newFragment.show(supportFragmentManager, "datePicker")
     }
 }

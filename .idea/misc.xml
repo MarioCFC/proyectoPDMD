@@ -12,15 +12,17 @@
         <entry key="..\:/Users/casfermar/Desktop/proyectoPDMD/app/src/main/res/layout/activity_register.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/casfermar/Desktop/proyectoPDMD/app/src/main/res/layout/delete.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/casfermar/Desktop/proyectoPDMD/app/src/main/res/layout/item_pelicula_list.xml" value="0.33" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.34814814814814815" />
         <entry key="app/src/main/res/drawable/shape.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_film_detail.xml" value="0.35208333333333336" />
         <entry key="app/src/main/res/layout/activity_list.xml" value="0.25677083333333334" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25677083333333334" />
-        <entry key="app/src/main/res/layout/activity_register.xml" value="0.25677083333333334" />
+        <entry key="app/src/main/res/layout/activity_register.xml" value="0.25" />
         <entry key="app/src/main/res/layout/card_view.xml" value="0.25" />
         <entry key="app/src/main/res/layout/film_card_view.xml" value="0.35208333333333336" />
         <entry key="app/src/main/res/layout/item_pelicula_list.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/prueba_detalle.xml" value="0.33" />
       </map>
     </option>
   </component>
