@@ -17,20 +17,18 @@ class FilmDetailActivity() : AppCompatActivity() {
 
         binding = PruebaDetalleBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+/*
         var pelicula = intent.extras?.get("pelicula") as Pelicula
+        binding.layoutDetallesPeliculaCollapse.FilmDetailTvDirector.text = pelicula.director
+        binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.text = pelicula.genero
+        binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.text = pelicula.titulo
 
-
-        binding.layoutIncludeDetailFilm.FilmDetailTvDirector.text = pelicula.director
-        binding.layoutIncludeDetailFilm.FilmDetailTvGenero.text = pelicula.genero
-        binding.layoutIncludeDetailFilm.FilmDetailTvTitulo.text = pelicula.titulo
-
-       // binding.layoutIncludeDetailFilm.FilmDetailTvSinopsis.setMovementMethod(ScrollingMovementMethod())
-        binding.layoutIncludeDetailFilm.FilmDetailTvSinopsis.text = pelicula.sinopsis
+       // binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.setMovementMethod(ScrollingMovementMethod())
+        binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.text = pelicula.sinopsis
         Picasso.get().isLoggingEnabled = true
-        Picasso.get().load(pelicula.urlImagen).into(binding.layoutIncludeDetailFilm.FilmDetaiIvCaratula)
+        Picasso.get().load(pelicula.urlImagen).into(binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula)
         Picasso.get().load(pelicula.urlImagen).into(binding.imagenLayout)
-
+*/
 
     }
 }
