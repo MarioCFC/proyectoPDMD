@@ -28,7 +28,7 @@ class FilmListActivity : AppCompatActivity() {
         val peliculaData = PeliculaDataMock()
         val lista = peliculaData.getLista()
 
-        val layoutManager = GridLayoutManager(this,3)
+        val layoutManager = GridLayoutManager(this,2)
         val adapter = ListaPeliculasAdapter(lista,this)
 
         binding.rvListaPeliculas.layoutManager = layoutManager

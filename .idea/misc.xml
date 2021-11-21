@@ -19,6 +19,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25677083333333334" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.25677083333333334" />
         <entry key="app/src/main/res/layout/card_view.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/film_card_view.xml" value="0.35208333333333336" />
         <entry key="app/src/main/res/layout/item_pelicula_list.xml" value="0.1" />
       </map>
     </option>
