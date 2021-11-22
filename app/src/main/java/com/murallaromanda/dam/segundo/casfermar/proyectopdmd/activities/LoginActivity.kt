@@ -9,6 +9,7 @@ import android.util.Log
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.ActivityLoginBinding
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorSharedPreferences
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.JSONObject
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -57,6 +58,11 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
                 Log.d("MainActivity","Logeo realizado")
             }
+        }
+
+        binding.botonPrueba.setOnClickListener(){
+            var j = JSONObject().execute();
+
         }
 
     }
