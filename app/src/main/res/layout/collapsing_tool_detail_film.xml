@@ -29,16 +29,26 @@
                 android:id="@+id/collapsingToolbarImagenFondo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@color/purple_500"
-                android:scaleType="centerCrop"
                 android:layout_gravity="center"
-                app:layout_collapseMode="parallax"/>
-            
+                android:scaleType="centerCrop"
+                android:src="@color/purple_500"
+                app:layout_collapseMode="parallax" />
+
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <!--
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="bottom|end"
+        app:srcCompat="@android:drawable/ic_dialog_email" />
+-->
     <include
         android:id="@+id/layoutDetallesPeliculaCollapse"
         layout="@layout/activity_film_detail"
@@ -46,6 +56,8 @@
         android:layout_width="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         />
+
+
 
 
 
