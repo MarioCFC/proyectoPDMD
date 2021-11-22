@@ -36,34 +36,4 @@ class FilmListActivity : AppCompatActivity() {
 
     }
 
-
-
-    //Necesario hacerlo mas preciso, tener en cuenta la dp
-    fun calcularColumnasLista() : Int{
-        val resultadoDivision = (getScreenWidth(this) /185)
-        if (resultadoDivision % 1 > 0.7)
-            return resultadoDivision.toInt() - 1
-        else if(resultadoDivision % 1 < 0.5){
-            return  resultadoDivision.toInt() + 1
-        }else
-            return resultadoDivision.toInt()
-    }
-    // 2.403 y 3.428
-    fun getScreenWidth(activity: Activity): Int {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            val windowMetrics = activity.windowManager.currentWindowMetrics
-            val insets: Insets = windowMetrics.windowInsets
-                .getInsetsIgnoringVisibility(WindowInsets.Type.systemBars())
-            windowMetrics.bounds.width() - insets.left - insets.right
-        } else {
-            val displayMetrics = DisplayMetrics()
-            activity.windowManager.defaultDisplay.getMetrics(displayMetrics)
-            displayMetrics.widthPixels
-        }
-    }
-
-
-
-
-
 }
