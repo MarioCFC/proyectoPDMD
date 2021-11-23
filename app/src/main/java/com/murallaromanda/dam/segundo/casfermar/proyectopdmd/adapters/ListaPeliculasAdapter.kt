@@ -12,10 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities.FilmDetailActivity
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Pelicula
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
 import com.squareup.picasso.Picasso
 
 //Creo que le pasamos el mismo objeto para la activity y para el Context, revisar si se da pasado una sola vez
-class ListaPeliculasAdapter(val peliculas : ArrayList<Pelicula>, val miActivty:Activity) : RecyclerView.Adapter<ListaPeliculasAdapter.PeliculaViewHolder>() {
+class ListaPeliculasAdapter(val peliculas : ArrayList<PeliculaJSON>, val miActivty:Activity) : RecyclerView.Adapter<ListaPeliculasAdapter.PeliculaViewHolder>() {
     class PeliculaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
         //Mejor cambiarlo por el binding
@@ -41,11 +42,13 @@ class ListaPeliculasAdapter(val peliculas : ArrayList<Pelicula>, val miActivty:A
     override fun onBindViewHolder(holder: PeliculaViewHolder, position: Int) {
         val pelicula = peliculas.get(position)
 
-        holder.tvTitulo.setText(pelicula.titulo)
-        holder.tvGenero.setText(pelicula.genero)
+        holder.tvTitulo.setText(pelicula.title)
+        holder.tvGenero.setText(pelicula.genres[0].name)
 
         Picasso.get().isLoggingEnabled = true
-        Picasso.get().load(pelicula.urlImagen).into(holder.ivCaratula)
+
+        if (pelicula.posterPath != null)
+            Picasso.get().load("https://www.themoviedb.org/t/p/w600_and_h900_bestv2" + pelicula.posterPath).into(holder.ivCaratula)
 
         holder.layout_item.setOnClickListener(){
             val intent = Intent(miActivty,FilmDetailActivity::class.java)
@@ -56,7 +59,6 @@ class ListaPeliculasAdapter(val peliculas : ArrayList<Pelicula>, val miActivty:A
     }
 
     override fun getItemCount() = peliculas.size
-
     fun formatearCadena(cadena:String):String{
         val tamañoCadena:Int = 50
         if (cadena.length > tamañoCadena)

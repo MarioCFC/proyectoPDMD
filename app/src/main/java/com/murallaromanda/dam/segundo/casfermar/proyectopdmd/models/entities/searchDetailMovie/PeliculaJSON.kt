@@ -1,6 +1,7 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
 data class PeliculaJSON (
@@ -31,4 +32,4 @@ data class PeliculaJSON (
   @SerializedName("vote_average"          ) var voteAverage         : Double?                   = null,
   @SerializedName("vote_count"            ) var voteCount           : Int?                      = null
 
-)
+):Serializable

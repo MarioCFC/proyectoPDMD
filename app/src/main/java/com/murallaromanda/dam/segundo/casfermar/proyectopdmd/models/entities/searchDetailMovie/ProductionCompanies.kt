@@ -1,6 +1,7 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
 data class ProductionCompanies (
@@ -10,4 +11,4 @@ data class ProductionCompanies (
   @SerializedName("name"           ) var name          : String? = null,
   @SerializedName("origin_country" ) var originCountry : String? = null
 
-)
+): Serializable

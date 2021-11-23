@@ -10,6 +10,7 @@ import java.net.URLConnection
 
 class HacerPeticiones : AsyncTask<Peticion, Void, String>(){
 
+    //La codificacon final parece ser Latin1
     override fun doInBackground(vararg params: Peticion?): String {
             //Esto es un switch
 

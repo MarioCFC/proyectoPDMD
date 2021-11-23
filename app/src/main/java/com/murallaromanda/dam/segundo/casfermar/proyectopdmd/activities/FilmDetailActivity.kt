@@ -17,9 +17,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 
 import android.animation.ObjectAnimator
-
-
-
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.JSONPelicula
 
 
 class FilmDetailActivity() : AppCompatActivity() {
@@ -29,23 +28,25 @@ class FilmDetailActivity() : AppCompatActivity() {
         var interruptorSinopsis:Boolean = false
 
         super.onCreate(savedInstanceState)
-        setContentView(com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R.layout.activity_film_detail)
+        setContentView(R.layout.activity_film_detail)
 
         binding = CollapsingToolDetailFilmBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var pelicula = intent.extras?.get("pelicula") as Pelicula
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvDirector.text = pelicula.director
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.text = pelicula.genero
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.text = pelicula.titulo
+        var pelicula = intent.extras?.get("pelicula") as PeliculaJSON
+        binding.layoutDetallesPeliculaCollapse.FilmDetailTvDirector.text = "director/Cambiar"
+        binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.text = pelicula.genres[0].name
+        binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.text = pelicula.title
 
        // binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.setMovementMethod(ScrollingMovementMethod())
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.text = pelicula.sinopsis
+        binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.text = pelicula.overview
         Picasso.get().isLoggingEnabled = true
-        Picasso.get().load(pelicula.urlImagen).into(binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula)
-        Picasso.get().load(pelicula.urlBanner).into(binding.collapsingToolbarImagenFondo)
 
-        //Evento de toque sobre el textView
+        if (pelicula.posterPath != null)
+            Picasso.get().load("https://www.themoviedb.org/t/p/w600_and_h900_bestv2" + pelicula.posterPath).into(binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula)
+
+        if (pelicula.backdropPath != null)
+            Picasso.get().load("https://www.themoviedb.org/t/p/w600_and_h900_bestv2" + pelicula.backdropPath).into(binding.collapsingToolbarImagenFondo)
 
 
     }

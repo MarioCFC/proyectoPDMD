@@ -1,6 +1,7 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
 data class BelongsToCollection (
@@ -10,4 +11,4 @@ data class BelongsToCollection (
   @SerializedName("poster_path"   ) var posterPath   : String? = null,
   @SerializedName("backdrop_path" ) var backdropPath : String? = null
 
-)
+):Serializable

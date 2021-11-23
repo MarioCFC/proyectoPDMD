@@ -1,6 +1,7 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
 data class Genres (
@@ -8,4 +9,4 @@ data class Genres (
   @SerializedName("id"   ) var id   : Int?    = null,
   @SerializedName("name" ) var name : String? = null
 
-)
+): Serializable
