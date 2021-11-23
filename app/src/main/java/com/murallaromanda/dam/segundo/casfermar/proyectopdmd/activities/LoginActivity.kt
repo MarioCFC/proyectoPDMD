@@ -9,7 +9,8 @@ import android.util.Log
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.ActivityLoginBinding
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorSharedPreferences
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.JSONObject
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.JSONsObject
+import org.json.JSONObject
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -61,7 +62,9 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.botonPrueba.setOnClickListener(){
-            var j = JSONObject().execute();
+
+            var json = JSONsObject();
+            json.buscarPelicula("Shrek")
 
         }
 
