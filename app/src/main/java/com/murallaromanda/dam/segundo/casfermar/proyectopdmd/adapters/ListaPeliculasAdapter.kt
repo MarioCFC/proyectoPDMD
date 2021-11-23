@@ -15,7 +15,7 @@ import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Pel
 import com.squareup.picasso.Picasso
 
 //Creo que le pasamos el mismo objeto para la activity y para el Context, revisar si se da pasado una sola vez
-class ListaPeliculasAdapter(val peliculas : List<Pelicula>, val miActivty:Activity) : RecyclerView.Adapter<ListaPeliculasAdapter.PeliculaViewHolder>() {
+class ListaPeliculasAdapter(val peliculas : ArrayList<Pelicula>, val miActivty:Activity) : RecyclerView.Adapter<ListaPeliculasAdapter.PeliculaViewHolder>() {
     class PeliculaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
         //Mejor cambiarlo por el binding

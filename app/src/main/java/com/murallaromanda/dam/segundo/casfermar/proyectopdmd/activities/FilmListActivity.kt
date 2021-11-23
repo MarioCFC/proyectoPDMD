@@ -12,6 +12,7 @@ import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.data.Pelicul
 import android.view.WindowInsets
 import android.app.Activity
 import android.graphics.Insets
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.JSONPelicula
 
 
 class FilmListActivity : AppCompatActivity() {
@@ -26,10 +27,14 @@ class FilmListActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val peliculaData = PeliculaDataMock()
-        val lista = peliculaData.getLista()
+        //val lista = peliculaData.getLista()
 
+        var busqueda = JSONPelicula()
+        var resultados = busqueda.buscarPelicula("El castillo ambulante")
         val layoutManager = GridLayoutManager(this,2)
-        val adapter = ListaPeliculasAdapter(lista,this)
+
+
+        val adapter = ListaPeliculasAdapter(resultados,this)
 
         binding.rvListaPeliculas.layoutManager = layoutManager
         binding.rvListaPeliculas.adapter = adapter
