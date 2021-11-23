@@ -7,7 +7,7 @@ import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Pel
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Peticion
 
 //Dan problemas todo lo relacionado con los inputStream
-class JSONPelicula() {
+class Json() {
 
     fun buscarPelicula(cadenaBuscada:String):ArrayList<PeliculaJSON> {
         var peliculasResultantes:ArrayList<PeliculaJSON> = ArrayList()

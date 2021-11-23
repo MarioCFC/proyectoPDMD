@@ -18,15 +18,7 @@ import com.squareup.picasso.Picasso
 //Creo que le pasamos el mismo objeto para la activity y para el Context, revisar si se da pasado una sola vez
 class ListaPeliculasAdapter(val peliculas : ArrayList<PeliculaJSON>, val miActivty:Activity) : RecyclerView.Adapter<ListaPeliculasAdapter.PeliculaViewHolder>() {
     class PeliculaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-
         //Mejor cambiarlo por el binding
-        /*
-        val layout_item = itemView.findViewById<ConstraintLayout>(R.id.layout_item)
-        val tvTitulo = itemView.findViewById<TextView>(R.id.itemTvTitulo)
-        val tvGenero = itemView.findViewById<TextView>(R.id.FilmDetailTvGenero)
-        val ivCaratula = itemView.findViewById<ImageView>(R.id.ItemIvCaratula)
-        */
-
         val layout_item = itemView.findViewById<LinearLayout>(R.id.card_item)
         val tvTitulo = itemView.findViewById<TextView>(R.id.CardTvTitulo)
         val tvGenero = itemView.findViewById<TextView>(R.id.CardTvGenero)
@@ -59,13 +51,5 @@ class ListaPeliculasAdapter(val peliculas : ArrayList<PeliculaJSON>, val miActiv
     }
 
     override fun getItemCount() = peliculas.size
-    fun formatearCadena(cadena:String):String{
-        val tamañoCadena:Int = 50
-        if (cadena.length > tamañoCadena)
-            return cadena.substring(0,tamañoCadena -  1) + "..."
-        else
-            return cadena
-
-    }
 
 }
