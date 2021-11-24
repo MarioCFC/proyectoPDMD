@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities.FilmDetailActivity
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities.FilmDetailSearchActivity
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Pelicula
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
 import com.squareup.picasso.Picasso
@@ -44,9 +45,19 @@ class ListaPeliculasAdapter(val peliculas : ArrayList<PeliculaJSON>, val miActiv
             Picasso.get().load("https://www.themoviedb.org/t/p/w600_and_h900_bestv2" + pelicula.posterPath).into(holder.ivCaratula)
 
         holder.layout_item.setOnClickListener(){
-            val intent = Intent(miActivty,FilmDetailActivity::class.java)
-            intent.putExtra("pelicula", pelicula)
-            miActivty.startActivity(intent)
+            var intent:Intent
+            var a = miActivty.localClassName
+            //Detectar de que lista viene
+            if (miActivty.localClassName.equals("activities.FilmListActivity")){
+                 intent = Intent(miActivty,FilmDetailActivity::class.java)
+                intent.putExtra("pelicula", pelicula)
+                miActivty.startActivity(intent)
+            }else if(miActivty.localClassName.equals("activities.FilmSearchActivity")){
+                 intent = Intent(miActivty,FilmDetailSearchActivity::class.java)
+                intent.putExtra("pelicula", pelicula)
+                miActivty.startActivity(intent)
+            }
+
         }
 
     }

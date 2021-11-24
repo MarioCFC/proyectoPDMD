@@ -3,6 +3,7 @@ package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities
 import android.app.SearchManager
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.view.View
 import android.view.animation.OvershootInterpolator
 import android.widget.SearchView
@@ -24,10 +25,14 @@ class FilmSearchActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_database_film_searc)
-        supportActionBar?.hide()
+      //  supportActionBar?.hide()
 
         binding = ActivityDatabaseFilmSearcBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //Eliminando el boton flotante
+        binding.layoutDetallesPeliculaCollapse.FilmSearchLayout.removeView(binding.layoutDetallesPeliculaCollapse.fabMenu)
+
 
         var busqueda = Json()
         val layoutManager = GridLayoutManager(this,2)
@@ -37,9 +42,13 @@ class FilmSearchActivity: AppCompatActivity() {
 
         binding.layoutDetallesPeliculaCollapse.rvListaPeliculas.layoutManager = layoutManager
         binding.layoutDetallesPeliculaCollapse.rvListaPeliculas.adapter = adapter
+        var searchView = binding.searchView
 
-        var searchView = binding.searchView as androidx.appcompat.widget.SearchView
-        searchView.setQueryHint("Search View Hint")
+        searchView.setIconified(false);
+        searchView.clearFocus();
+        searchView.setQueryHint("Introduce un titulo")
+
+
         searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
 
             override fun onQueryTextChange(newText: String): Boolean {
@@ -52,7 +61,6 @@ class FilmSearchActivity: AppCompatActivity() {
             }
 
         })
-
     }
 
     fun colocarRecycler(cadenaBuscada :String){
@@ -65,6 +73,7 @@ class FilmSearchActivity: AppCompatActivity() {
         binding.layoutDetallesPeliculaCollapse.rvListaPeliculas.layoutManager = layoutManager
         binding.layoutDetallesPeliculaCollapse.rvListaPeliculas.adapter = adapter
     }
+
 
 
 }

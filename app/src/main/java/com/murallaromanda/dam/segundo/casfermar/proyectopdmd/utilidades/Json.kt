@@ -26,9 +26,6 @@ class Json() {
             peliculasResultantes.add(obtenerPelicula(jsonResultadosPelicula))
             peticion.cancel(true)
 
-            if (contador++ == 3){
-                return peliculasResultantes
-            }
         }
 
         return peliculasResultantes
