@@ -4,6 +4,7 @@ import android.app.SearchManager
 import android.content.Intent
 import android.os.Bundle
 import android.view.animation.OvershootInterpolator
+import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
@@ -19,12 +20,12 @@ class FilmSearchActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_database_film_searc)
+        supportActionBar?.hide()
 
         binding = ActivityDatabaseFilmSearcBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         var busqueda = Json()
-
         val layoutManager = GridLayoutManager(this,2)
 
         var resultados = busqueda.buscarPelicula("super man")
@@ -33,6 +34,38 @@ class FilmSearchActivity: AppCompatActivity() {
         binding.layoutDetallesPeliculaCollapse.rvListaPeliculas.layoutManager = layoutManager
         binding.layoutDetallesPeliculaCollapse.rvListaPeliculas.adapter = adapter
 
+
+
+        var searchView = binding.searchView as androidx.appcompat.widget.SearchView
+        searchView.setQueryHint("Search View Hint")
+        searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+
+
+
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                colocarRecycler(query)
+                return false
+            }
+
+        })
+
     }
+
+    fun colocarRecycler(cadenaBuscada :String){
+        var busqueda = Json()
+        val layoutManager = GridLayoutManager(this,2)
+
+        var resultados = busqueda.buscarPelicula(cadenaBuscada)
+        val adapter = ListaPeliculasAdapter(resultados,this)
+
+        binding.layoutDetallesPeliculaCollapse.rvListaPeliculas.layoutManager = layoutManager
+        binding.layoutDetallesPeliculaCollapse.rvListaPeliculas.adapter = adapter
+    }
+
 
 }

@@ -35,7 +35,8 @@ class ListaPeliculasAdapter(val peliculas : ArrayList<PeliculaJSON>, val miActiv
         val pelicula = peliculas.get(position)
 
         holder.tvTitulo.setText(pelicula.title)
-        holder.tvGenero.setText(pelicula.genres[0].name)
+        holder.tvGenero.setText("")
+        //pelicula.genres[0].name
 
         Picasso.get().isLoggingEnabled = true
 

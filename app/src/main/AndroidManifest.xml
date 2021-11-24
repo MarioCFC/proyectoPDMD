@@ -40,6 +40,13 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".activities.FilmSearchActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+
+        </activity>
+
     </application>
 
 </manifest>
