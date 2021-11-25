@@ -14,20 +14,21 @@
         <activity
             android:name=".activities.delete"
             android:exported="true" >
+        </activity>
+        <activity
+            android:name=".activities.FilmDetailActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".activities.FilmListActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-        </activity>
-        <activity
-            android:name=".activities.FilmDetailActivity"
-            android:exported="true" />
-        <activity
-            android:name=".activities.FilmListActivity"
-            android:exported="true"
-            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activities.RegisterActivity"
