@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities.FilmDetailActivity
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities.FilmDetailSearchActivity
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Pelicula
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
 import com.squareup.picasso.Picasso
 
@@ -27,7 +26,7 @@ class ListaPeliculasAdapter(val peliculas : ArrayList<PeliculaJSON>, val miActiv
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PeliculaViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context).inflate(R.layout.film_card_view, parent, false)
+        val layoutInflater = LayoutInflater.from(parent.context).inflate(R.layout.layout_film_card_view, parent, false)
         return PeliculaViewHolder(layoutInflater)
     }
 

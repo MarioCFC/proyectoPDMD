@@ -15,10 +15,8 @@ class FilmDetailActivity() : AppCompatActivity() {
     private var estaEnEdicion : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_film_detail)
-
 
         binding = ActivityCollapsingToolDetailFilmBinding.inflate(layoutInflater)
         setContentView(binding.root)

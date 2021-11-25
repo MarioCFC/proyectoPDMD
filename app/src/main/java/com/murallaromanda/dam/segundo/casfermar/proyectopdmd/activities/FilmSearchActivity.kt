@@ -37,11 +37,8 @@ class FilmSearchActivity: AppCompatActivity() {
         var busqueda = Json()
         val layoutManager = GridLayoutManager(this,2)
 
-        var resultados = busqueda.buscarPelicula("super man")
-        val adapter = ListaPeliculasAdapter(resultados,this)
 
         binding.layoutDetallesPeliculaCollapse.rvListaPeliculas.layoutManager = layoutManager
-        binding.layoutDetallesPeliculaCollapse.rvListaPeliculas.adapter = adapter
         var searchView = binding.searchView
 
         searchView.setIconified(false);

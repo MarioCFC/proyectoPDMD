@@ -20,6 +20,7 @@ class FilmListActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_film_list)
+        supportActionBar?.hide()
 
         binding = ActivityFilmListBinding.inflate(layoutInflater)
         setContentView(binding.root)
