@@ -1,9 +1,13 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities
 
+import android.R.attr
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
@@ -11,6 +15,11 @@ import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.Activit
 import com.squareup.picasso.Picasso
 
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
+import android.R.attr.button
+import androidx.constraintlayout.widget.ConstraintLayout
+
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.widget.NestedScrollView
 
 
 class FilmDetailActivity() : AppCompatActivity() {
@@ -29,7 +38,7 @@ class FilmDetailActivity() : AppCompatActivity() {
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvDirector.setText("director/Cambiar")
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.setText(pelicula.genres[0].name)
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.setText(pelicula.title)
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.setText(pelicula.overview)
+        binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.readMoreTextField.setText(pelicula.overview)
 
         cambiarModoEdicion()
 
@@ -43,7 +52,11 @@ class FilmDetailActivity() : AppCompatActivity() {
         binding.fabEditar.setOnClickListener(){
             cambiarModoEdicion()
         }
+
     }
+
+
+
 
     fun cambiarModoEdicion(){
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvDirector.setEnabled(estaEnEdicion)
@@ -51,6 +64,8 @@ class FilmDetailActivity() : AppCompatActivity() {
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.setEnabled(estaEnEdicion)
         estaEnEdicion = !estaEnEdicion
     }
+
+
 
 
 

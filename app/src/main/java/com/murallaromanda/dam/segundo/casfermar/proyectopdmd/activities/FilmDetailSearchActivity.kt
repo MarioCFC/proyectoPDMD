@@ -31,7 +31,7 @@ class FilmDetailSearchActivity : AppCompatActivity() {
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.setText(pelicula.title)
 
         // binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.setMovementMethod(ScrollingMovementMethod())
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.setText(pelicula.overview)
+        binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.readMoreTextField.setText(pelicula.overview)
         Picasso.get().isLoggingEnabled = true
 
         if (pelicula.posterPath != null)

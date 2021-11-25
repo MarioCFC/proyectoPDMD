@@ -70,25 +70,6 @@
             app:layout_constraintTop_toBottomOf="@+id/textView4"
             app:layout_constraintVertical_bias="0.0" />
 
-        <include layout="@layout/read_more_text_layout"
-            android:id="@+id/FilmDetailTvSinopsis"/>
-            <!--
-        <kr.co.prnd.readmore.ReadMoreTextView
-            android:id="@+id/FilmDetailTvSinopsis"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:inputType="none"
-            android:lineSpacingExtra="2dp"
-            android:paddingHorizontal="10dp"
-            android:text="TextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/FilmDetaiIvCaratula"
-            app:readMoreColor="@color/design_default_color_primary"
-            app:readMoreText="\nMostrar mas" />
-            -->
 
         <TextView
             android:id="@+id/textView2"
