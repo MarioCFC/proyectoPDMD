@@ -24,32 +24,44 @@
             app:layout_constraintVertical_bias="0.029"
             tools:srcCompat="@tools:sample/avatars" />
 
-        <TextView
+        <EditText
             android:id="@+id/FilmDetailTvTitulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:enabled="false"
             android:fontFamily="sans-serif-black"
+            android:inputType="text"
             android:text="TextView"
+            android:textColor="@drawable/selector_detail_film_edit_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/textView2"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-        <TextView
+        <EditText
             android:id="@+id/FilmDetailTvGenero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:enabled="false"
+            android:inputType="none"
             android:text="TextView"
+            android:textColor="@drawable/selector_detail_film_edit_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/FilmDetailTvTitulo"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-        <TextView
+        <EditText
             android:id="@+id/FilmDetailTvDirector"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:enabled="false"
+            android:inputType="none"
             android:text="TextView"
+            android:textColor="@drawable/selector_detail_film_edit_text"
             app:layout_constraintBottom_toBottomOf="@+id/FilmDetaiIvCaratula"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -62,6 +74,7 @@
             android:id="@+id/FilmDetailTvSinopsis"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="none"
             android:layout_marginTop="10dp"
             android:paddingHorizontal="10dp"
             android:text="TextView"
@@ -77,6 +90,8 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:inputType="none"
             android:layout_marginTop="8dp"
             android:text="Titulo:"
             app:layout_constraintEnd_toEndOf="parent"
@@ -88,6 +103,7 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:inputType="none"
             android:layout_marginTop="16dp"
             android:text="Genero:"
             app:layout_constraintEnd_toEndOf="parent"
@@ -99,12 +115,14 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:inputType="none"
             android:layout_marginTop="16dp"
             android:text="Director/es:"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/FilmDetailTvGenero"
             app:layout_constraintTop_toBottomOf="@+id/FilmDetailTvGenero" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

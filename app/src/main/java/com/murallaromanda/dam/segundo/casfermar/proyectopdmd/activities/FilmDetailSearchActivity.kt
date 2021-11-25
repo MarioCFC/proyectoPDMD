@@ -26,12 +26,12 @@ class FilmDetailSearchActivity : AppCompatActivity() {
         binding.activityCollapsingLayout.removeView(binding.fabEditar)
 
         var pelicula = intent.extras?.get("pelicula") as PeliculaJSON
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvDirector.text = "director/Cambiar"
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.text = pelicula.genres[0].name
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.text = pelicula.title
+        binding.layoutDetallesPeliculaCollapse.FilmDetailTvDirector.setText("director/Cambiar")
+        binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.setText(pelicula.genres[0].name)
+        binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.setText(pelicula.title)
 
         // binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.setMovementMethod(ScrollingMovementMethod())
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.text = pelicula.overview
+        binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.setText(pelicula.overview)
         Picasso.get().isLoggingEnabled = true
 
         if (pelicula.posterPath != null)
