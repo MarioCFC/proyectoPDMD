@@ -43,10 +43,9 @@
     <include
         android:id="@+id/layoutDetallesPeliculaCollapse"
         layout="@layout/layout_film_detail"
-        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        />
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabEditar"

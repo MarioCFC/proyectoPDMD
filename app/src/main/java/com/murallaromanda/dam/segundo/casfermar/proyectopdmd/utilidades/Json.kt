@@ -11,28 +11,23 @@ import java.io.File
 //Dan problemas todo lo relacionado con los inputStream
 class Json() {
 companion object{
-    private var nombreFicheroLista:String = "listaPeliculas"
-    private  var listaJson:ListaPeliculas = ListaPeliculas()
+    private var nombreFicheroLista: String = "listaPeliculas"
 }
 
-    fun getLista(): ArrayList<PeliculaJSON> {
-        return listaJson.listaPeliculas
-    }
-
+    //Este metodo deberia de estar en otra clase
     fun buscarPelicula(cadenaBuscada:String):ArrayList<PeliculaJSON> {
-        var peliculasResultantes:ListaPeliculas = ListaPeliculas()
+        var peliculasResultantes = ListaPeliculas()
 
         val gson = Gson()
         var peticion = HacerPeticiones()
         var jsonResultadosBusqueda:String = peticion.execute(Peticion(0,cadenaBuscada)).get()
         val idPel: SearchMovies = gson.fromJson(jsonResultadosBusqueda, SearchMovies::class.java)
 
-        var contador :Int = 0
         idPel.results.forEach {
 
             var peticion = HacerPeticiones()
             var jsonResultadosPelicula = peticion.execute(Peticion(1,it.id.toString())).get()
-            peliculasResultantes.listaPeliculas.add(obtenerPelicula(jsonResultadosPelicula))
+            peliculasResultantes.listaPeliculas.add(parsearPelicula(jsonResultadosPelicula))
             peticion.cancel(true)
 
         }
@@ -41,24 +36,37 @@ companion object{
 
     }
     //Hay peliculas con null
-    fun obtenerPelicula(inp:String):PeliculaJSON{
+    fun parsearPelicula(inp:String):PeliculaJSON{
         val gsonPel = Gson()
         return gsonPel.fromJson(inp, PeliculaJSON::class.java)
     }
 
-    fun guardarFicheroPeliculas(activity:Activity){
+    fun parsearLista(activity: Activity): ListaPeliculas {
+        var cadenaJson:String
+        var file = File(activity.applicationContext.getFilesDir(), nombreFicheroLista)
+        //Si no existe el archivo lo creamos
+        if (!file.exists()){
+            crearFicheroPeliculas(activity,ListaPeliculas())
+        }
+
+        var buffer = file.bufferedReader()
+        cadenaJson = buffer.use {it.readText()}
+        return Gson().fromJson(cadenaJson,ListaPeliculas::class.java)
+    }
+
+    fun guardarFicheroPeliculas(activity:Activity,listaJson:ListaPeliculas){
         var jsonString:String = Gson().toJson(listaJson)
         var file = File(activity.applicationContext.getFilesDir(), nombreFicheroLista)
         file.writeText(jsonString)
     }
 
-    fun parsearLista(activity: Activity): ArrayList<PeliculaJSON> {
-        var cadenaJson:String
-        var buffer = File(activity.applicationContext.getFilesDir(), nombreFicheroLista).bufferedReader()
-        cadenaJson = buffer.use {it.readText()}
-        listaJson = Gson().fromJson(cadenaJson,ListaPeliculas::class.java)
-        return listaJson.listaPeliculas
+    fun crearFicheroPeliculas(activity: Activity,listaPeliculas: ListaPeliculas){
+        guardarFicheroPeliculas(activity,listaPeliculas)
     }
+
+
+
+
 
 
 }

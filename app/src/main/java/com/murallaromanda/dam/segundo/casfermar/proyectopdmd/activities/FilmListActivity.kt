@@ -14,12 +14,14 @@ import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.Activit
 import android.widget.SearchView
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Pelicula
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.searchMovie.GestorLista
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.Json
 import java.io.File
 
 
 class FilmListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFilmListBinding
+    private lateinit var resultados:ArrayList<PeliculaJSON>
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -30,7 +32,11 @@ class FilmListActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         var busqueda = Json()
-        var resultados = busqueda.parsearLista(this)
+        //busqueda.guardarFicheroPeliculas(this)
+        var gestor = GestorLista(this)
+        resultados = gestor.getPeliculas()
+
+
         if (resultados != null)
             colocarRecycler(resultados)
 
@@ -38,22 +44,18 @@ class FilmListActivity : AppCompatActivity() {
             var respuesta:Int = 0
             val  intent = Intent(this,FilmCreateActivity::class.java)
             intent.putExtra("pelicula", Pelicula("","","","","","",""))
-            startActivityForResult(intent, respuesta);
-            if(respuesta == 20){
-                colocarRecycler(resultados)
-            }
+            startActivity(intent);
         }
 
         binding.fabDos.setOnClickListener(){
             val intent = Intent(this,FilmSearchActivity::class.java)
             this.startActivity(intent)
             colocarRecycler(resultados)
-
         }
     }
-        fun colocarRecycler(resultados:ArrayList<PeliculaJSON>){
+        fun colocarRecycler(listaPelisculas:ArrayList<PeliculaJSON>){
             var layoutManager = GridLayoutManager(this,2)
-            val adapter = ListaPeliculasAdapter(resultados,this)
+            val adapter = ListaPeliculasAdapter(listaPelisculas,this)
             binding.rvListaPeliculas.layoutManager = layoutManager
             binding.rvListaPeliculas.adapter = adapter
         }
@@ -91,4 +93,10 @@ class FilmListActivity : AppCompatActivity() {
 
 
     */
+
+    override fun onResume() {
+        super.onResume()
+        binding.fabMenu.close(false)
+        colocarRecycler(resultados)
+    }
 }

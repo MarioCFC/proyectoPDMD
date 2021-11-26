@@ -1,46 +1,29 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities
 
-import android.R.attr
-import android.graphics.Color
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.LinearLayout
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.ActivityCollapsingToolDetailFilmBinding
 import com.squareup.picasso.Picasso
 
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
-import android.R.attr.button
-import android.os.Build
 import android.util.TypedValue
-import android.view.View
-import androidx.annotation.RequiresApi
-import androidx.constraintlayout.widget.ConstraintLayout
 
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.core.widget.NestedScrollView
-import androidx.core.app.ActivityCompat.startActivityForResult
 
-import android.content.Intent
-import android.database.Cursor
-import android.provider.MediaStore
-import androidx.core.app.ActivityCompat.startActivityForResult
-import androidx.core.app.ActivityCompat.startActivityForResult
-import android.graphics.BitmapFactory
-import android.net.Uri
-import android.widget.ImageView
+import android.view.*
+import androidx.appcompat.app.AlertDialog
 
 
 class FilmDetailActivity() : AppCompatActivity() {
     private lateinit var binding: ActivityCollapsingToolDetailFilmBinding
     private var estaEnEdicion: Boolean = true
     private lateinit var pelicula: PeliculaJSON
-    private lateinit var editText:EditText
+    private lateinit var editText: EditText
+    private lateinit var menuItem: Menu
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,43 +68,8 @@ class FilmDetailActivity() : AppCompatActivity() {
             cambiarModoEdicion()
             estaEnEdicion = !estaEnEdicion
         }
-/*
-        binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.setOnClickListener(){
-            if (!estaEnEdicion){
-
-                    val i = Intent(
-                        Intent.ACTION_PICK,
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-                    )
-                    startActivityForResult(i, RESULT_LOAD_IMAGE)
-                }
-
-            }*/
     }
 
-    /*
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
-            val selectedImage: Uri? = data.data
-            val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
-            val cursor: Cursor? = selectedImage?.let {
-                getContentResolver().query(
-                    it,
-                    filePathColumn, null, null, null
-                )
-            }
-            cursor?.moveToFirst()
-            val columnIndex: Int? = cursor?.getColumnIndex(filePathColumn[0])
-            val picturePath: String? = columnIndex?.let { cursor?.getString(it) }
-            cursor?.close()
-            val imageView: ImageView =
-                binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula as ImageView
-            imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath))
-        }
-    }
-
-*/
     fun cambiarModoEdicion() {
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvDirector.setEnabled(estaEnEdicion)
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.setEnabled(estaEnEdicion)
@@ -131,6 +79,7 @@ class FilmDetailActivity() : AppCompatActivity() {
     private fun addEditText() {
         editText = EditText(this)
         editText.setText(pelicula.overview)
+        editText.setTextColor(getResources().getColor(R.color.enabled_color))
 
         editText.setBackgroundResource(android.R.color.transparent);
         editText.layoutParams = LinearLayout.LayoutParams(
@@ -166,12 +115,85 @@ class FilmDetailActivity() : AppCompatActivity() {
 
     }
 
-    private fun hayModificaciones():Boolean {
+    private fun hayModificaciones(): Boolean {
         if (!binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.equals(pelicula.title)
-            || binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.equals(pelicula.genres[0].name) || !editText.text.equals(pelicula.overview))
-                return true
+            || binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.equals(pelicula.genres[0].name) || !editText.text.equals(
+                pelicula.overview
+            )
+        )
+            return true
         return false
     }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_add_search_film, menu)
+        menuItem = menu!!
+        menuItem.add(300, 1, 1, "Borrar").setIcon(getDrawable(R.drawable.ic_launcher_background))
+        menuItem.getItem(0).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
+        //menuItem.getItem(1).setIcon(getDrawable())
+
+
+        menuItem.add(301, 2, 2, "Editar").setIcon(getDrawable(R.drawable.fab_add))
+        menuItem.getItem(1).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
+        return true
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        var id: Int = item.itemId
+
+        when (id) {
+            menuItem.getItem(0).itemId -> borrarPelicula()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    fun borrarPelicula() {
+        mostrarAviso("Alerta","Deseas elimanar la pelicula?")
+    }
+
+    fun mostrarAviso(titulo: String, mensaje: String) {
+        val dialogBuilder = AlertDialog.Builder(this)
+
+        // set message of alert dialog
+        dialogBuilder.setMessage(mensaje)
+            // if the dialog is cancelable
+            .setCancelable(false)
+            // positive button text and action
+            .setPositiveButton("Aceptar", DialogInterface.OnClickListener { dialog, id ->
+                finish()
+            })
+            // negative button text and action
+            .setNegativeButton("Cancelar", DialogInterface.OnClickListener { dialog, id ->
+                dialog.cancel()
+            })
+
+        // create dialog box
+        val alert = dialogBuilder.create()
+        // set title for alert dialog box
+        alert.setTitle("AlertDialogExample")
+        // show alert dialog
+        alert.show()
+    }
+
+
+
+    /*
+    * override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        val id: Int = item.getItemId()
+        if (id == menuItem.getItem(0).itemId) {
+            Json().getLista().add(pelicula)
+            Json().guardarFicheroPeliculas(this)
+            onBackPressed()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+    * */
 
 
 }

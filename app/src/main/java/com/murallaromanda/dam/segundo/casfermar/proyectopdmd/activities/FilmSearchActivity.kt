@@ -25,7 +25,7 @@ class FilmSearchActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_database_film_searc)
-      //  supportActionBar?.hide()
+        supportActionBar?.hide()
 
         binding = ActivityDatabaseFilmSearcBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -34,7 +34,6 @@ class FilmSearchActivity: AppCompatActivity() {
         binding.layoutDetallesPeliculaCollapse.FilmSearchLayout.removeView(binding.layoutDetallesPeliculaCollapse.fabMenu)
 
 
-        var busqueda = Json()
         val layoutManager = GridLayoutManager(this,2)
 
 
