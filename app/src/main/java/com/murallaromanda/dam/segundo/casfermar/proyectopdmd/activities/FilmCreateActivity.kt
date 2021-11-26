@@ -36,55 +36,23 @@ import android.net.Uri
 import android.widget.ImageView
 
 
-class FilmDetailActivity() : AppCompatActivity() {
-    private lateinit var binding: ActivityCollapsingToolDetailFilmBinding
-    private var estaEnEdicion: Boolean = true
+class FilmCreateActivity() : AppCompatActivity() {
+    lateinit var binding: ActivityCollapsingToolDetailFilmBinding
+
     private lateinit var pelicula: PeliculaJSON
-    private lateinit var editText:EditText
+    private lateinit var editText: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.layout_film_detail)
         binding = ActivityCollapsingToolDetailFilmBinding.inflate(layoutInflater)
+        //Eliminando el boton flotante y el edit readmore de sinopsis
+        binding.activityCollapsingLayout.removeView(binding.fabEditar)
+        binding.layoutDetallesPeliculaCollapse.constraintFilmDetailLayout.removeView(binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis)
         setContentView(binding.root)
-
-        //Obtenemos los datos
-        pelicula = intent.extras?.get("pelicula") as PeliculaJSON
-        //Metemos los datos
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvDirector.setText("director/Cambiar")
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.setText(pelicula.genres[0].name)
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.setText(pelicula.title)
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.setText(pelicula.overview)
-
-
-        //Imagenes
-        Picasso.get().isLoggingEnabled = true
-        if (pelicula.posterPath != null)
-            Picasso.get()
-                .load("https://www.themoviedb.org/t/p/w600_and_h900_bestv2" + pelicula.posterPath)
-                .into(binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula)
-
-        if (pelicula.backdropPath != null)
-            Picasso.get()
-                .load("https://www.themoviedb.org/t/p/w600_and_h900_bestv2" + pelicula.backdropPath)
-                .into(binding.collapsingToolbarImagenFondo)
-
-
-        binding.fabEditar.setOnClickListener() {
-            if (estaEnEdicion) {
-                binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.visibility = View.GONE
-                addEditText()
-            } else {
-                //Para borrar el edit text, no se porque si lo uso con removeView no funciona bien
-                binding.layoutDetallesPeliculaCollapse.constraintFilmDetailLayout.removeViewAt(
-                    binding.layoutDetallesPeliculaCollapse.constraintFilmDetailLayout.getChildCount() - 1
-                );
-                binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.visibility =
-                    View.VISIBLE
-                binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.setText(pelicula.overview)
-            }
-            cambiarModoEdicion()
-            estaEnEdicion = !estaEnEdicion
-        }
+        cambiarModoEdicion()
+        addEditText()
+    }
 /*
         binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.setOnClickListener(){
             if (!estaEnEdicion){
@@ -97,7 +65,7 @@ class FilmDetailActivity() : AppCompatActivity() {
                 }
 
             }*/
-    }
+
 
     /*
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -123,14 +91,14 @@ class FilmDetailActivity() : AppCompatActivity() {
 
 */
     fun cambiarModoEdicion() {
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvDirector.setEnabled(estaEnEdicion)
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.setEnabled(estaEnEdicion)
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.setEnabled(estaEnEdicion)
+        binding.layoutDetallesPeliculaCollapse.FilmDetailTvDirector.setEnabled(true)
+        binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.setEnabled(true)
+        binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.setEnabled(true)
     }
 
     private fun addEditText() {
         editText = EditText(this)
-        editText.setText(pelicula.overview)
+        editText.setText("Sinopsis")
 
         editText.setBackgroundResource(android.R.color.transparent);
         editText.layoutParams = LinearLayout.LayoutParams(
@@ -166,10 +134,13 @@ class FilmDetailActivity() : AppCompatActivity() {
 
     }
 
-    private fun hayModificaciones():Boolean {
+    private fun hayModificaciones(): Boolean {
         if (!binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.equals(pelicula.title)
-            || binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.equals(pelicula.genres[0].name) || !editText.text.equals(pelicula.overview))
-                return true
+            || binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.equals(pelicula.genres[0].name) || !editText.text.equals(
+                pelicula.overview
+            )
+        )
+            return true
         return false
     }
 

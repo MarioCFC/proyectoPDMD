@@ -10,12 +10,13 @@ import android.widget.Toast
 
 import android.view.MenuItem
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.Json
 
 
 class FilmDetailSearchActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCollapsingToolDetailFilmBinding
-
+    private lateinit var pelicula:PeliculaJSON
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_film_detail)
@@ -25,7 +26,7 @@ class FilmDetailSearchActivity : AppCompatActivity() {
 
         binding.activityCollapsingLayout.removeView(binding.fabEditar)
 
-        var pelicula = intent.extras?.get("pelicula") as PeliculaJSON
+        pelicula = intent.extras?.get("pelicula") as PeliculaJSON
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvDirector.setText("director/Cambiar")
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.setText(pelicula.genres[0].name)
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.setText(pelicula.title)
@@ -54,10 +55,17 @@ class FilmDetailSearchActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         val id: Int = item.getItemId()
-        if (id == R.id.appBar) {
-            Toast.makeText(this, "Action clicked", Toast.LENGTH_LONG).show()
+        if (id == R.id.tool_bar_icon_add) {
+            Json().getLista().add(pelicula)
+            Json().guardarFicheroPeliculas(this)
+            onBackPressed()
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        setResult(20)
+        finish()
     }
 }

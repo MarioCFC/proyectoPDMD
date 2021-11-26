@@ -1,5 +1,6 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities
 
+import ListaPeliculas
 import android.app.Activity
 import android.content.ClipData
 import android.content.Intent
@@ -11,7 +12,10 @@ import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.adapters.ListaPeliculasAdapter
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.ActivityFilmListBinding
 import android.widget.SearchView
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Pelicula
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.Json
+import java.io.File
 
 
 class FilmListActivity : AppCompatActivity() {
@@ -26,21 +30,36 @@ class FilmListActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         var busqueda = Json()
-        var resultados = busqueda.buscarPelicula("spider man")
-        val layoutManager = GridLayoutManager(this,2)
+        var resultados = busqueda.parsearLista(this)
+        if (resultados != null)
+            colocarRecycler(resultados)
 
-
-        val adapter = ListaPeliculasAdapter(resultados,this)
-
-        binding.rvListaPeliculas.layoutManager = layoutManager
-        binding.rvListaPeliculas.adapter = adapter
+        binding.fabUno.setOnClickListener(){
+            var respuesta:Int = 0
+            val  intent = Intent(this,FilmCreateActivity::class.java)
+            intent.putExtra("pelicula", Pelicula("","","","","","",""))
+            startActivityForResult(intent, respuesta);
+            if(respuesta == 20){
+                colocarRecycler(resultados)
+            }
+        }
 
         binding.fabDos.setOnClickListener(){
             val intent = Intent(this,FilmSearchActivity::class.java)
             this.startActivity(intent)
+            colocarRecycler(resultados)
 
         }
+    }
+        fun colocarRecycler(resultados:ArrayList<PeliculaJSON>){
+            var layoutManager = GridLayoutManager(this,2)
+            val adapter = ListaPeliculasAdapter(resultados,this)
+            binding.rvListaPeliculas.layoutManager = layoutManager
+            binding.rvListaPeliculas.adapter = adapter
+        }
+
 /*
+
         var sv = findViewById<Item>(R.id.app_bar_search)
         sv
         //Error no esta bien el eventp
@@ -57,7 +76,7 @@ class FilmListActivity : AppCompatActivity() {
 
         })
         */
-    }
+
 
 
 
@@ -70,11 +89,6 @@ class FilmListActivity : AppCompatActivity() {
 
 
 
-    fun colocarRecycler(cadenaBuscada :String){
-        var busqueda = Json()
-        var resultados = busqueda.buscarPelicula("superman")
-        val adapter = ListaPeliculasAdapter(resultados,this)
-        binding.rvListaPeliculas.adapter = adapter
-    }
+
     */
 }
