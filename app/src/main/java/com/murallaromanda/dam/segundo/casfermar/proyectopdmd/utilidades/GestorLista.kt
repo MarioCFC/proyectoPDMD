@@ -1,40 +1,38 @@
-package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.searchMovie
+package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades
 
 import ListaPeliculas
 import android.app.Activity
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.Json
 
 class GestorLista(val activity: Activity) {
     companion object {
-        private lateinit var peliculas: ListaPeliculas
+        private var peliculas: ListaPeliculas? = null
     }
 
-    var gestor = Json()
+    var json = GestorJSON()
 
     init {
         if (peliculas == null) {
-            peliculas = gestor.parsearLista(activity)
+            peliculas = json.parsearLista(activity)
         }
     }
 
     fun getPeliculas():ArrayList<PeliculaJSON>{
-        return peliculas.listaPeliculas
+        return peliculas!!.listaPeliculas
     }
 
     fun añadirPelicula(pelicula: PeliculaJSON) {
-        peliculas.listaPeliculas.add(pelicula)
+        peliculas!!.listaPeliculas.add(pelicula)
         guardarPelicula()
     }
 
     fun borrarPelicula(pelicula: PeliculaJSON) {
-        peliculas.listaPeliculas.remove(pelicula)
+        peliculas!!.listaPeliculas.remove(pelicula)
         guardarPelicula()
     }
 
     fun guardarPelicula() {
-        gestor.guardarFicheroPeliculas(activity, peliculas)
+        json.guardarFicheroPeliculas(activity, peliculas!!)
     }
-
 
 }

@@ -6,12 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.ActivityCollapsingToolDetailFilmBinding
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
 import com.squareup.picasso.Picasso
-import android.widget.Toast
 
 import android.view.MenuItem
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.searchMovie.GestorLista
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.Json
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorLista
 
 
 class FilmDetailSearchActivity : AppCompatActivity() {

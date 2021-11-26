@@ -1,22 +1,13 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities
 
-import android.app.SearchManager
-import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.View
-import android.view.animation.OvershootInterpolator
-import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.GridLayoutManager
-import com.github.clans.fab.FloatingActionButton
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.adapters.ListaPeliculasAdapter
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.ActivityDatabaseFilmSearcBinding
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.data.PeliculaDataMock
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.Json
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.BuscadorPeliculas
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorLista
 
 class FilmSearchActivity: AppCompatActivity() {
 
@@ -60,10 +51,12 @@ class FilmSearchActivity: AppCompatActivity() {
     }
 
     fun colocarRecycler(cadenaBuscada :String){
-        var busqueda = Json()
+        var busqueda = GestorLista(this)
         val layoutManager = GridLayoutManager(this,2)
 
-        var resultados = busqueda.buscarPelicula(cadenaBuscada)
+        //EN vez de buscar los datos de la pelicula clicada, son cargados los datos de todas las peliculas
+        //ya que la peticion a TMDB es lenta
+        var resultados = BuscadorPeliculas().datosDePeliculasBuscadas(cadenaBuscada)
         val adapter = ListaPeliculasAdapter(resultados,this)
 
         binding.layoutDetallesPeliculaCollapse.rvListaPeliculas.layoutManager = layoutManager

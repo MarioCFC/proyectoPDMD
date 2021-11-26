@@ -3,7 +3,5 @@ import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Pel
 
 
 data class ListaPeliculas (
-
     @SerializedName("listaPeliculas"       ) var listaPeliculas      : ArrayList<PeliculaJSON> = arrayListOf()
-
 )

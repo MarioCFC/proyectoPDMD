@@ -2,16 +2,16 @@ package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades
 
 import android.os.AsyncTask
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Pelicula
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Peticion
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeticionParameters
 import java.io.BufferedInputStream
 import java.net.HttpURLConnection
 import java.net.URL
 import java.net.URLConnection
 
-class HacerPeticiones : AsyncTask<Peticion, Void, String>(){
+class Peticion : AsyncTask<PeticionParameters, Void, String>(){
 
     //La codificacon final parece ser Latin1
-    override fun doInBackground(vararg params: Peticion?): String {
+    override fun doInBackground(vararg params: PeticionParameters?): String {
             //Esto es un switch
 
             var url: URL

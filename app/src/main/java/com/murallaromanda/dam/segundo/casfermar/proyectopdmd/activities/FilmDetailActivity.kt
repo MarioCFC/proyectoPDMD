@@ -16,14 +16,16 @@ import androidx.constraintlayout.widget.ConstraintSet
 
 import android.view.*
 import androidx.appcompat.app.AlertDialog
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorLista
 
 
 class FilmDetailActivity() : AppCompatActivity() {
     private lateinit var binding: ActivityCollapsingToolDetailFilmBinding
-    private var estaEnEdicion: Boolean = true
+    private var gestorLista = GestorLista(this)
     private lateinit var pelicula: PeliculaJSON
-    private lateinit var editText: EditText
     private lateinit var menuItem: Menu
+    private lateinit var editText: EditText
+    private var estaEnEdicion: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,15 +54,20 @@ class FilmDetailActivity() : AppCompatActivity() {
                 .into(binding.collapsingToolbarImagenFondo)
 
 
+        //Intercalando modo edicion
         binding.fabEditar.setOnClickListener() {
+            //Ocultamos el ReadMore y creamos un editText
             if (estaEnEdicion) {
                 binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.visibility = View.GONE
                 addEditText()
             } else {
+                //Borrando el editTextSinopsis
                 //Para borrar el edit text, no se porque si lo uso con removeView no funciona bien
                 binding.layoutDetallesPeliculaCollapse.constraintFilmDetailLayout.removeViewAt(
                     binding.layoutDetallesPeliculaCollapse.constraintFilmDetailLayout.getChildCount() - 1
                 );
+
+                //Mostrando de nuevo el ReadMore de la sinopsis
                 binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.visibility =
                     View.VISIBLE
                 binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.setText(pelicula.overview)
@@ -69,6 +76,33 @@ class FilmDetailActivity() : AppCompatActivity() {
             estaEnEdicion = !estaEnEdicion
         }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_add_search_film, menu)
+        menuItem = menu!!
+        menuItem.add(300, 1, 1, "Borrar").setIcon(getDrawable(R.drawable.ic_launcher_background))
+        menuItem.getItem(0).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
+
+
+        menuItem.add(301, 2, 2, "Editar").setIcon(getDrawable(R.drawable.fab_add))
+        menuItem.getItem(1).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
+        return true
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        var id: Int = item.itemId
+        //Dandole a eliminar muestra un aviso, este metodo nos permite pasarle otro metodo para que ejecute en caso afirmativo
+        when (id) {
+            menuItem.getItem(0).itemId -> mostrarAviso(
+                "Alerta",
+                "Deseas elimanar la pelicula?",
+                gestorLista.borrarPelicula(pelicula)
+            )
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 
     fun cambiarModoEdicion() {
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvDirector.setEnabled(estaEnEdicion)
@@ -115,6 +149,13 @@ class FilmDetailActivity() : AppCompatActivity() {
 
     }
 
+    override fun onBackPressed() {
+        if (hayModificaciones()){
+            mostrarAviso("Aviso","Se han detectado cambios realizados,deseas guardarlos?",cargarCambios())
+        }
+        super.onBackPressed()
+    }
+
     private fun hayModificaciones(): Boolean {
         if (!binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.equals(pelicula.title)
             || binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.equals(pelicula.genres[0].name) || !editText.text.equals(
@@ -125,35 +166,17 @@ class FilmDetailActivity() : AppCompatActivity() {
         return false
     }
 
+    fun cargarCambios(){
+        //binding.layoutDetallesPeliculaCollapse.FilmDetailTvDirector.setText("director/Cambiar")
+        pelicula.genres[0].name = binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.getText().toString()
+        pelicula.title = binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.getText().toString()
+        pelicula.overview = binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.getText().toString()
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_add_search_film, menu)
-        menuItem = menu!!
-        menuItem.add(300, 1, 1, "Borrar").setIcon(getDrawable(R.drawable.ic_launcher_background))
-        menuItem.getItem(0).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
-        //menuItem.getItem(1).setIcon(getDrawable())
-
-
-        menuItem.add(301, 2, 2, "Editar").setIcon(getDrawable(R.drawable.fab_add))
-        menuItem.getItem(1).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
-        return true
     }
 
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        var id: Int = item.itemId
-
-        when (id) {
-            menuItem.getItem(0).itemId -> borrarPelicula()
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    fun borrarPelicula() {
-        mostrarAviso("Alerta","Deseas elimanar la pelicula?")
-    }
-
-    fun mostrarAviso(titulo: String, mensaje: String) {
+    //Generarcin de aviso
+    fun mostrarAviso(titulo: String, mensaje: String, bar: Unit) {
         val dialogBuilder = AlertDialog.Builder(this)
 
         // set message of alert dialog
@@ -162,6 +185,7 @@ class FilmDetailActivity() : AppCompatActivity() {
             .setCancelable(false)
             // positive button text and action
             .setPositiveButton("Aceptar", DialogInterface.OnClickListener { dialog, id ->
+                bar
                 finish()
             })
             // negative button text and action
@@ -178,22 +202,6 @@ class FilmDetailActivity() : AppCompatActivity() {
     }
 
 
-
-    /*
-    * override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        val id: Int = item.getItemId()
-        if (id == menuItem.getItem(0).itemId) {
-            Json().getLista().add(pelicula)
-            Json().guardarFicheroPeliculas(this)
-            onBackPressed()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }
-    * */
 
 
 }

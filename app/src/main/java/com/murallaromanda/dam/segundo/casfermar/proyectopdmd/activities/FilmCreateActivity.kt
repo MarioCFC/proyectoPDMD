@@ -35,7 +35,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.widget.ImageView
 
-
+//NO ESTAS GUARDANDO LA PELICULA
 class FilmCreateActivity() : AppCompatActivity() {
     lateinit var binding: ActivityCollapsingToolDetailFilmBinding
 
@@ -53,43 +53,7 @@ class FilmCreateActivity() : AppCompatActivity() {
         cambiarModoEdicion()
         addEditText()
     }
-/*
-        binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.setOnClickListener(){
-            if (!estaEnEdicion){
 
-                    val i = Intent(
-                        Intent.ACTION_PICK,
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-                    )
-                    startActivityForResult(i, RESULT_LOAD_IMAGE)
-                }
-
-            }*/
-
-
-    /*
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
-            val selectedImage: Uri? = data.data
-            val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
-            val cursor: Cursor? = selectedImage?.let {
-                getContentResolver().query(
-                    it,
-                    filePathColumn, null, null, null
-                )
-            }
-            cursor?.moveToFirst()
-            val columnIndex: Int? = cursor?.getColumnIndex(filePathColumn[0])
-            val picturePath: String? = columnIndex?.let { cursor?.getString(it) }
-            cursor?.close()
-            val imageView: ImageView =
-                binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula as ImageView
-            imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath))
-        }
-    }
-
-*/
     fun cambiarModoEdicion() {
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvDirector.setEnabled(true)
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.setEnabled(true)

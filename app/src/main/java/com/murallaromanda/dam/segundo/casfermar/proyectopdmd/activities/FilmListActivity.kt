@@ -1,22 +1,16 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities
 
-import ListaPeliculas
-import android.app.Activity
-import android.content.ClipData
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
 import androidx.recyclerview.widget.GridLayoutManager
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.adapters.ListaPeliculasAdapter
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.ActivityFilmListBinding
-import android.widget.SearchView
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Pelicula
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.searchMovie.GestorLista
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.Json
-import java.io.File
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorLista
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorJSON
 
 
 class FilmListActivity : AppCompatActivity() {
@@ -31,7 +25,7 @@ class FilmListActivity : AppCompatActivity() {
         binding = ActivityFilmListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var busqueda = Json()
+        var busqueda = GestorJSON()
         //busqueda.guardarFicheroPeliculas(this)
         var gestor = GestorLista(this)
         resultados = gestor.getPeliculas()
@@ -43,7 +37,7 @@ class FilmListActivity : AppCompatActivity() {
         binding.fabUno.setOnClickListener(){
             var respuesta:Int = 0
             val  intent = Intent(this,FilmCreateActivity::class.java)
-            intent.putExtra("pelicula", Pelicula("","","","","","",""))
+            intent.putExtra("pelicula", PeliculaJSON())
             startActivity(intent);
         }
 
