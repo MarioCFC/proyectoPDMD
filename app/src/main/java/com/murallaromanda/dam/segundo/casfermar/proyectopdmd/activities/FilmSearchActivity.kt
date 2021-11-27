@@ -12,6 +12,7 @@ import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorLi
 class FilmSearchActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityDatabaseFilmSearcBinding
+    private val m_Text = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

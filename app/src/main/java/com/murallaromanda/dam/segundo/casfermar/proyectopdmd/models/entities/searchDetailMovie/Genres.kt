@@ -6,7 +6,7 @@ import java.io.Serializable
 
 data class Genres (
 
-  @SerializedName("id"   ) var id   : Int?    = null,
-  @SerializedName("name" ) var name : String? = null
+  @SerializedName("id"   ) var id   : Int?    = 0,
+  @SerializedName("name" ) var name : String? = "Sin genero"
 
 ): Serializable

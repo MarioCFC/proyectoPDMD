@@ -9,6 +9,7 @@ import com.squareup.picasso.Picasso
 
 import android.view.MenuItem
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Genres
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorLista
 
 
@@ -25,11 +26,14 @@ class FilmDetailSearchActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         pelicula = intent.extras?.get("pelicula") as PeliculaJSON
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvDirector.setText("director/Cambiar")
+        binding.layoutDetallesPeliculaCollapse.FilmDetailTvDuracion.setText(pelicula.runtime.toString())
+
+        if (pelicula.genres.size == 0){
+            pelicula.genres = List<Genres>(0) {it ->Genres()}
+        }
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.setText(pelicula.genres[0].name)
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.setText(pelicula.title)
 
-        // binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.setMovementMethod(ScrollingMovementMethod())
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.setText(pelicula.overview)
         Picasso.get().isLoggingEnabled = true
 
@@ -43,7 +47,6 @@ class FilmDetailSearchActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_add_search_film, menu)
         menuItem = menu!!
         menuItem.add(300,1,1,"adios").setIcon(getDrawable(R.drawable.fab_add))
@@ -53,9 +56,6 @@ class FilmDetailSearchActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         val id: Int = item.getItemId()
         if (id == menuItem.getItem(0).itemId) {
             GestorLista(this).añadirPelicula(pelicula)

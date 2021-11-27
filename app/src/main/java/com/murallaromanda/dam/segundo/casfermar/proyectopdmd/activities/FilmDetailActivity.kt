@@ -44,7 +44,7 @@ class FilmDetailActivity() : AppCompatActivity() {
         pelicula = gestorLista.getPeliculas().get(posicionEnLista)
 
         //Metemos los datos
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvDirector.setText("director/Cambiar")
+        binding.layoutDetallesPeliculaCollapse.FilmDetailTvDuracion.setText(pelicula.runtime.toString())
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.setText(pelicula.genres[0].name)
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.setText(pelicula.title)
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.setText(pelicula.overview)
@@ -110,7 +110,7 @@ class FilmDetailActivity() : AppCompatActivity() {
 
     fun cambiarModoEdicionComponentes() {
         //Cambiando las labels
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvDirector.setEnabled(estaEnEdicion)
+        binding.layoutDetallesPeliculaCollapse.FilmDetailTvDuracion.setEnabled(estaEnEdicion)
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.setEnabled(estaEnEdicion)
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.setEnabled(estaEnEdicion)
 

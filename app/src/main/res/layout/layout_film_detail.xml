@@ -67,7 +67,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <EditText
-            android:id="@+id/FilmDetailTvDirector"
+            android:id="@+id/FilmDetailTvDuracion"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
@@ -75,7 +75,7 @@
             android:enabled="false"
             android:inputType="textMultiLine"
             android:maxLines="2"
-            android:text="Director"
+            android:text="Duracion"
             android:textColor="@drawable/selector_detail_film_edit_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -130,7 +130,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:inputType="none"
-            android:text="Director/es:"
+            android:text="Duracion"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/FilmDetailTvGenero"
