@@ -27,13 +27,16 @@
         <entry key="..\:/Users/casfermar/Desktop/proyectoPDMD/app/src/main/res/layout/prueba_detalle.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/casfermar/Desktop/proyectoPDMD/app/src/main/res/layout/read_more_text_layout.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/casfermar/Desktop/proyectoPDMD/app/src/main/res/menu/menu_add_search_film.xml" value="0.36666666666666664" />
+        <entry key="app/src/main/res/drawable/ic_baseline_edit.xml" value="0.2109375" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.3351851851851852" />
+        <entry key="app/src/main/res/layout/activity_collapsing_tool_detail_film.xml" value="0.26296296296296295" />
         <entry key="app/src/main/res/layout/activity_film_detail.xml" value="0.35208333333333336" />
         <entry key="app/src/main/res/layout/activity_film_list.xml" value="0.35208333333333336" />
         <entry key="app/src/main/res/layout/collapsing_tool_detail_film.xml" value="0.35208333333333336" />
         <entry key="app/src/main/res/layout/delete.xml" value="0.35208333333333336" />
         <entry key="app/src/main/res/layout/film_card_view.xml" value="0.28703703703703703" />
         <entry key="app/src/main/res/layout/item_pelicula_list.xml" value="0.35208333333333336" />
+        <entry key="app/src/main/res/layout/layout_film_detail.xml" value="0.33" />
       </map>
     </option>
   </component>

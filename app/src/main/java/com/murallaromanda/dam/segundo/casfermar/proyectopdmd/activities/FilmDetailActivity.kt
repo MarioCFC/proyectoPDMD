@@ -1,5 +1,6 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities
 
+import android.content.Context
 import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,12 +18,18 @@ import androidx.constraintlayout.widget.ConstraintSet
 import android.view.*
 import androidx.appcompat.app.AlertDialog
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorLista
+import android.content.Intent
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
+import java.lang.RuntimeException
 
 
 class FilmDetailActivity() : AppCompatActivity() {
     private lateinit var binding: ActivityCollapsingToolDetailFilmBinding
     private var gestorLista = GestorLista(this)
     private lateinit var pelicula: PeliculaJSON
+    private var posicionEnLista: Int = 0
     private lateinit var menuItem: Menu
     private lateinit var editText: EditText
     private var estaEnEdicion: Boolean = true
@@ -32,8 +39,10 @@ class FilmDetailActivity() : AppCompatActivity() {
         binding = ActivityCollapsingToolDetailFilmBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //Obtenemos los datos
-        pelicula = intent.extras?.get("pelicula") as PeliculaJSON
+        //Obtenemos los datos. Hago referencia a la lista para poder modificar los datos con facilidad y poder guardar los cambios sin demasiada complicacion
+        posicionEnLista = intent.extras?.get("posicionEnLista") as Int
+        pelicula = gestorLista.getPeliculas().get(posicionEnLista)
+
         //Metemos los datos
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvDirector.setText("director/Cambiar")
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.setText(pelicula.genres[0].name)
@@ -54,37 +63,16 @@ class FilmDetailActivity() : AppCompatActivity() {
                 .into(binding.collapsingToolbarImagenFondo)
 
 
-        //Intercalando modo edicion
-        binding.fabEditar.setOnClickListener() {
-            //Ocultamos el ReadMore y creamos un editText
-            if (estaEnEdicion) {
-                binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.visibility = View.GONE
-                addEditText()
-            } else {
-                //Borrando el editTextSinopsis
-                //Para borrar el edit text, no se porque si lo uso con removeView no funciona bien
-                binding.layoutDetallesPeliculaCollapse.constraintFilmDetailLayout.removeViewAt(
-                    binding.layoutDetallesPeliculaCollapse.constraintFilmDetailLayout.getChildCount() - 1
-                );
-
-                //Mostrando de nuevo el ReadMore de la sinopsis
-                binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.visibility =
-                    View.VISIBLE
-                binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.setText(pelicula.overview)
-            }
-            cambiarModoEdicion()
-            estaEnEdicion = !estaEnEdicion
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_add_search_film, menu)
         menuItem = menu!!
-        menuItem.add(300, 1, 1, "Borrar").setIcon(getDrawable(R.drawable.ic_launcher_background))
+        menuItem.add(300, 1, 1, "Borrar").setIcon(getDrawable(R.drawable.ic_baseline_delete))
         menuItem.getItem(0).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
 
 
-        menuItem.add(301, 2, 2, "Editar").setIcon(getDrawable(R.drawable.fab_add))
+        menuItem.add(301, 2, 2, "Editar").setIcon(getDrawable(R.drawable.ic_baseline_edit))
         menuItem.getItem(1).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
         return true
     }
@@ -99,15 +87,58 @@ class FilmDetailActivity() : AppCompatActivity() {
                 "Deseas elimanar la pelicula?",
                 gestorLista.borrarPelicula(pelicula)
             )
+
+
+            menuItem.getItem(1).itemId -> {
+                if (!estaEnEdicion && hayCambios()) {
+                    cargarCambios()
+                    gestorLista.guardarPelicula()
+                }
+                cambiarModoEdicion()
+            }
         }
         return super.onOptionsItemSelected(item)
     }
 
 
     fun cambiarModoEdicion() {
+        cambiarModoEdicionComponentes()
+        cambiarModoEdicionMenu()
+        estaEnEdicion = !estaEnEdicion
+
+    }
+
+    fun cambiarModoEdicionComponentes() {
+        //Cambiando las labels
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvDirector.setEnabled(estaEnEdicion)
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.setEnabled(estaEnEdicion)
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.setEnabled(estaEnEdicion)
+
+        if (estaEnEdicion) {
+            //Ocultamos el ReadMore y creamos el edit text
+            binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.visibility = View.GONE
+            addEditText()
+
+        } else {
+            //Eliminamos el editText
+            binding.layoutDetallesPeliculaCollapse.constraintFilmDetailLayout.removeViewAt(
+                binding.layoutDetallesPeliculaCollapse.constraintFilmDetailLayout.getChildCount() - 1
+            )
+            //Hacemos visible el ReadMore y le colocamos el texto del EditText
+            binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.visibility =
+                View.VISIBLE
+            binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.setText(pelicula.overview)
+        }
+    }
+
+    fun cambiarModoEdicionMenu() {
+        if (estaEnEdicion) {
+            menuItem.getItem(1).setIcon(getDrawable(R.drawable.ic_baseline_check))
+            menuItem.getItem(0).setVisible(false)
+        } else {
+            menuItem.getItem(0).setVisible(true)
+            menuItem.getItem(1).setIcon(getDrawable(R.drawable.ic_baseline_edit))
+        }
     }
 
     private fun addEditText() {
@@ -149,33 +180,25 @@ class FilmDetailActivity() : AppCompatActivity() {
 
     }
 
-    override fun onBackPressed() {
-        if (hayModificaciones()){
-            mostrarAviso("Aviso","Se han detectado cambios realizados,deseas guardarlos?",cargarCambios())
-        }
-        super.onBackPressed()
-    }
 
-    private fun hayModificaciones(): Boolean {
-        if (!binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.equals(pelicula.title)
-            || binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.equals(pelicula.genres[0].name) || !editText.text.equals(
-                pelicula.overview
-            )
-        )
-            return true
-        return false
-    }
-
-    fun cargarCambios(){
+    fun cargarCambios() {
         //binding.layoutDetallesPeliculaCollapse.FilmDetailTvDirector.setText("director/Cambiar")
-        pelicula.genres[0].name = binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.getText().toString()
-        pelicula.title = binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.getText().toString()
-        pelicula.overview = binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.getText().toString()
+        pelicula.genres[0].name =
+            binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.getText().toString()
+        pelicula.title =
+            binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.getText().toString()
+        pelicula.overview = editText.text.toString()
 
     }
 
+    fun hayCambios():Boolean{
+        return binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.getText().toString() != pelicula.title ||
+        binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.getText().toString() != pelicula.genres[0].name ||
+        editText.text.toString() != pelicula.overview
+    }
 
-    //Generarcin de aviso
+
+    //Generarcion de aviso
     fun mostrarAviso(titulo: String, mensaje: String, bar: Unit) {
         val dialogBuilder = AlertDialog.Builder(this)
 
@@ -200,8 +223,6 @@ class FilmDetailActivity() : AppCompatActivity() {
         // show alert dialog
         alert.show()
     }
-
-
 
 
 }

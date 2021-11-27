@@ -24,13 +24,11 @@ class FilmSearchActivity: AppCompatActivity() {
         //Eliminando el boton flotante
         binding.layoutDetallesPeliculaCollapse.FilmSearchLayout.removeView(binding.layoutDetallesPeliculaCollapse.fabMenu)
 
-
         val layoutManager = GridLayoutManager(this,2)
 
-
         binding.layoutDetallesPeliculaCollapse.rvListaPeliculas.layoutManager = layoutManager
-        var searchView = binding.searchView
 
+        var searchView = binding.searchView
         searchView.setIconified(false);
         searchView.clearFocus();
         searchView.setQueryHint("Introduce un titulo")
@@ -51,9 +49,7 @@ class FilmSearchActivity: AppCompatActivity() {
     }
 
     fun colocarRecycler(cadenaBuscada :String){
-        var busqueda = GestorLista(this)
         val layoutManager = GridLayoutManager(this,2)
-
         //EN vez de buscar los datos de la pelicula clicada, son cargados los datos de todas las peliculas
         //ya que la peticion a TMDB es lenta
         var resultados = BuscadorPeliculas().datosDePeliculasBuscadas(cadenaBuscada)

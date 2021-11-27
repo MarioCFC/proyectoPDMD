@@ -24,8 +24,6 @@ class FilmDetailSearchActivity : AppCompatActivity() {
         binding = ActivityCollapsingToolDetailFilmBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.activityCollapsingLayout.removeView(binding.fabEditar)
-
         pelicula = intent.extras?.get("pelicula") as PeliculaJSON
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvDirector.setText("director/Cambiar")
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.setText(pelicula.genres[0].name)

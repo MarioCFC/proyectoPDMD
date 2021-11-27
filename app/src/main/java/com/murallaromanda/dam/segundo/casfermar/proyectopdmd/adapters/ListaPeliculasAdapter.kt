@@ -16,8 +16,9 @@ import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Pel
 import com.squareup.picasso.Picasso
 
 //Creo que le pasamos el mismo objeto para la activity y para el Context, revisar si se da pasado una sola vez
-class ListaPeliculasAdapter(val peliculas : ArrayList<PeliculaJSON>, val miActivty:Activity) : RecyclerView.Adapter<ListaPeliculasAdapter.PeliculaViewHolder>() {
-    class PeliculaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+class ListaPeliculasAdapter(val peliculas: ArrayList<PeliculaJSON>, val miActivty: Activity) :
+    RecyclerView.Adapter<ListaPeliculasAdapter.PeliculaViewHolder>() {
+    class PeliculaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         //Mejor cambiarlo por el binding
         val layout_item = itemView.findViewById<LinearLayout>(R.id.card_item)
         val tvTitulo = itemView.findViewById<TextView>(R.id.CardTvTitulo)
@@ -26,7 +27,8 @@ class ListaPeliculasAdapter(val peliculas : ArrayList<PeliculaJSON>, val miActiv
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PeliculaViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context).inflate(R.layout.layout_film_card_view, parent, false)
+        val layoutInflater = LayoutInflater.from(parent.context)
+            .inflate(R.layout.layout_film_card_view, parent, false)
         return PeliculaViewHolder(layoutInflater)
     }
 
@@ -41,18 +43,20 @@ class ListaPeliculasAdapter(val peliculas : ArrayList<PeliculaJSON>, val miActiv
         Picasso.get().isLoggingEnabled = true
 
         if (pelicula.posterPath != null)
-            Picasso.get().load("https://www.themoviedb.org/t/p/w600_and_h900_bestv2" + pelicula.posterPath).into(holder.ivCaratula)
+            Picasso.get()
+                .load("https://www.themoviedb.org/t/p/w600_and_h900_bestv2" + pelicula.posterPath)
+                .into(holder.ivCaratula)
 
-        holder.layout_item.setOnClickListener(){
-            var intent:Intent
-            var a = miActivty.localClassName
+        holder.layout_item.setOnClickListener() {
+            var intent: Intent
             //Detectar de que lista viene
-            if (miActivty.localClassName.equals("activities.FilmListActivity")){
-                 intent = Intent(miActivty,FilmDetailActivity::class.java)
-                intent.putExtra("pelicula", pelicula)
+            if (miActivty.localClassName.equals("activities.FilmListActivity")) {
+                intent = Intent(miActivty, FilmDetailActivity::class.java)
+                intent.putExtra("posicionEnLista", position)
                 miActivty.startActivity(intent)
-            }else if(miActivty.localClassName.equals("activities.FilmSearchActivity")){
-                 intent = Intent(miActivty,FilmDetailSearchActivity::class.java)
+            } else if (miActivty.localClassName.equals("activities.FilmSearchActivity")) {
+
+                intent = Intent(miActivty, FilmDetailSearchActivity::class.java)
                 intent.putExtra("pelicula", pelicula)
                 miActivty.startActivity(intent)
             }

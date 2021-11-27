@@ -33,7 +33,9 @@ import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.app.ActivityCompat.startActivityForResult
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.view.MenuItem
 import android.widget.ImageView
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorLista
 
 //NO ESTAS GUARDANDO LA PELICULA
 class FilmCreateActivity() : AppCompatActivity() {
@@ -41,18 +43,27 @@ class FilmCreateActivity() : AppCompatActivity() {
 
     private lateinit var pelicula: PeliculaJSON
     private lateinit var editText: EditText
+    private lateinit var menuItem:Menu
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_film_detail)
         binding = ActivityCollapsingToolDetailFilmBinding.inflate(layoutInflater)
         //Eliminando el boton flotante y el edit readmore de sinopsis
-        binding.activityCollapsingLayout.removeView(binding.fabEditar)
         binding.layoutDetallesPeliculaCollapse.constraintFilmDetailLayout.removeView(binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis)
+        binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.setBackgroundColor(Color.GRAY)
+
+        binding.collapsingToolbarImagenFondo.setImageDrawable(getDrawable(R.drawable.ic_baseline_camera_alt_24))
+        binding.collapsingToolbarImagenFondo.setBackgroundColor(Color.GRAY)
+        binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.setImageDrawable(getDrawable(R.drawable.ic_baseline_camera_alt_24))
+        binding.collapsingToolbarImagenFondo.setBackgroundColor(Color.GRAY)
+
         setContentView(binding.root)
         cambiarModoEdicion()
         addEditText()
     }
+
+
 
     fun cambiarModoEdicion() {
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvDirector.setEnabled(true)
@@ -98,14 +109,30 @@ class FilmCreateActivity() : AppCompatActivity() {
 
     }
 
-    private fun hayModificaciones(): Boolean {
-        if (!binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.equals(pelicula.title)
-            || binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.equals(pelicula.genres[0].name) || !editText.text.equals(
-                pelicula.overview
-            )
-        )
-            return true
-        return false
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_add_search_film, menu)
+        menuItem = menu!!
+        menuItem.add(300, 1, 1, "Crear").setIcon(getDrawable(R.drawable.ic_baseline_check))
+        menuItem.getItem(0).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
+        return true
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        var id: Int = item.itemId
+        //Dandole a eliminar muestra un aviso, este metodo nos permite pasarle otro metodo para que ejecute en caso afirmativo
+        when (id) {
+            menuItem.getItem(0).itemId -> GestorLista(this).añadirPelicula(almacenarDatosPelicula())
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    fun almacenarDatosPelicula() : PeliculaJSON {
+        var pelicula = PeliculaJSON()
+        pelicula.title = binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.text.toString()
+        pelicula.genres[0].name = binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.text.toString()
+        pelicula.overview = binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.text.toString()
+        return pelicula
     }
 
 
