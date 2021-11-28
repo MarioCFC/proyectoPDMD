@@ -38,10 +38,10 @@ class FilmDetailSearchActivity : AppCompatActivity() {
         Picasso.get().isLoggingEnabled = true
 
         if (pelicula.posterPath != null)
-            Picasso.get().load("https://www.themoviedb.org/t/p/w600_and_h900_bestv2" + pelicula.posterPath).into(binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula)
+            Picasso.get().load(pelicula.posterPath).into(binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula)
 
         if (pelicula.backdropPath != null)
-            Picasso.get().load("https://www.themoviedb.org/t/p/w600_and_h900_bestv2" + pelicula.backdropPath).into(binding.collapsingToolbarImagenFondo)
+            Picasso.get().load(pelicula.backdropPath).into(binding.collapsingToolbarImagenFondo)
 
 
     }

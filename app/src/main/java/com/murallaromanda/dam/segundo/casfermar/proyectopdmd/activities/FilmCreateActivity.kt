@@ -58,12 +58,12 @@ class FilmCreateActivity() : AppCompatActivity() {
         binding = ActivityCollapsingToolDetailFilmBinding.inflate(layoutInflater)
         //Eliminando el boton flotante y el edit readmore de sinopsis
         binding.layoutDetallesPeliculaCollapse.constraintFilmDetailLayout.removeView(binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis)
-        binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.setBackgroundColor(Color.GRAY)
+
 
         binding.collapsingToolbarImagenFondo.setImageDrawable(getDrawable(R.drawable.ic_baseline_camera_alt_24))
         binding.collapsingToolbarImagenFondo.setBackgroundColor(Color.GRAY)
         binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.setImageDrawable(getDrawable(R.drawable.ic_baseline_camera_alt_24))
-        binding.collapsingToolbarImagenFondo.setBackgroundColor(Color.GRAY)
+        binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.setBackgroundColor(Color.GRAY)
 
         setContentView(binding.root)
         cambiarModoEdicion()
@@ -71,11 +71,55 @@ class FilmCreateActivity() : AppCompatActivity() {
 
 
         binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.setOnClickListener() {
-            alertDialog("Caratula","Introduce la url de una imagen")
+                val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(this)
+                builder.setTitle("Url de la caraturla")
+                builder.setMessage("Introduce la URL de la imagen")
+
+                val input = EditText(this)
+                input.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_CLASS_TEXT
+                builder.setView(input)
+
+                builder.setPositiveButton("OK",
+                    DialogInterface.OnClickListener { dialog, which ->
+                        {
+                            //Guardar url de imagen y cargarla
+                            pelicula.posterPath = input.text.toString()
+                            Picasso.get()
+                                .load(pelicula.posterPath)
+                                .into(binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula)
+                        }
+                    })
+                builder.setNegativeButton("Cancel",
+                    DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+
+                builder.show()
         }
 
+
+
+
+
         binding.collapsingToolbarImagenFondo.setOnClickListener(){
-            alertDialog("Imagen de fondo","Introduce la url de una imagen")
+                val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(this)
+                builder.setTitle("Url del fondo")
+                builder.setMessage("Introduce la URL de la imagen")
+
+                val input = EditText(this)
+                input.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_CLASS_TEXT
+                builder.setView(input)
+
+                builder.setPositiveButton("OK",
+                    DialogInterface.OnClickListener { dialog, which ->
+                        {
+                            //Guardamos la url de imagen y cargarla
+                            pelicula.backdropPath = input.text.toString()
+                            Picasso.get().load(pelicula.backdropPath).into(binding.collapsingToolbarImagenFondo)
+                        }
+                    })
+                builder.setNegativeButton("Cancel",
+                    DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+
+                builder.show()
         }
     }
 
@@ -146,52 +190,16 @@ class FilmCreateActivity() : AppCompatActivity() {
     }
 
     fun almacenarDatosPelicula(): PeliculaJSON {
+        pelicula.title = binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.text.toString()
+
         pelicula.genres = List<Genres>(1) { it -> Genres() }
-        pelicula.title = binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.text.toString()
         pelicula.genres[0].name =
             binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.text.toString()
-        pelicula.overview =
-            binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.text.toString()
+        //Sinopsis
+        pelicula.overview = editText.text.toString()
+
+        pelicula.runtime = binding.layoutDetallesPeliculaCollapse.FilmDetailTvDuracion.text.toString().toInt()
         return pelicula
-    }
-
-    fun alertDialog(titulo:String,mensaje:String) {
-        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-        builder.setTitle(titulo)
-        builder.setMessage(mensaje)
-
-    // Set up the input
-
-    // Set up the input
-        val input = EditText(this)
-    // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-    // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-        input.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_CLASS_TEXT
-        builder.setView(input)
-
-    // Set up the buttons
-
-    // Set up the buttons
-        builder.setPositiveButton("OK",
-            DialogInterface.OnClickListener { dialog, which -> url = input.text.toString()
-            })
-        builder.setNegativeButton("Cancel",
-            DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
-
-        builder.show()
-    }
-
-
-    fun cargarImagenCaratula(){
-        pelicula.posterPath  = url
-        Picasso.get()
-            .load(pelicula.posterPath)
-            .into(binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula)
-    }
-
-    fun cargarPoster(){
-        pelicula.backdropPath = url
-        Picasso.get().load(pelicula.backdropPath).into(binding.collapsingToolbarImagenFondo)
     }
 
 }

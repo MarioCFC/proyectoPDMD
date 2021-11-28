@@ -37,14 +37,13 @@ class ListaPeliculasAdapter(val peliculas: ArrayList<PeliculaJSON>, val miActivt
         val pelicula = peliculas.get(position)
 
         holder.tvTitulo.setText(pelicula.title)
-        holder.tvGenero.setText("")
-        //pelicula.genres[0].name
+        holder.tvGenero.setText(pelicula.genres[0].name.toString())
 
         Picasso.get().isLoggingEnabled = true
 
         if (pelicula.posterPath != null)
             Picasso.get()
-                .load("https://www.themoviedb.org/t/p/w600_and_h900_bestv2" + pelicula.posterPath)
+                .load(pelicula.posterPath)
                 .into(holder.ivCaratula)
 
         holder.layout_item.setOnClickListener() {

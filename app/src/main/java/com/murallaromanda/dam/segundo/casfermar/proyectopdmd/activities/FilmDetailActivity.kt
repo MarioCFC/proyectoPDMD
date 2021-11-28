@@ -19,9 +19,11 @@ import android.view.*
 import androidx.appcompat.app.AlertDialog
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorLista
 import android.content.Intent
+import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
+import android.text.InputType
 import java.lang.RuntimeException
 
 
@@ -54,14 +56,63 @@ class FilmDetailActivity() : AppCompatActivity() {
         Picasso.get().isLoggingEnabled = true
         if (pelicula.posterPath != null)
             Picasso.get()
-                .load("https://www.themoviedb.org/t/p/w600_and_h900_bestv2" + pelicula.posterPath)
+                .load(pelicula.posterPath)
                 .into(binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula)
 
         if (pelicula.backdropPath != null)
             Picasso.get()
-                .load("https://www.themoviedb.org/t/p/w600_and_h900_bestv2" + pelicula.backdropPath)
+                .load(pelicula.backdropPath)
                 .into(binding.collapsingToolbarImagenFondo)
 
+
+
+        binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.setOnClickListener() {
+            if (!estaEnEdicion){
+                val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(this)
+            builder.setTitle("Url de la caraturla")
+            builder.setMessage("Introduce la URL de la imagen")
+
+            val input = EditText(this)
+            input.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_CLASS_TEXT
+            builder.setView(input)
+
+            builder.setPositiveButton("OK",
+                DialogInterface.OnClickListener { dialog, which ->
+                    pelicula.posterPath = input.text.toString()
+                    Picasso.get()
+                        .load(pelicula.posterPath)
+                        .into(binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula)
+                })
+            builder.setNegativeButton("Cancel",
+                DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+
+            builder.show()
+            }
+        }
+
+        binding.collapsingToolbarImagenFondo.setOnClickListener(){
+            if (!estaEnEdicion){
+                val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(this)
+            builder.setTitle("Url del fondo")
+            builder.setMessage("Introduce la URL de la imagen")
+
+            val input = EditText(this)
+            input.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_CLASS_TEXT
+            builder.setView(input)
+
+            builder.setPositiveButton("OK",
+                DialogInterface.OnClickListener { dialog, which ->
+                    {
+                        pelicula.backdropPath = input.text.toString()
+                        Picasso.get().load(pelicula.backdropPath).into(binding.collapsingToolbarImagenFondo)
+                    }
+                })
+            builder.setNegativeButton("Cancel",
+                DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+
+            builder.show()
+            }
+        }
 
     }
 
@@ -119,6 +170,12 @@ class FilmDetailActivity() : AppCompatActivity() {
             binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.visibility = View.GONE
             addEditText()
 
+            //Imagenes
+            binding.collapsingToolbarImagenFondo.setImageDrawable(getDrawable(R.drawable.ic_baseline_camera_alt_24))
+            binding.collapsingToolbarImagenFondo.setBackgroundColor(Color.GRAY)
+            binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.setImageDrawable(getDrawable(R.drawable.ic_baseline_camera_alt_24))
+            binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.setBackgroundColor(Color.GRAY)
+
         } else {
             //Eliminamos el editText
             binding.layoutDetallesPeliculaCollapse.constraintFilmDetailLayout.removeViewAt(
@@ -128,6 +185,15 @@ class FilmDetailActivity() : AppCompatActivity() {
             binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.visibility =
                 View.VISIBLE
             binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.setText(pelicula.overview)
+
+            //Imagenes
+            Picasso.get()
+                .load(pelicula.posterPath)
+                .into(binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula)
+
+            Picasso.get()
+                .load(pelicula.backdropPath)
+                .into(binding.collapsingToolbarImagenFondo)
         }
     }
 
