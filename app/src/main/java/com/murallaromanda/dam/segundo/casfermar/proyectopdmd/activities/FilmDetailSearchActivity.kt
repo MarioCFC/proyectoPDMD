@@ -26,13 +26,13 @@ class FilmDetailSearchActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         pelicula = intent.extras?.get("pelicula") as PeliculaJSON
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvDuracion.setText(pelicula.runtime.toString())
+        binding.layoutDetallesPeliculaCollapse.FilmDetailETDuracion.setText(pelicula.runtime.toString())
 
         if (pelicula.genres.size == 0){
             pelicula.genres = List<Genres>(0) {it ->Genres()}
         }
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.setText(pelicula.genres[0].name)
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.setText(pelicula.title)
+        binding.layoutDetallesPeliculaCollapse.FilmDetailETGenero.setText(pelicula.genres[0].name)
+        binding.layoutDetallesPeliculaCollapse.FilmDetailETTitulo.setText(pelicula.title)
 
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.setText(pelicula.overview)
         Picasso.get().isLoggingEnabled = true

@@ -21,4 +21,7 @@
     <string name="FilmListFabMenuLabel">Añadir</string>
     <string name="FilmListFabOneLabel">Añadir pelicula</string>
     <string name="FilmDetailTvDuracion">Duracion</string>
+    <string name="FilmDetailETTitulo">Sin titulo</string>
+    <string name="FilmDetailETDuracion">0</string>
+    <string name="collapsingToolbarTitulo">Fondo pelicula</string>
 </resources>

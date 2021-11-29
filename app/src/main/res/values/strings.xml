@@ -28,4 +28,9 @@
     <string name="FilmDetailTvTitulo">Titulo:</string>
     <string name="FilmDetailTvGenero">Genero:</string>
     <string name="FilmDetailTvDuracion">Duracion</string>
+    <string name="FilmDetailETTitulo">Sin titulo</string>
+    <string name="FilmDetailETGenero">Sin genero</string>
+    <string name="FilmDetailETDuracion">0</string>
+    <string name="FilmDetailRMText">\nMostrar mas</string>
+    <string name="collapsingToolbarTitulo">Fondo pelicula</string>
 </resources>

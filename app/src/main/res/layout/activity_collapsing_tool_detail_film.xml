@@ -11,7 +11,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="@dimen/collapsingToolDetailBarLayoutHeight"
         android:fitsSystemWindows="true"
         android:theme="@style/Theme.AppCompat">
 
@@ -22,12 +22,12 @@
 
             app:contentScrim="@color/purple_500"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-            app:title="Fondo pelicula"
+            app:title="@string/collapsingToolbarTitulo"
             android:id="@+id/collapsing_toolbar">
 
 
             <ImageView
-                android:id="@+id/collapsingToolbarImagenFondo"
+                android:id="@+id/collapsingToolDetailBarImagenFondo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"

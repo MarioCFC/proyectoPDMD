@@ -9,7 +9,7 @@
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
-        android:background="#ffe7a61a"
+        android:background="@color/cardItemBackgroundColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -41,9 +41,9 @@ class FilmDetailActivity() : AppCompatActivity() {
         pelicula = gestorLista.getPeliculas().get(posicionEnLista)
 
         //Metemos los datos
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvDuracion.setText(pelicula.runtime.toString())
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.setText(pelicula.genres[0].name)
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.setText(pelicula.title)
+        binding.layoutDetallesPeliculaCollapse.FilmDetailETDuracion.setText(pelicula.runtime.toString())
+        binding.layoutDetallesPeliculaCollapse.FilmDetailETGenero.setText(pelicula.genres[0].name)
+        binding.layoutDetallesPeliculaCollapse.FilmDetailETTitulo.setText(pelicula.title)
         binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.setText(pelicula.overview)
 
 
@@ -162,9 +162,9 @@ class FilmDetailActivity() : AppCompatActivity() {
 
     fun cambiarModoEdicionComponentes() {
         //Cambiando las labels
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvDuracion.setEnabled(estaEnEdicion)
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.setEnabled(estaEnEdicion)
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.setEnabled(estaEnEdicion)
+        binding.layoutDetallesPeliculaCollapse.FilmDetailETDuracion.setEnabled(estaEnEdicion)
+        binding.layoutDetallesPeliculaCollapse.FilmDetailETGenero.setEnabled(estaEnEdicion)
+        binding.layoutDetallesPeliculaCollapse.FilmDetailETTitulo.setEnabled(estaEnEdicion)
 
         if (estaEnEdicion) {
             //Ocultamos el ReadMore y creamos el edit text
@@ -251,16 +251,16 @@ class FilmDetailActivity() : AppCompatActivity() {
     fun cargarCambios() {
         //binding.layoutDetallesPeliculaCollapse.FilmDetailTvDirector.setText("director/Cambiar")
         pelicula.genres[0].name =
-            binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.getText().toString()
+            binding.layoutDetallesPeliculaCollapse.FilmDetailETGenero.getText().toString()
         pelicula.title =
-            binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.getText().toString()
+            binding.layoutDetallesPeliculaCollapse.FilmDetailETTitulo.getText().toString()
         pelicula.overview = editText.text.toString()
 
     }
 
     fun hayCambios():Boolean{
-        return binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.getText().toString() != pelicula.title ||
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.getText().toString() != pelicula.genres[0].name ||
+        return binding.layoutDetallesPeliculaCollapse.FilmDetailETTitulo.getText().toString() != pelicula.title ||
+        binding.layoutDetallesPeliculaCollapse.FilmDetailETGenero.getText().toString() != pelicula.genres[0].name ||
         editText.text.toString() != pelicula.overview
     }
 

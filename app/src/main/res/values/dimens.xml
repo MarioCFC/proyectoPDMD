@@ -27,6 +27,8 @@
     <dimen name="FilmDetailIvCaratulaWidth">137dp</dimen>
 	<dimen name="FilmDetailIvCaratulaHeight">192dp</dimen>
 	<dimen name="FilmDetailIvCaratulaMarginRight">15dp</dimen>
+	<dimen name="FilmDetailIvEditTextsMarginRight">20dp</dimen>
 	<dimen name="FilmDetailTvsMarginTop">10dp</dimen>
 	<dimen name="FilmDetailLayoutPadding">10dp</dimen>
+    <dimen name="collapsingToolDetailBarLayoutHeight">280dp</dimen>
 </resources>

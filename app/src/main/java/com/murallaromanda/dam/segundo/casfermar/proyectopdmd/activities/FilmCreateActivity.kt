@@ -125,9 +125,9 @@ class FilmCreateActivity() : AppCompatActivity() {
 
 
     fun cambiarModoEdicion() {
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvDuracion.setEnabled(true)
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.setEnabled(true)
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.setEnabled(true)
+        binding.layoutDetallesPeliculaCollapse.FilmDetailETDuracion.setEnabled(true)
+        binding.layoutDetallesPeliculaCollapse.FilmDetailETGenero.setEnabled(true)
+        binding.layoutDetallesPeliculaCollapse.FilmDetailETTitulo.setEnabled(true)
     }
 
     private fun addEditText() {
@@ -190,15 +190,15 @@ class FilmCreateActivity() : AppCompatActivity() {
     }
 
     fun almacenarDatosPelicula(): PeliculaJSON {
-        pelicula.title = binding.layoutDetallesPeliculaCollapse.FilmDetailTvTitulo.text.toString()
+        pelicula.title = binding.layoutDetallesPeliculaCollapse.FilmDetailETTitulo.text.toString()
 
         pelicula.genres = List<Genres>(1) { it -> Genres() }
         pelicula.genres[0].name =
-            binding.layoutDetallesPeliculaCollapse.FilmDetailTvGenero.text.toString()
+            binding.layoutDetallesPeliculaCollapse.FilmDetailETGenero.text.toString()
         //Sinopsis
         pelicula.overview = editText.text.toString()
 
-        pelicula.runtime = binding.layoutDetallesPeliculaCollapse.FilmDetailTvDuracion.text.toString().toInt()
+        pelicula.runtime = binding.layoutDetallesPeliculaCollapse.FilmDetailETDuracion.text.toString().toInt()
         return pelicula
     }
 
