@@ -41,7 +41,7 @@ class FilmDetailSearchActivity : AppCompatActivity() {
             Picasso.get().load(pelicula.posterPath).into(binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula)
 
         if (pelicula.backdropPath != null)
-            Picasso.get().load(pelicula.backdropPath).into(binding.collapsingToolbarImagenFondo)
+            Picasso.get().load(pelicula.backdropPath).into(binding.collapsingToolDetailBarImagenFondo)
 
 
     }

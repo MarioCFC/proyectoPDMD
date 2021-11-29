@@ -57,7 +57,7 @@ class FilmDetailActivity() : AppCompatActivity() {
         if (pelicula.backdropPath != null)
             Picasso.get()
                 .load(pelicula.backdropPath)
-                .into(binding.collapsingToolbarImagenFondo)
+                .into(binding.collapsingToolDetailBarImagenFondo)
 
 
 
@@ -85,7 +85,7 @@ class FilmDetailActivity() : AppCompatActivity() {
             }
         }
 
-        binding.collapsingToolbarImagenFondo.setOnClickListener(){
+        binding.collapsingToolDetailBarImagenFondo.setOnClickListener(){
             if (!estaEnEdicion){
                 val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(this)
             builder.setTitle("Url del fondo")
@@ -99,7 +99,7 @@ class FilmDetailActivity() : AppCompatActivity() {
                 DialogInterface.OnClickListener { dialog, which ->
                     {
                         pelicula.backdropPath = input.text.toString()
-                        Picasso.get().load(pelicula.backdropPath).into(binding.collapsingToolbarImagenFondo)
+                        Picasso.get().load(pelicula.backdropPath).into(binding.collapsingToolDetailBarImagenFondo)
                     }
                 })
             builder.setNegativeButton("Cancel",
@@ -172,8 +172,8 @@ class FilmDetailActivity() : AppCompatActivity() {
             addEditText()
 
             //Imagenes
-            binding.collapsingToolbarImagenFondo.setImageDrawable(getDrawable(R.drawable.ic_baseline_camera_alt_24))
-            binding.collapsingToolbarImagenFondo.setBackgroundColor(Color.GRAY)
+            binding.collapsingToolDetailBarImagenFondo.setImageDrawable(getDrawable(R.drawable.ic_baseline_camera_alt_24))
+            binding.collapsingToolDetailBarImagenFondo.setBackgroundColor(Color.GRAY)
             binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.setImageDrawable(getDrawable(R.drawable.ic_baseline_camera_alt_24))
             binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.setBackgroundColor(Color.GRAY)
 
@@ -194,7 +194,7 @@ class FilmDetailActivity() : AppCompatActivity() {
 
             Picasso.get()
                 .load(pelicula.backdropPath)
-                .into(binding.collapsingToolbarImagenFondo)
+                .into(binding.collapsingToolDetailBarImagenFondo)
         }
     }
 

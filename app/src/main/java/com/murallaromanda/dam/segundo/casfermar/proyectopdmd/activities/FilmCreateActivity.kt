@@ -60,8 +60,8 @@ class FilmCreateActivity() : AppCompatActivity() {
         binding.layoutDetallesPeliculaCollapse.constraintFilmDetailLayout.removeView(binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis)
 
 
-        binding.collapsingToolbarImagenFondo.setImageDrawable(getDrawable(R.drawable.ic_baseline_camera_alt_24))
-        binding.collapsingToolbarImagenFondo.setBackgroundColor(Color.GRAY)
+        binding.collapsingToolDetailBarImagenFondo.setImageDrawable(getDrawable(R.drawable.ic_baseline_camera_alt_24))
+        binding.collapsingToolDetailBarImagenFondo.setBackgroundColor(Color.GRAY)
         binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.setImageDrawable(getDrawable(R.drawable.ic_baseline_camera_alt_24))
         binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.setBackgroundColor(Color.GRAY)
 
@@ -99,7 +99,7 @@ class FilmCreateActivity() : AppCompatActivity() {
 
 
 
-        binding.collapsingToolbarImagenFondo.setOnClickListener(){
+        binding.collapsingToolDetailBarImagenFondo.setOnClickListener(){
                 val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(this)
                 builder.setTitle("Url del fondo")
                 builder.setMessage("Introduce la URL de la imagen")
@@ -113,7 +113,7 @@ class FilmCreateActivity() : AppCompatActivity() {
                         {
                             //Guardamos la url de imagen y cargarla
                             pelicula.backdropPath = input.text.toString()
-                            Picasso.get().load(pelicula.backdropPath).into(binding.collapsingToolbarImagenFondo)
+                            Picasso.get().load(pelicula.backdropPath).into(binding.collapsingToolDetailBarImagenFondo)
                         }
                     })
                 builder.setNegativeButton("Cancel",
