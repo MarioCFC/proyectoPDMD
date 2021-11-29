@@ -1,6 +1,5 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities
 
-import android.content.Context
 import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -20,14 +19,9 @@ import androidx.appcompat.app.AlertDialog
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorLista
 import android.content.Intent
 import android.graphics.Color
-import android.os.Handler
-import android.os.Looper
-import android.os.Message
+import android.net.Uri
 import android.text.InputType
-import java.lang.RuntimeException
 
-//MIRAR
-//https://qastack.mx/programming/2201917/how-can-i-open-a-url-in-androids-web-browser-from-my-application
 class FilmDetailActivity() : AppCompatActivity() {
     private lateinit var binding: ActivityCollapsingToolDetailFilmBinding
     private var gestorLista = GestorLista(this)
@@ -120,12 +114,18 @@ class FilmDetailActivity() : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_add_search_film, menu)
         menuItem = menu!!
+        //Boton borrar
         menuItem.add(300, 1, 1, "Borrar").setIcon(getDrawable(R.drawable.ic_baseline_delete))
         menuItem.getItem(0).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
 
-
-        menuItem.add(301, 2, 2, "Editar").setIcon(getDrawable(R.drawable.ic_baseline_edit))
+        menuItem.add(300,2,2,"Abrir en el navegador").setIcon(getDrawable(R.drawable.ic_baseline_browser))
         menuItem.getItem(1).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
+
+        //Boton editar
+        menuItem.add(301, 3, 3, "Editar").setIcon(getDrawable(R.drawable.ic_baseline_edit))
+        menuItem.getItem(2).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
+
+
         return true
     }
 
@@ -134,15 +134,14 @@ class FilmDetailActivity() : AppCompatActivity() {
         var id: Int = item.itemId
         //Dandole a eliminar muestra un aviso, este metodo nos permite pasarle otro metodo para que ejecute en caso afirmativo
         when (id) {
-            menuItem.getItem(0).itemId ->
-                mostrarAviso(
-                "Alerta",
-                "Deseas elimanar la pelicula?",
-                gestorLista.borrarPelicula(pelicula)
-            )
-
+            menuItem.getItem(0).itemId ->avisoBorrarPelicula()
 
             menuItem.getItem(1).itemId -> {
+                val myIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?q=" + pelicula.title))
+                startActivity(myIntent)
+            }
+
+            menuItem.getItem(2).itemId -> {
                 if (!estaEnEdicion && hayCambios()) {
                     cargarCambios()
                     gestorLista.guardarPelicula()
@@ -201,11 +200,11 @@ class FilmDetailActivity() : AppCompatActivity() {
 
     fun cambiarModoEdicionMenu() {
         if (estaEnEdicion) {
-            menuItem.getItem(1).setIcon(getDrawable(R.drawable.ic_baseline_check))
-            menuItem.getItem(0).setVisible(false)
+            menuItem.setGroupVisible(300,false)
+            menuItem.getItem(2).setIcon(getDrawable(R.drawable.ic_baseline_check))
         } else {
-            menuItem.getItem(0).setVisible(true)
-            menuItem.getItem(1).setIcon(getDrawable(R.drawable.ic_baseline_edit))
+            menuItem.setGroupVisible(300,true)
+            menuItem.getItem(2).setIcon(getDrawable(R.drawable.ic_baseline_edit))
         }
     }
 
@@ -267,16 +266,16 @@ class FilmDetailActivity() : AppCompatActivity() {
 
 
     //Generarcion de aviso
-    fun mostrarAviso(titulo: String, mensaje: String, bar: Unit) {
+    fun avisoBorrarPelicula() {
         val dialogBuilder = AlertDialog.Builder(this)
-
+        dialogBuilder.setTitle("Alerta")
         // set message of alert dialog
-        dialogBuilder.setMessage(mensaje)
+        dialogBuilder.setMessage("Deseas elimanar la pelicula?")
             // if the dialog is cancelable
             .setCancelable(false)
             // positive button text and action
             .setPositiveButton("Aceptar", DialogInterface.OnClickListener { dialog, id ->
-                bar
+                gestorLista.borrarPelicula(pelicula)
                 finish()
             })
             // negative button text and action

@@ -36,7 +36,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/loginTilEmail"
-        android:layout_width="200dp"
+        android:layout_width="@dimen/loginTilsWidth"
         android:layout_height="wrap_content"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,12 +47,12 @@
             android:id="@+id/loginTieEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email" />
+            android:hint="@string/loginTieHintEmail" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/loginTilPassword"
-        android:layout_width="200dp"
+        android:layout_width="@dimen/loginTilsWidth"
         android:layout_height="wrap_content"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,13 +65,13 @@
             android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Contraseña" />
+            android:hint="@string/loginTieHintPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/loginBtLogin"
-        android:layout_width="275dp"
-        android:layout_height="55dp"
+        android:layout_width="@dimen/loginBtLoginWidth"
+        android:layout_height="@dimen/loginBtLoginHeigth"
         android:text="@string/login_btLogin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -83,8 +83,8 @@
         android:id="@+id/loginTvHasCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:text="No tienes una cuenta?"
+        android:layout_marginTop="@dimen/loginTvHasCountMarginTop"
+        android:text="@string/loginTvHasCount"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
         app:layout_constraintHorizontal_bias="1.0"
@@ -98,7 +98,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginBottom="8dp"
-        android:text="Creala"
+        android:text="@string/loginTvTextCreateAccount"
         android:textColor="@color/Enlace"
         app:layout_constraintBottom_toBottomOf="@+id/loginTvHasCount"
         app:layout_constraintEnd_toEndOf="parent"
@@ -108,10 +108,10 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/loginTvLogo"
+        android:id="@+id/registerTvLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Logo"
+        android:text="@string/loginTvLogo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -123,9 +123,9 @@
         android:id="@+id/loginTvEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp"
-        android:text="Email"
+        android:layout_marginStart="@dimen/loginTvEmailMarginStart"
+        android:layout_marginTop="@dimen/loginTVsMarginTop"
+        android:text="@string/loginTvEmail"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.0"
@@ -137,8 +137,8 @@
         android:id="@+id/loginTvPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Password"
+        android:layout_marginTop="@dimen/loginTVsMarginTop"
+        android:text="@string/loginTvPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.0"

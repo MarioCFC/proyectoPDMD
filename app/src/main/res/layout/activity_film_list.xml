@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="right"
-    android:background="#003049"
+    android:background="@color/displayBackground"
     android:fillViewport="true"
     android:orientation="vertical"
     tools:context=".activities.FilmListActivity">
@@ -17,10 +17,10 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_lista_peliculas"
+            android:id="@+id/rvFilmList"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/rvFilmListMarginTop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -33,12 +33,12 @@
             android:id="@+id/fabMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/fabMenuMargin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"
-            app:menu_fab_label=""
+            app:menu_fab_label="@string/FilmListFabMenuLabel"
             app:menu_labels_showShadow="true"
             app:menu_openDirection="up">
 
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:src="@android:drawable/ic_menu_search"
                 app:fabSize="mini"
-                app:fab_label="Añadir pelicula" />
+                app:fab_label="@string/FilmListFabOneLabel" />
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/fabUno"
@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:src="@android:drawable/ic_menu_slideshow"
                 app:fabSize="mini"
-                app:fab_label="Crear pelicula" />
+                app:fab_label="@string/FilmListFabTwoLabel" />
 
         </com.github.clans.fab.FloatingActionMenu>
     </androidx.constraintlayout.widget.ConstraintLayout>

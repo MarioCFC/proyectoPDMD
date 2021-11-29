@@ -27,7 +27,7 @@ class FilmSearchActivity: AppCompatActivity() {
 
         val layoutManager = GridLayoutManager(this,2)
 
-        binding.layoutDetallesPeliculaCollapse.rvListaPeliculas.layoutManager = layoutManager
+        binding.layoutDetallesPeliculaCollapse.rvFilmList.layoutManager = layoutManager
 
         var searchView = binding.searchView
         searchView.setIconified(false);
@@ -56,8 +56,8 @@ class FilmSearchActivity: AppCompatActivity() {
         var resultados = BuscadorPeliculas().datosDePeliculasBuscadas(cadenaBuscada)
         val adapter = ListaPeliculasAdapter(resultados,this)
 
-        binding.layoutDetallesPeliculaCollapse.rvListaPeliculas.layoutManager = layoutManager
-        binding.layoutDetallesPeliculaCollapse.rvListaPeliculas.adapter = adapter
+        binding.layoutDetallesPeliculaCollapse.rvFilmList.layoutManager = layoutManager
+        binding.layoutDetallesPeliculaCollapse.rvFilmList.adapter = adapter
     }
 
 

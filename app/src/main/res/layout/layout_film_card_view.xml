@@ -10,10 +10,12 @@
         android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="5dp"
-        android:layout_marginBottom="10dp"
-        app:cardBackgroundColor="#f77f00"
-        app:cardCornerRadius="15dp"
+        android:layout_marginHorizontal="@dimen/cardItemMarginHorizontal"
+        android:layout_marginBottom="@dimen/cardItemMarginBottom"
+        app:cardBackgroundColor="@color/cardItemBackgroundColor"
+        app:cardCornerRadius="@dimen/cardItemCornerRadius"
+
+
         app:cardElevation="7dp"
         >
 
@@ -28,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:contentDescription="Caratula" />
+                android:contentDescription="@string/cardIvCaratula" />
 
             <TextView
                 android:id="@+id/CardTvTitulo"
@@ -38,8 +40,7 @@
                 android:layout_gravity="center"
                 android:fontFamily="sans-serif-black"
                 android:maxLines="2"
-                android:text="TextView"
-                android:textSize="16sp" />
+                android:textSize="@dimen/CardItemTvTextSize" />
 
             <TextView
                 android:id="@+id/CardTvGenero"
@@ -47,10 +48,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="@dimen/CardItemTcGenreMarginBottom"
                 android:maxLines="2"
-                android:text="TextView"
-                android:textSize="16sp" />
+                android:textSize="@dimen/CardItemTvTextSize" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

@@ -3,4 +3,25 @@
 	<dimen name="padding_pantalla_default_vertical">16dp</dimen>
 	<dimen name="ancho_item_pelicula">180dp</dimen>
 	<dimen name="margen_horizontal_item_pelicula">5dp</dimen>
+	<dimen name="loginTilsWidth">200dp</dimen>
+	<dimen name="loginBtLoginWidth">275dp</dimen>
+	<dimen name="loginBtLoginHeigth">55dp</dimen>
+	<dimen name="loginTvHasCountMarginTop">60dp</dimen>
+	<dimen name="loginTvEmailMarginStart">40dp</dimen>
+	<dimen name="loginTVsMarginTop">20dp</dimen>
+	<dimen name="registerBtRegisterWidth">275dp</dimen>
+	<dimen name="registerBtRegisterHeight">55dp</dimen>
+	<dimen name="registerTilsWidth">200dp</dimen>
+    <dimen name="registerOneLineTvsMarginTop">20dp</dimen>
+	<dimen name="registerTwoLinesTvsMarginTop">10dp</dimen>
+	<dimen name="registerTwoLinesTvsWidth">73dp</dimen>
+	<dimen name="registerTwoLinesTvsHeight">42dp</dimen>
+	<dimen name="rvFilmListMarginTop">10dp</dimen>
+	<dimen name="fabMenuMargin">16dp</dimen>
+    <dimen name="registerTvNickMarginStart">40dp</dimen>
+	<dimen name="cardItemMarginHorizontal">5dp</dimen>
+    <dimen name="cardItemMarginBottom">10dp</dimen>
+	<dimen name="cardItemCornerRadius">15dp</dimen>
+	<dimen name="CardItemTcGenreMarginBottom">5dp</dimen>
+	<dimen name="CardItemTvTextSize">16sp</dimen>
 </resources>

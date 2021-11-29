@@ -21,7 +21,7 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btRegister.setOnClickListener(){
+        binding.registerBtRegister.setOnClickListener(){
             var interruptorError:Boolean = false
             var email:String = binding.registerTieEmail.text.toString()
             var password:String = binding.registerTiePassword.text.toString()

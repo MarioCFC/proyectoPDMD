@@ -50,8 +50,8 @@ class FilmListActivity : AppCompatActivity() {
         fun colocarRecycler(listaPelisculas:ArrayList<PeliculaJSON>){
             var layoutManager = GridLayoutManager(this,2)
             val adapter = ListaPeliculasAdapter(listaPelisculas,this)
-            binding.rvListaPeliculas.layoutManager = layoutManager
-            binding.rvListaPeliculas.adapter = adapter
+            binding.rvFilmList.layoutManager = layoutManager
+            binding.rvFilmList.adapter = adapter
         }
 
 /*
