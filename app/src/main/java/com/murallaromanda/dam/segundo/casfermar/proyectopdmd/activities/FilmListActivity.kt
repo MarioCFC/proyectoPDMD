@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.adapters.ListaPeliculasAdapter
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.ActivityFilmListBinding
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Pelicula
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorLista
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorJSON
@@ -25,8 +24,6 @@ class FilmListActivity : AppCompatActivity() {
         binding = ActivityFilmListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var busqueda = GestorJSON()
-        //busqueda.guardarFicheroPeliculas(this)
         var gestor = GestorLista(this)
         resultados = gestor.getPeliculas()
 
@@ -35,7 +32,6 @@ class FilmListActivity : AppCompatActivity() {
             colocarRecycler(resultados)
 
         binding.fabUno.setOnClickListener(){
-            var respuesta:Int = 0
             val  intent = Intent(this,FilmCreateActivity::class.java)
             intent.putExtra("pelicula", PeliculaJSON())
             startActivity(intent);
@@ -53,40 +49,6 @@ class FilmListActivity : AppCompatActivity() {
             binding.rvFilmList.layoutManager = layoutManager
             binding.rvFilmList.adapter = adapter
         }
-
-/*
-
-        var sv = findViewById<Item>(R.id.app_bar_search)
-        sv
-        //Error no esta bien el eventp
-        sv.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-
-            override fun onQueryTextChange(newText: String): Boolean {
-                return false
-            }
-
-            override fun onQueryTextSubmit(query: String): Boolean {
-                colocarRecycler(query,this@FilmListActivity,binding)
-                return false
-            }
-
-        })
-        */
-
-
-
-
-/*
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_add_search_film, menu)
-        return true
-    }
-
-
-
-
-    */
 
     override fun onResume() {
         super.onResume()

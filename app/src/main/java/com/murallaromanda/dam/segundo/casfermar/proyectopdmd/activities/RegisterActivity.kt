@@ -4,7 +4,6 @@ import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
-import android.widget.DatePicker
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities.LoginActivity.Companion.gestSharedPreferences
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.ActivityRegisterBinding
@@ -17,7 +16,7 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-
+        supportActionBar?.setTitle("")
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -30,7 +29,7 @@ class RegisterActivity : AppCompatActivity() {
 
             /*Validacion de datos, habria que crear varios métodos o incluso una clase*/
             if (binding.registerTieNick.text.toString().length == 0){
-                binding.registerTilNick.setError("Usuario no valido")
+                binding.registerTilNick.setError(getString(R.string.registerActivityIncorrectUser))
                 interruptorError = true
             }else{
                 binding.registerTilNick.setError("")
@@ -39,17 +38,17 @@ class RegisterActivity : AppCompatActivity() {
 
             //Muestra de errores de validacion
             if (!validarEmail(email)){
-                binding.registerTilEmail.setError("Email no valido")
+                binding.registerTilEmail.error = getString(R.string.recisterActivityInvalidEmail)
                 interruptorError = true
             }else{
                 binding.registerTilEmail.setError("")
             }
 
             if (password.length == 0 && confirmPassword.length == 0){
-                binding.registerTilPassword.setError("Contraseña no valida")
+                binding.registerTilPassword.setError(getString(R.string.registerActivityInvalidPassword))
                 interruptorError = true
             } else if (!esMismaContraseña(password, confirmPassword)){
-                binding.registerTilPassword.setError("Las contraseñas no coinciden")
+                binding.registerTilPassword.setError(getString(R.string.registerActivityConfirmPasswordError))
                 interruptorError = true
             }else{
                 binding.registerTilPassword.setError("")

@@ -21,7 +21,7 @@ class FilmDetailSearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_film_detail)
-
+        supportActionBar?.setTitle("")
         binding = ActivityCollapsingToolDetailFilmBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -49,7 +49,7 @@ class FilmDetailSearchActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_add_search_film, menu)
         menuItem = menu!!
-        menuItem.add(300,1,1,"adios").setIcon(getDrawable(R.drawable.fab_add))
+        menuItem.add(300,1,1,getString(R.string.FilmDetailSerachActivityItemMenuAddTitle)).setIcon(getDrawable(R.drawable.fab_add))
         menuItem.getItem(0).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
 
         return true

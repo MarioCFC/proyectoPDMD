@@ -21,7 +21,6 @@ companion object{
     }
 
 
-    //Hay peliculas con null
     fun parsearPelicula(inp:String):PeliculaJSON{
         return gson.fromJson(inp, PeliculaJSON::class.java)
     }

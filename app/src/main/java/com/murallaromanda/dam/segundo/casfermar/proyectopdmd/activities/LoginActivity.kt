@@ -38,14 +38,14 @@ class LoginActivity : AppCompatActivity() {
             var interruptorError:Boolean = false
 
             if (!email.equals(binding.loginTieEmail.text.toString())){
-                binding.loginTilEmail.setError("Email no valido")
+                binding.loginTilEmail.setError(getString(R.string.loginActivityEmailValidationError))
                 interruptorError = true
             }else{
                 binding.loginTilEmail.setError("")
             }
 
             if (!password.equals(binding.loginTiePassword.text.toString())){
-                binding.loginTilPassword.setError("Contraseña no valida")
+                binding.loginTilPassword.setError(getString(R.string.loginActivityPasswordValidationError))
                 interruptorError = true
             }else{
                 binding.loginTilPassword.setError("")
@@ -55,14 +55,8 @@ class LoginActivity : AppCompatActivity() {
                 /*En el caso de que el login se produzca*/
                 val intent = Intent(this,FilmListActivity::class.java)
                 startActivity(intent)
-                Log.d("MainActivity","Logeo realizado")
             }
         }
-
-    }
-    fun usuarioEstaRegistrado(usuario:String,contraseña:String){
-        val sharedPref = this.getSharedPreferences(
-            getString(R.string.preference_file_key), Context.MODE_PRIVATE)
 
     }
 

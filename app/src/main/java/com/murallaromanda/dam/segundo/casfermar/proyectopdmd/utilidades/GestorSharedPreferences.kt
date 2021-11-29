@@ -1,11 +1,9 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades
 
 import android.content.Context
-import android.content.SharedPreferences
 
 class GestorSharedPreferences(val context: Context){
     val nombreArchivo = "baseDatos"
-    /*Mirar el segundo parametro*/
     val preferencias = context.getSharedPreferences(nombreArchivo,0)
 
     fun setPreferencias(email:String, contraseña:String){

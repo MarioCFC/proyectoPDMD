@@ -8,12 +8,9 @@ import android.widget.LinearLayout
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.ActivityCollapsingToolDetailFilmBinding
 import com.squareup.picasso.Picasso
-
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
 import android.util.TypedValue
-
 import androidx.constraintlayout.widget.ConstraintSet
-
 import android.view.*
 import androidx.appcompat.app.AlertDialog
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorLista
@@ -35,7 +32,7 @@ class FilmDetailActivity() : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCollapsingToolDetailFilmBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        supportActionBar?.setTitle("")
         //Obtenemos los datos. Hago referencia a la lista para poder modificar los datos con facilidad y poder guardar los cambios sin demasiada complicacion
         posicionEnLista = intent.extras?.get("posicionEnLista") as Int
         pelicula = gestorLista.getPeliculas().get(posicionEnLista)
@@ -64,21 +61,21 @@ class FilmDetailActivity() : AppCompatActivity() {
         binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.setOnClickListener() {
             if (!estaEnEdicion){
                 val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(this)
-            builder.setTitle("Url de la caraturla")
-            builder.setMessage("Introduce la URL de la imagen")
+            builder.setTitle(getString(R.string.filmDetailActivityPosterAlertDialogTitle))
+            builder.setMessage(getString(R.string.filmDetailActvityPictureAlertDialogMessage))
 
             val input = EditText(this)
             input.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_CLASS_TEXT
             builder.setView(input)
 
-            builder.setPositiveButton("OK",
+            builder.setPositiveButton(getString(R.string.AlertDialogPositiveButton),
                 DialogInterface.OnClickListener { dialog, which ->
                     pelicula.posterPath = input.text.toString()
                     Picasso.get()
                         .load(pelicula.posterPath)
                         .into(binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula)
                 })
-            builder.setNegativeButton("Cancel",
+            builder.setNegativeButton(getString(R.string.AlertDialogNegativeButton),
                 DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
 
             builder.show()
@@ -88,21 +85,21 @@ class FilmDetailActivity() : AppCompatActivity() {
         binding.collapsingToolDetailBarImagenFondo.setOnClickListener(){
             if (!estaEnEdicion){
                 val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(this)
-            builder.setTitle("Url del fondo")
-            builder.setMessage("Introduce la URL de la imagen")
+            builder.setTitle(getString(R.string.filmDetailActivityBackgroundAlertDialogTitle))
+            builder.setMessage(getString(R.string.filmDetailActvityPictureAlertDialogMessage))
 
             val input = EditText(this)
             input.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_CLASS_TEXT
             builder.setView(input)
 
-            builder.setPositiveButton("OK",
+            builder.setPositiveButton(getString(R.string.AlertDialogPositiveButton),
                 DialogInterface.OnClickListener { dialog, which ->
                     {
                         pelicula.backdropPath = input.text.toString()
                         Picasso.get().load(pelicula.backdropPath).into(binding.collapsingToolDetailBarImagenFondo)
                     }
                 })
-            builder.setNegativeButton("Cancel",
+            builder.setNegativeButton(getString(R.string.AlertDialogNegativeButton),
                 DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
 
             builder.show()
@@ -115,14 +112,14 @@ class FilmDetailActivity() : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_add_search_film, menu)
         menuItem = menu!!
         //Boton borrar
-        menuItem.add(300, 1, 1, "Borrar").setIcon(getDrawable(R.drawable.ic_baseline_delete))
+        menuItem.add(300, 1, 1, getString(R.string.FilmDetailActivityMenuItemDeleteTitle)).setIcon(getDrawable(R.drawable.ic_baseline_delete))
         menuItem.getItem(0).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
 
-        menuItem.add(300,2,2,"Abrir en el navegador").setIcon(getDrawable(R.drawable.ic_baseline_browser))
+        menuItem.add(300,2,2,getString(R.string.FilmDetailActivityMenuItemBrowserTitle)).setIcon(getDrawable(R.drawable.ic_baseline_browser))
         menuItem.getItem(1).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
 
         //Boton editar
-        menuItem.add(301, 3, 3, "Editar").setIcon(getDrawable(R.drawable.ic_baseline_edit))
+        menuItem.add(301, 3, 3, getString(R.string.FilmDetailActivityMenuItemEditTitle)).setIcon(getDrawable(R.drawable.ic_baseline_edit))
         menuItem.getItem(2).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
 
 
@@ -137,7 +134,7 @@ class FilmDetailActivity() : AppCompatActivity() {
             menuItem.getItem(0).itemId ->avisoBorrarPelicula()
 
             menuItem.getItem(1).itemId -> {
-                val myIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?q=" + pelicula.title))
+                val myIntent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.GoogleQueryString) + pelicula.title))
                 startActivity(myIntent)
             }
 
@@ -265,29 +262,21 @@ class FilmDetailActivity() : AppCompatActivity() {
     }
 
 
-    //Generarcion de aviso
     fun avisoBorrarPelicula() {
         val dialogBuilder = AlertDialog.Builder(this)
-        dialogBuilder.setTitle("Alerta")
-        // set message of alert dialog
-        dialogBuilder.setMessage("Deseas elimanar la pelicula?")
-            // if the dialog is cancelable
+        dialogBuilder.setTitle(getString(R.string.AlertDialogDeleteTitle))
+        dialogBuilder.setMessage(getString(R.string.FilmDetailActivityDeleteMessage))
             .setCancelable(false)
-            // positive button text and action
-            .setPositiveButton("Aceptar", DialogInterface.OnClickListener { dialog, id ->
+            .setPositiveButton(getString(R.string.AlertDialogPositiveButton), DialogInterface.OnClickListener { dialog, id ->
                 gestorLista.borrarPelicula(pelicula)
                 finish()
             })
-            // negative button text and action
-            .setNegativeButton("Cancelar", DialogInterface.OnClickListener { dialog, id ->
+            .setNegativeButton(getString(R.string.AlertDialogNegativeButton), DialogInterface.OnClickListener { dialog, id ->
                 dialog.cancel()
             })
 
-        // create dialog box
         val alert = dialogBuilder.create()
-        // set title for alert dialog box
-        alert.setTitle("AlertDialogExample")
-        // show alert dialog
+        alert.setTitle(getString(R.string.AlertDialogDeleteTitle))
         alert.show()
     }
 

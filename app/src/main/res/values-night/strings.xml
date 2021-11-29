@@ -24,4 +24,23 @@
     <string name="FilmDetailETTitulo">Sin titulo</string>
     <string name="FilmDetailETDuracion">0</string>
     <string name="collapsingToolbarTitulo">Fondo pelicula</string>
+    <string name="loginActivityEmailValidationError">Email no valido</string>
+    <string name="loginActivityPasswordValidationError">Contraseña no valida</string>
+    <string name="registerActivityIncorrectUser">Usuario no valido</string>
+    <string name="recisterActivityInvalidEmail">Email no valido</string>
+    <string name="registerActivityInvalidPassword">Contraseña no valida</string>
+    <string name="registerActivityConfirmPasswordError">Las contraseñas no coinciden</string>
+    <string name="FilmDetailSerachActivityItemMenuAddTitle">Añadir</string>
+    <string name="filmDetailActivityPosterAlertDialogTitle">Url de la caraturla</string>
+    <string name="filmDetailActvityPictureAlertDialogMessage">Introduce la URL de la imagen</string>
+    <string name="AlertDialogPositiveButton">Aceptar</string>
+    <string name="AlertDialogNegativeButton">Cancelar</string>
+    <string name="filmDetailActivityBackgroundAlertDialogTitle">Url del fondo</string>
+    <string name="FilmDetailActivityMenuItemDeleteTitle">Borrar</string>
+    <string name="FilmDetailActivityMenuItemBrowserTitle">Abrir en el navegador</string>
+    <string name="FilmDetailActivityMenuItemEditTitle">Editar</string>
+    <string name="GoogleQueryString">https://www.google.com/search?q=</string>
+    <string name="FilmDetailActivityDeleteMessage">Deseas elimanar la pelicula?</string>
+    <string name="AlertDialogDeleteTitle">Alerta</string>
+    <string name="FilmCreateActivityMenuItemCreate">Crear</string>
 </resources>

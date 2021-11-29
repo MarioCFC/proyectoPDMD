@@ -1,60 +1,35 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities
-
-import android.R.attr
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.LinearLayout
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.ActivityCollapsingToolDetailFilmBinding
 import com.squareup.picasso.Picasso
-
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
-import android.R.attr.button
-import android.app.AlertDialog
-import android.os.Build
 import android.util.TypedValue
 import android.view.View
-import androidx.annotation.RequiresApi
-import androidx.constraintlayout.widget.ConstraintLayout
-
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.core.widget.NestedScrollView
-import androidx.core.app.ActivityCompat.startActivityForResult
-
-import android.content.Intent
-import android.database.Cursor
-import android.provider.MediaStore
-import androidx.core.app.ActivityCompat.startActivityForResult
-import androidx.core.app.ActivityCompat.startActivityForResult
-import android.graphics.BitmapFactory
-import android.net.Uri
 import android.view.MenuItem
-import android.widget.ImageView
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Genres
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorLista
 import android.content.DialogInterface
-
 import android.text.InputType
 
 
-//NO ESTAS GUARDANDO LA PELICULA
 class FilmCreateActivity() : AppCompatActivity() {
     lateinit var binding: ActivityCollapsingToolDetailFilmBinding
     private var url:String = ""
     private lateinit var editText: EditText
     private lateinit var menuItem: Menu
     private var pelicula = PeliculaJSON()
-    private var m_Text = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_film_detail)
+        supportActionBar?.setTitle("")
         binding = ActivityCollapsingToolDetailFilmBinding.inflate(layoutInflater)
         //Eliminando el boton flotante y el edit readmore de sinopsis
         binding.layoutDetallesPeliculaCollapse.constraintFilmDetailLayout.removeView(binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis)
@@ -79,7 +54,7 @@ class FilmCreateActivity() : AppCompatActivity() {
                 input.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_CLASS_TEXT
                 builder.setView(input)
 
-                builder.setPositiveButton("OK",
+                builder.setPositiveButton(getString(R.string.AlertDialogPositiveButton),
                     DialogInterface.OnClickListener { dialog, which ->
                         {
                             //Guardar url de imagen y cargarla
@@ -89,7 +64,7 @@ class FilmCreateActivity() : AppCompatActivity() {
                                 .into(binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula)
                         }
                     })
-                builder.setNegativeButton("Cancel",
+                builder.setNegativeButton(getString(R.string.AlertDialogNegativeButton),
                     DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
 
                 builder.show()
@@ -101,14 +76,14 @@ class FilmCreateActivity() : AppCompatActivity() {
 
         binding.collapsingToolDetailBarImagenFondo.setOnClickListener(){
                 val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(this)
-                builder.setTitle("Url del fondo")
-                builder.setMessage("Introduce la URL de la imagen")
+                builder.setTitle(getString(R.string.filmDetailActivityBackgroundAlertDialogTitle))
+                builder.setMessage(getString(R.string.filmDetailActvityPictureAlertDialogMessage))
 
                 val input = EditText(this)
                 input.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_CLASS_TEXT
                 builder.setView(input)
 
-                builder.setPositiveButton("OK",
+                builder.setPositiveButton(getString(R.string.AlertDialogPositiveButton),
                     DialogInterface.OnClickListener { dialog, which ->
                         {
                             //Guardamos la url de imagen y cargarla
@@ -116,7 +91,7 @@ class FilmCreateActivity() : AppCompatActivity() {
                             Picasso.get().load(pelicula.backdropPath).into(binding.collapsingToolDetailBarImagenFondo)
                         }
                     })
-                builder.setNegativeButton("Cancel",
+                builder.setNegativeButton(getString(R.string.AlertDialogNegativeButton),
                     DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
 
                 builder.show()
@@ -132,7 +107,7 @@ class FilmCreateActivity() : AppCompatActivity() {
 
     private fun addEditText() {
         editText = EditText(this)
-        editText.setText("Sinopsis")
+        editText.setText(getString(R.string.FilmDetailTvTitulo))
 
         editText.setBackgroundResource(android.R.color.transparent);
         editText.layoutParams = LinearLayout.LayoutParams(
@@ -171,7 +146,7 @@ class FilmCreateActivity() : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_add_search_film, menu)
         menuItem = menu!!
-        menuItem.add(300, 1, 1, "Crear").setIcon(getDrawable(R.drawable.ic_baseline_check))
+        menuItem.add(300, 1, 1, getString(R.string.FilmCreateActivityMenuItemCreate)).setIcon(getDrawable(R.drawable.ic_baseline_check))
         menuItem.getItem(0).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
         return true
     }

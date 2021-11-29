@@ -10,6 +10,5 @@
     <color name="Enlace">#0C7DCE</color>
     <color name="enabled_color">#b6a39f</color>
     <color name="disabled_color">#000000</color>
-    <color name="displayBackground">#003049</color>
     <color name="cardItemBackgroundColor">#f77f00</color>
 </resources>

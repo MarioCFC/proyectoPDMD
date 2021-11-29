@@ -15,11 +15,9 @@ import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities.FilmDeta
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
 import com.squareup.picasso.Picasso
 
-//Creo que le pasamos el mismo objeto para la activity y para el Context, revisar si se da pasado una sola vez
 class ListaPeliculasAdapter(val peliculas: ArrayList<PeliculaJSON>, val miActivty: Activity) :
     RecyclerView.Adapter<ListaPeliculasAdapter.PeliculaViewHolder>() {
     class PeliculaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        //Mejor cambiarlo por el binding
         val layout_item = itemView.findViewById<LinearLayout>(R.id.card_item)
         val tvTitulo = itemView.findViewById<TextView>(R.id.CardTvTitulo)
         val tvGenero = itemView.findViewById<TextView>(R.id.CardTvGenero)
@@ -48,7 +46,6 @@ class ListaPeliculasAdapter(val peliculas: ArrayList<PeliculaJSON>, val miActivt
 
         holder.layout_item.setOnClickListener() {
             var intent: Intent
-            //Detectar de que lista viene
             if (miActivty.localClassName.equals("activities.FilmListActivity")) {
                 intent = Intent(miActivty, FilmDetailActivity::class.java)
                 intent.putExtra("posicionEnLista", position)

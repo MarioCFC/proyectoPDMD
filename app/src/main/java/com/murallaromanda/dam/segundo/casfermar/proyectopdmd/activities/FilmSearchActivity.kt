@@ -51,7 +51,7 @@ class FilmSearchActivity: AppCompatActivity() {
 
     fun colocarRecycler(cadenaBuscada :String){
         val layoutManager = GridLayoutManager(this,2)
-        //EN vez de buscar los datos de la pelicula clicada, son cargados los datos de todas las peliculas
+        //En vez de buscar los datos de la pelicula clicada, son cargados los datos de todas las peliculas
         //ya que la peticion a TMDB es lenta
         var resultados = BuscadorPeliculas().datosDePeliculasBuscadas(cadenaBuscada)
         val adapter = ListaPeliculasAdapter(resultados,this)
