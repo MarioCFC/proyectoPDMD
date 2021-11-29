@@ -24,4 +24,9 @@
 	<dimen name="cardItemCornerRadius">15dp</dimen>
 	<dimen name="CardItemTcGenreMarginBottom">5dp</dimen>
 	<dimen name="CardItemTvTextSize">16sp</dimen>
+    <dimen name="FilmDetailIvCaratulaWidth">137dp</dimen>
+	<dimen name="FilmDetailIvCaratulaHeight">192dp</dimen>
+	<dimen name="FilmDetailIvCaratulaMarginRight">15dp</dimen>
+	<dimen name="FilmDetailTvsMarginTop">10dp</dimen>
+	<dimen name="FilmDetailLayoutPadding">10dp</dimen>
 </resources>

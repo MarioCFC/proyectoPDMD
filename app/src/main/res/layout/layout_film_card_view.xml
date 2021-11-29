@@ -14,9 +14,6 @@
         android:layout_marginBottom="@dimen/cardItemMarginBottom"
         app:cardBackgroundColor="@color/cardItemBackgroundColor"
         app:cardCornerRadius="@dimen/cardItemCornerRadius"
-
-
-        app:cardElevation="7dp"
         >
 
         <LinearLayout

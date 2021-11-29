@@ -24,4 +24,8 @@
     <string name="FilmListFabOneLabel">Añadir pelicula</string>
     <string name="FilmListFabTwoLabel">Crear película</string>
     <string name="cardIvCaratula">Caratula</string>
+    <string name="FilmDetailTvDuaracion">Duracion</string>
+    <string name="FilmDetailTvTitulo">Titulo:</string>
+    <string name="FilmDetailTvGenero">Genero:</string>
+    <string name="FilmDetailTvDuracion">Duracion</string>
 </resources>
