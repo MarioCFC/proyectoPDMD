@@ -56,7 +56,7 @@ class LoginFragment :Fragment(){
             if(!interruptorError){
                 /*En el caso de que el login se produzca*/
                 val ft = activity?.supportFragmentManager?.beginTransaction()
-                ft?.replace(R.id.contenedor_fragments,RegisterFragment())
+                ft?.replace(R.id.contenedor_fragments,FilmListFragment())
                 ft?.addToBackStack(null)
                 ft?.commit()
             }
