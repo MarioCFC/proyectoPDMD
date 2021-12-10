@@ -1,25 +1,27 @@
-package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities
+package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.fragments
 
 import android.app.DatePickerDialog
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities.LoginActivity.Companion.gestSharedPreferences
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.ActivityRegisterBinding
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.fragments.DatePickerFragment
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.FragmentRegisterBinding
 import java.util.regex.Pattern
 
-class RegisterActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityRegisterBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register)
-        supportActionBar?.setTitle("")
-        binding = ActivityRegisterBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
+//Arreglar onBackPressed, ln 60
+class RegisterFragment : Fragment() {
+    lateinit var binding : FragmentRegisterBinding
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentRegisterBinding.inflate(inflater,container,false)
+        //supportActionBar?.setTitle("")
         binding.registerBtRegister.setOnClickListener(){
             var interruptorError:Boolean = false
             var email:String = binding.registerTieEmail.text.toString()
@@ -56,8 +58,8 @@ class RegisterActivity : AppCompatActivity() {
 
             //Si todo está bien guardamos
             if (!interruptorError){
-                gestSharedPreferences.setPreferencias(email,password)
-                onBackPressed()
+                LoginFragment.gestSharedPreferences.setPreferencias(email,password)
+                //onBackPressed()
             }
 
 
@@ -66,10 +68,12 @@ class RegisterActivity : AppCompatActivity() {
         binding.registerTieBirthday.setOnClickListener(){
             mostrarCalendario()
         }
+
+        return binding.root
     }
 
     fun validarEmail(email:String):Boolean{
-        val pattern:Pattern = Patterns.EMAIL_ADDRESS
+        val pattern: Pattern = Patterns.EMAIL_ADDRESS
         return pattern.matcher(email).matches()
     }
 
@@ -85,6 +89,6 @@ class RegisterActivity : AppCompatActivity() {
             binding.registerTieBirthday.setText(selectedDate)
         })
 
-        newFragment.show(supportFragmentManager, "datePicker")
+        newFragment.show(parentFragmentManager, "datePicker")
     }
 }

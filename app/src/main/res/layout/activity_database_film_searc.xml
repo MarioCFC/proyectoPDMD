@@ -20,7 +20,7 @@
 
     <include
         android:id="@+id/layoutDetallesPeliculaCollapse"
-        layout="@layout/activity_film_list"
+        layout="@layout/fragment_film_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

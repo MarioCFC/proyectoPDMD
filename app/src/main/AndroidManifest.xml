@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,29 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoPDMD">
         <activity
-            android:name=".activities.FilmDetailActivity"
-            android:exported="true" />
-
-        <activity
-            android:name=".activities.FilmListActivity"
-            android:exported="true"
+            android:name=".activities.FragmentManagerActivity"
+            android:exported="true" >
             android:screenOrientation="portrait">
-        </activity>
-        <activity
-            android:name=".activities.RegisterActivity"
-            android:exported="true"
-            android:screenOrientation="portrait">
-
-            <!-- Lo de meta-data es para que aparezca la flecha hacia atra -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.RegisterActivity" />
-        </activity>
-        <activity
-            android:name=".activities.LoginActivity"
-            android:exported="true"
-            android:screenOrientation="portrait">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -42,17 +23,20 @@
 
         </activity>
         <activity
+            android:name=".activities.FilmDetailActivity"
+            android:exported="true" />
+        <activity
             android:name=".activities.FilmSearchActivity"
             android:exported="true"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.FilmDetailSearchActivity"
             android:exported="true"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.FilmCreateActivity"
             android:exported="true"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

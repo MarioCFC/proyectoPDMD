@@ -7,7 +7,7 @@
     android:layout_gravity="right"
     android:fillViewport="true"
     android:orientation="vertical"
-    tools:context=".activities.FilmListActivity">
+    tools:context=".activities.FragmentManagerActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/FilmSearchLayout"
