@@ -20,6 +20,7 @@ import android.text.InputType
 
 
 class FilmCreateActivity() : AppCompatActivity() {
+
     lateinit var binding: ActivityCollapsingToolDetailFilmBinding
     private var url:String = ""
     private lateinit var editText: EditText
