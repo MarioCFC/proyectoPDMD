@@ -2,6 +2,7 @@ package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.adapters
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +11,9 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities.FilmDetailActivity
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities.FilmDetailSearchActivity
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities.FragmentManagerActivity
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.fragments.FilmDetailFragment
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.fragments.FilmDetailSearchFragment
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
 import com.squareup.picasso.Picasso
 
@@ -45,16 +47,26 @@ class ListaPeliculasAdapter(val peliculas: ArrayList<PeliculaJSON>, val miActivt
                 .into(holder.ivCaratula)
 
         holder.layout_item.setOnClickListener() {
-            var intent: Intent
+            val ft = (miActivty as FragmentManagerActivity).supportFragmentManager?.beginTransaction()
             if (miActivty.localClassName.equals("activities.FilmListActivity")) {
-                intent = Intent(miActivty, FilmDetailActivity::class.java)
-                intent.putExtra("posicionEnLista", position)
-                miActivty.startActivity(intent)
-            } else if (miActivty.localClassName.equals("activities.FilmSearchActivity")) {
+                var datos = Bundle()
+                datos.putInt("posicionEnLista",position)
+                var nuevoFragment = FilmDetailFragment()
+                nuevoFragment.arguments = datos
 
-                intent = Intent(miActivty, FilmDetailSearchActivity::class.java)
-                intent.putExtra("pelicula", pelicula)
-                miActivty.startActivity(intent)
+                ft?.replace(R.id.contenedor_fragments, nuevoFragment)
+                ft?.addToBackStack(null)
+                ft?.commit()
+
+            } else if (miActivty.localClassName.equals("activities.FilmSearchActivity")) {
+                var datos = Bundle()
+                datos.putSerializable("pelicula",pelicula)
+                var nuevoFragment = FilmDetailSearchFragment()
+                nuevoFragment.arguments = datos
+
+                ft?.replace(R.id.contenedor_fragments, nuevoFragment)
+                ft?.addToBackStack(null)
+                ft?.commit()
             }
 
         }

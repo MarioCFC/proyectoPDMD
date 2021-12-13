@@ -22,21 +22,6 @@
             </intent-filter>
 
         </activity>
-        <activity
-            android:name=".activities.FilmDetailActivity"
-            android:exported="true" />
-        <activity
-            android:name=".activities.FilmSearchActivity"
-            android:exported="true"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activities.FilmDetailSearchActivity"
-            android:exported="true"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activities.FilmCreateActivity"
-            android:exported="true"
-            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -1,40 +1,52 @@
-package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities
+package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.fragments
 
 import android.content.DialogInterface
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.widget.EditText
-import android.widget.LinearLayout
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.ActivityCollapsingToolDetailFilmBinding
-import com.squareup.picasso.Picasso
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
-import android.util.TypedValue
-import androidx.constraintlayout.widget.ConstraintSet
-import android.view.*
-import androidx.appcompat.app.AlertDialog
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorLista
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
+import android.os.Bundle
 import android.text.InputType
+import android.util.TypedValue
+import android.view.*
+import android.widget.EditText
+import android.widget.LinearLayout
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.fragment.app.Fragment
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.FragmentCollapsingToolDetailFilmBinding
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorLista
+import com.squareup.picasso.Picasso
 
-class FilmDetailActivity() : AppCompatActivity() {
-    private lateinit var binding: ActivityCollapsingToolDetailFilmBinding
-    private var gestorLista = GestorLista(this)
+class FilmDetailFragment:Fragment() {
+
+    private lateinit var binding: FragmentCollapsingToolDetailFilmBinding
+    private lateinit var gestorLista: GestorLista
     private lateinit var pelicula: PeliculaJSON
     private var posicionEnLista: Int = 0
     private lateinit var menuItem: Menu
     private lateinit var editText: EditText
     private var estaEnEdicion: Boolean = true
+    private lateinit var activity: AppCompatActivity
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityCollapsingToolDetailFilmBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        supportActionBar?.setTitle("")
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        activity = getActivity() as AppCompatActivity
+        gestorLista = GestorLista(activity)
+
+        binding = FragmentCollapsingToolDetailFilmBinding.inflate(inflater, container, false)
+
+
+       activity.supportActionBar?.setTitle("")
         //Obtenemos los datos. Hago referencia a la lista para poder modificar los datos con facilidad y poder guardar los cambios sin demasiada complicacion
-        posicionEnLista = intent.extras?.get("posicionEnLista") as Int
+
+        posicionEnLista = requireArguments().getInt("posicionEnLista")
         pelicula = gestorLista.getPeliculas().get(posicionEnLista)
 
         //Metemos los datos
@@ -59,67 +71,47 @@ class FilmDetailActivity() : AppCompatActivity() {
 
 
         binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.setOnClickListener() {
-            if (!estaEnEdicion){
-                val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(this)
-            builder.setTitle(getString(R.string.filmDetailActivityPosterAlertDialogTitle))
-            builder.setMessage(getString(R.string.filmDetailActvityPictureAlertDialogMessage))
+            if (!estaEnEdicion) {
+                val builder: android.app.AlertDialog.Builder =
+                    android.app.AlertDialog.Builder(activity)
+                builder.setTitle(getString(R.string.filmDetailActivityPosterAlertDialogTitle))
+                builder.setMessage(getString(R.string.filmDetailActvityPictureAlertDialogMessage))
 
-            val input = EditText(this)
-            input.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_CLASS_TEXT
-            builder.setView(input)
+                val input = EditText(activity)
+                input.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_CLASS_TEXT
+                builder.setView(input)
 
-            builder.setPositiveButton(getString(R.string.AlertDialogPositiveButton),
-                DialogInterface.OnClickListener { dialog, which ->
-                    pelicula.posterPath = input.text.toString()
-                    Picasso.get()
-                        .load(pelicula.posterPath)
-                        .into(binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula)
-                })
-            builder.setNegativeButton(getString(R.string.AlertDialogNegativeButton),
-                DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+                builder.setPositiveButton(getString(R.string.AlertDialogPositiveButton),
+                    DialogInterface.OnClickListener { dialog, which ->
+                        pelicula.posterPath = input.text.toString()
+                        Picasso.get()
+                            .load(pelicula.posterPath)
+                            .into(binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula)
+                    })
+                builder.setNegativeButton(getString(R.string.AlertDialogNegativeButton),
+                    DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
 
-            builder.show()
+                builder.show()
             }
+
+
         }
 
-        binding.collapsingToolDetailBarImagenFondo.setOnClickListener(){
-            if (!estaEnEdicion){
-                val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(this)
-            builder.setTitle(getString(R.string.filmDetailActivityBackgroundAlertDialogTitle))
-            builder.setMessage(getString(R.string.filmDetailActvityPictureAlertDialogMessage))
-
-            val input = EditText(this)
-            input.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_CLASS_TEXT
-            builder.setView(input)
-
-            builder.setPositiveButton(getString(R.string.AlertDialogPositiveButton),
-                DialogInterface.OnClickListener { dialog, which ->
-                    {
-                        pelicula.backdropPath = input.text.toString()
-                        Picasso.get().load(pelicula.backdropPath).into(binding.collapsingToolDetailBarImagenFondo)
-                    }
-                })
-            builder.setNegativeButton(getString(R.string.AlertDialogNegativeButton),
-                DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
-
-            builder.show()
-            }
-        }
-
+        return binding.root
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_add_search_film, menu)
+    fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        activity.menuInflater.inflate(R.menu.menu_add_search_film, menu)
         menuItem = menu!!
         //Boton borrar
-        menuItem.add(300, 1, 1, getString(R.string.FilmDetailActivityMenuItemDeleteTitle)).setIcon(getDrawable(R.drawable.ic_baseline_delete))
+        menuItem.add(300, 1, 1, getString(R.string.FilmDetailActivityMenuItemDeleteTitle)).setIcon(activity.getDrawable(R.drawable.ic_baseline_delete))
         menuItem.getItem(0).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
 
-        menuItem.add(300,2,2,getString(R.string.FilmDetailActivityMenuItemBrowserTitle)).setIcon(getDrawable(R.drawable.ic_baseline_browser))
+        menuItem.add(300,2,2,getString(R.string.FilmDetailActivityMenuItemBrowserTitle)).setIcon(activity.getDrawable(R.drawable.ic_baseline_browser))
         menuItem.getItem(1).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
 
         //Boton editar
-        menuItem.add(301, 3, 3, getString(R.string.FilmDetailActivityMenuItemEditTitle)).setIcon(getDrawable(R.drawable.ic_baseline_edit))
+        menuItem.add(301, 3, 3, getString(R.string.FilmDetailActivityMenuItemEditTitle)).setIcon(activity.getDrawable(R.drawable.ic_baseline_edit))
         menuItem.getItem(2).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
 
 
@@ -169,9 +161,9 @@ class FilmDetailActivity() : AppCompatActivity() {
             addEditText()
 
             //Imagenes
-            binding.collapsingToolDetailBarImagenFondo.setImageDrawable(getDrawable(R.drawable.ic_baseline_camera_alt_24))
+            binding.collapsingToolDetailBarImagenFondo.setImageDrawable(activity.getDrawable(R.drawable.ic_baseline_camera_alt_24))
             binding.collapsingToolDetailBarImagenFondo.setBackgroundColor(Color.GRAY)
-            binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.setImageDrawable(getDrawable(R.drawable.ic_baseline_camera_alt_24))
+            binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.setImageDrawable(activity.getDrawable(R.drawable.ic_baseline_camera_alt_24))
             binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.setBackgroundColor(Color.GRAY)
 
         } else {
@@ -198,15 +190,15 @@ class FilmDetailActivity() : AppCompatActivity() {
     fun cambiarModoEdicionMenu() {
         if (estaEnEdicion) {
             menuItem.setGroupVisible(300,false)
-            menuItem.getItem(2).setIcon(getDrawable(R.drawable.ic_baseline_check))
+            menuItem.getItem(2).setIcon(activity.getDrawable(R.drawable.ic_baseline_check))
         } else {
             menuItem.setGroupVisible(300,true)
-            menuItem.getItem(2).setIcon(getDrawable(R.drawable.ic_baseline_edit))
+            menuItem.getItem(2).setIcon(activity.getDrawable(R.drawable.ic_baseline_edit))
         }
     }
 
     private fun addEditText() {
-        editText = EditText(this)
+        editText = EditText(activity)
         editText.setText(pelicula.overview)
         editText.setTextColor(getResources().getColor(R.color.enabled_color))
 
@@ -257,19 +249,19 @@ class FilmDetailActivity() : AppCompatActivity() {
 
     fun hayCambios():Boolean{
         return binding.layoutDetallesPeliculaCollapse.FilmDetailETTitulo.getText().toString() != pelicula.title ||
-        binding.layoutDetallesPeliculaCollapse.FilmDetailETGenero.getText().toString() != pelicula.genres[0].name ||
-        editText.text.toString() != pelicula.overview
+                binding.layoutDetallesPeliculaCollapse.FilmDetailETGenero.getText().toString() != pelicula.genres[0].name ||
+                editText.text.toString() != pelicula.overview
     }
 
 
     fun avisoBorrarPelicula() {
-        val dialogBuilder = AlertDialog.Builder(this)
+        val dialogBuilder = AlertDialog.Builder(activity)
         dialogBuilder.setTitle(getString(R.string.AlertDialogDeleteTitle))
         dialogBuilder.setMessage(getString(R.string.FilmDetailActivityDeleteMessage))
             .setCancelable(false)
             .setPositiveButton(getString(R.string.AlertDialogPositiveButton), DialogInterface.OnClickListener { dialog, id ->
                 gestorLista.borrarPelicula(pelicula)
-                finish()
+                activity.finish()
             })
             .setNegativeButton(getString(R.string.AlertDialogNegativeButton), DialogInterface.OnClickListener { dialog, id ->
                 dialog.cancel()
@@ -279,6 +271,5 @@ class FilmDetailActivity() : AppCompatActivity() {
         alert.setTitle(getString(R.string.AlertDialogDeleteTitle))
         alert.show()
     }
-
-
+    
 }

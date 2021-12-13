@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/FilmDetailLayoutPadding"
-    tools:context=".activities.FilmDetailActivity">
+    tools:context=".activities.FragmentManagerActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_film_detail_layout"

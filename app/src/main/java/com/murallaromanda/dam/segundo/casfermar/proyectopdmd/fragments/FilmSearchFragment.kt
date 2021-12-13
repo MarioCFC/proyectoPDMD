@@ -1,31 +1,32 @@
-package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities
+package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.fragments
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.adapters.ListaPeliculasAdapter
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.ActivityDatabaseFilmSearcBinding
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.BuscadorPeliculas
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorLista
 
-class FilmSearchActivity: AppCompatActivity() {
-
+class FilmSearchFragment:Fragment() {
     private lateinit var binding: ActivityDatabaseFilmSearcBinding
-    private val m_Text = ""
+    private lateinit var activity: AppCompatActivity
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_database_film_searc)
-        supportActionBar?.hide()
-
-        binding = ActivityDatabaseFilmSearcBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        activity = getActivity() as AppCompatActivity
+        binding = ActivityDatabaseFilmSearcBinding.inflate(inflater,container,false)
 
         //Eliminando el boton flotante
         binding.layoutDetallesPeliculaCollapse.FilmSearchLayout.removeView(binding.layoutDetallesPeliculaCollapse.fabMenu)
 
-        val layoutManager = GridLayoutManager(this,2)
+        val layoutManager = GridLayoutManager(activity,2)
 
         binding.layoutDetallesPeliculaCollapse.rvFilmList.layoutManager = layoutManager
 
@@ -47,19 +48,19 @@ class FilmSearchActivity: AppCompatActivity() {
             }
 
         })
+
+        return binding.root
     }
 
     fun colocarRecycler(cadenaBuscada :String){
-        val layoutManager = GridLayoutManager(this,2)
+        val layoutManager = GridLayoutManager(activity,2)
         //En vez de buscar los datos de la pelicula clicada, son cargados los datos de todas las peliculas
         //ya que la peticion a TMDB es lenta
         var resultados = BuscadorPeliculas().datosDePeliculasBuscadas(cadenaBuscada)
-        val adapter = ListaPeliculasAdapter(resultados,this)
+        val adapter = ListaPeliculasAdapter(resultados,activity)
 
         binding.layoutDetallesPeliculaCollapse.rvFilmList.layoutManager = layoutManager
         binding.layoutDetallesPeliculaCollapse.rvFilmList.adapter = adapter
     }
-
-
 
 }

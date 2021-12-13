@@ -1,6 +1,5 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.searchMovie
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,10 +7,11 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities.FilmCreateActivity
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities.FilmSearchActivity
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.adapters.ListaPeliculasAdapter
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.FragmentFilmListBinding
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.fragments.FilmCreateFragment
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.fragments.FilmSearchFragment
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorLista
 
@@ -36,14 +36,17 @@ class FilmListFragment : Fragment() {
             colocarRecycler(resultados)
 
         binding.fabUno.setOnClickListener() {
-            val intent = Intent(activity, FilmCreateActivity::class.java)
-            startActivity(intent);
+            val ft = activity?.supportFragmentManager?.beginTransaction()
+            ft?.replace(R.id.contenedor_fragments, FilmCreateFragment())
+            ft?.addToBackStack(null)
+            ft?.commit()
         }
 
         binding.fabDos.setOnClickListener() {
-            val intent = Intent(activity, FilmSearchActivity::class.java)
-            this.startActivity(intent)
-            colocarRecycler(resultados)
+            val ft = activity?.supportFragmentManager?.beginTransaction()
+            ft?.replace(R.id.contenedor_fragments, FilmSearchFragment())
+            ft?.addToBackStack(null)
+            ft?.commit()
         }
 
         return binding.root
