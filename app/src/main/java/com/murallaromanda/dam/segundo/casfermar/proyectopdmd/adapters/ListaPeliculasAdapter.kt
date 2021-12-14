@@ -1,7 +1,6 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.adapters
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -47,8 +46,11 @@ class ListaPeliculasAdapter(val peliculas: ArrayList<PeliculaJSON>, val miActivt
                 .into(holder.ivCaratula)
 
         holder.layout_item.setOnClickListener() {
+            //Detecta el fragment desde el que lo llaman
             val ft = (miActivty as FragmentManagerActivity).supportFragmentManager?.beginTransaction()
-            if (miActivty.localClassName.equals("activities.FilmListActivity")) {
+            var nombreFragment = miActivty.supportFragmentManager.findFragmentById(R.id.contenedor_fragments)!!.javaClass.name
+
+            if (nombreFragment.contains("fragments.FilmListFragment")) {
                 var datos = Bundle()
                 datos.putInt("posicionEnLista",position)
                 var nuevoFragment = FilmDetailFragment()
@@ -58,7 +60,7 @@ class ListaPeliculasAdapter(val peliculas: ArrayList<PeliculaJSON>, val miActivt
                 ft?.addToBackStack(null)
                 ft?.commit()
 
-            } else if (miActivty.localClassName.equals("activities.FilmSearchActivity")) {
+            } else if (nombreFragment.contains("fragments.FilmSearchFragment")) {
                 var datos = Bundle()
                 datos.putSerializable("pelicula",pelicula)
                 var nuevoFragment = FilmDetailSearchFragment()
