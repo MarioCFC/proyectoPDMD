@@ -23,10 +23,10 @@ class LoginFragment :Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
         binding = FragmentLoginBinding.inflate(inflater,container,false)
         gestSharedPreferences = GestorSharedPreferences(container!!.context)
+        (activity as AppCompatActivity).supportActionBar?.show()
 
         binding.loginTvCreatIt.setOnClickListener(){
             val ft = activity?.supportFragmentManager?.beginTransaction()

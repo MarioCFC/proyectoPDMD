@@ -12,15 +12,25 @@ import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.FragmentRegisterBinding
 import java.util.regex.Pattern
 
-//Arreglar onBackPressed, ln 60
 class RegisterFragment : Fragment() {
     lateinit var binding : FragmentRegisterBinding
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentRegisterBinding.inflate(inflater,container,false)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        (activity as AppCompatActivity).supportActionBar?.show()
+/*
+        parentFragmentManager.addOnBackStackChangedListener(){
+            if( parentFragmentManager.backStackEntryCount == 0)
+                (activity as AppCompatActivity).supportActionBar?.hide()
+
+        }
+*/
         //supportActionBar?.setTitle("")
         binding.registerBtRegister.setOnClickListener(){
             var interruptorError:Boolean = false
@@ -59,8 +69,9 @@ class RegisterFragment : Fragment() {
             //Si todo está bien guardamos
             if (!interruptorError){
                 LoginFragment.gestSharedPreferences.setPreferencias(email,password)
-                //onBackPressed()
+                parentFragmentManager.popBackStack()
             }
+
 
 
         }
@@ -91,4 +102,6 @@ class RegisterFragment : Fragment() {
 
         newFragment.show(parentFragmentManager, "datePicker")
     }
+
+
 }

@@ -23,6 +23,9 @@ class FilmListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         activity = getActivity() as AppCompatActivity
+        activity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+
+
         binding = FragmentFilmListBinding.inflate(inflater,container,false)
 
         var gestor = GestorLista(activity)

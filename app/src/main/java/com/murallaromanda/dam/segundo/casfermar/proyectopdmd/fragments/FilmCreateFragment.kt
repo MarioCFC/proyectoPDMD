@@ -166,8 +166,7 @@ class FilmCreateFragment: Fragment() {
         when (id) {
             menuItem.getItem(0).itemId -> {
                 GestorLista(activity).añadirPelicula(almacenarDatosPelicula())
-                //ON BACK PRESSED
-                //onBackPressed()
+                parentFragmentManager.popBackStack()
             }
         }
         return super.onOptionsItemSelected(item)
