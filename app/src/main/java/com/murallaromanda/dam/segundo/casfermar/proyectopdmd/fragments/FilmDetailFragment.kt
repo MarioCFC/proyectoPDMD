@@ -39,11 +39,11 @@ class FilmDetailFragment:Fragment() {
     ): View? {
         activity = getActivity() as AppCompatActivity
         gestorLista = GestorLista(activity)
-
+        setHasOptionsMenu(true)
         binding = FragmentCollapsingToolDetailFilmBinding.inflate(inflater, container, false)
 
-
-       activity.supportActionBar?.setTitle("")
+        activity.supportActionBar?.show()
+        activity.supportActionBar?.setTitle("")
         //Obtenemos los datos. Hago referencia a la lista para poder modificar los datos con facilidad y poder guardar los cambios sin demasiada complicacion
 
         posicionEnLista = requireArguments().getInt("posicionEnLista")
@@ -100,7 +100,8 @@ class FilmDetailFragment:Fragment() {
         return binding.root
     }
 
-    fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         activity.menuInflater.inflate(R.menu.menu_add_search_film, menu)
         menuItem = menu!!
         //Boton borrar
@@ -114,8 +115,8 @@ class FilmDetailFragment:Fragment() {
         menuItem.add(301, 3, 3, getString(R.string.FilmDetailActivityMenuItemEditTitle)).setIcon(activity.getDrawable(R.drawable.ic_baseline_edit))
         menuItem.getItem(2).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
 
+        super.onCreateOptionsMenu(menu, inflater)
 
-        return true
     }
 
 
@@ -261,7 +262,7 @@ class FilmDetailFragment:Fragment() {
             .setCancelable(false)
             .setPositiveButton(getString(R.string.AlertDialogPositiveButton), DialogInterface.OnClickListener { dialog, id ->
                 gestorLista.borrarPelicula(pelicula)
-                activity.finish()
+                parentFragmentManager.popBackStack()
             })
             .setNegativeButton(getString(R.string.AlertDialogNegativeButton), DialogInterface.OnClickListener { dialog, id ->
                 dialog.cancel()

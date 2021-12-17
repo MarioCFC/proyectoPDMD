@@ -14,8 +14,9 @@ class FragmentManagerActivity : AppCompatActivity() {
 
         //Probar como funciona
         supportFragmentManager.addOnBackStackChangedListener {
-            if(supportFragmentManager.backStackEntryCount > 0){
+            if(supportFragmentManager.backStackEntryCount > 1){
                 supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                supportActionBar?.show()
             }else{
                 supportActionBar?.setDisplayHomeAsUpEnabled(false)
                 supportActionBar?.hide()
@@ -28,7 +29,6 @@ class FragmentManagerActivity : AppCompatActivity() {
 
     }
 
-    //Mirar para que sirve
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home){
             supportFragmentManager.popBackStack()

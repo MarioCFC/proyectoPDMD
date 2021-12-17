@@ -21,7 +21,6 @@ import com.squareup.picasso.Picasso
 
 class FilmCreateFragment: Fragment() {
     lateinit var binding:FragmentCollapsingToolDetailFilmBinding
-    private var url:String = ""
     private lateinit var editText: EditText
     private lateinit var menuItem: Menu
     private var pelicula = PeliculaJSON()
@@ -32,6 +31,8 @@ class FilmCreateFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
+
         activity = getActivity() as AppCompatActivity
         binding = FragmentCollapsingToolDetailFilmBinding.inflate(inflater,container,false)
 
@@ -151,12 +152,13 @@ class FilmCreateFragment: Fragment() {
 
     }
 
+
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        /*
         activity.menuInflater.inflate(R.menu.menu_add_search_film, menu)
         menuItem = menu!!
         menuItem.add(300, 1, 1, getString(R.string.FilmCreateActivityMenuItemCreate)).setIcon(activity.getDrawable(R.drawable.ic_baseline_check))
-        menuItem.getItem(0).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)*/
+        menuItem.getItem(0).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -167,9 +169,10 @@ class FilmCreateFragment: Fragment() {
             menuItem.getItem(0).itemId -> {
                 GestorLista(activity).añadirPelicula(almacenarDatosPelicula())
                 parentFragmentManager.popBackStack()
+                return true
             }
         }
-        return super.onOptionsItemSelected(item)
+        return false
     }
 
     fun almacenarDatosPelicula(): PeliculaJSON {
