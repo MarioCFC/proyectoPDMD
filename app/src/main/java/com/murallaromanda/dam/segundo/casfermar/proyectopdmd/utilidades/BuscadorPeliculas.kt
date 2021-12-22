@@ -13,16 +13,14 @@ class BuscadorPeliculas {
     fun hacerBusqueda(cadenaBuscada:String): SearchMovies {
         peticion = Peticion()
         var parametrosPeticion = PeticionParameters(PeticionParameters.BUSCAR_PELICULA,cadenaBuscada)
-        var cadenaJsonPeliculasResultado = peticion.execute(parametrosPeticion).get()
-        peticion.cancel(true)
+        var cadenaJsonPeliculasResultado = peticion.enviarPeticion(parametrosPeticion)
         return json.parsearListaPeliculasResultado(cadenaJsonPeliculasResultado)
     }
 
     fun obtenerDatosPelicula(idPelicula:Int): PeliculaJSON {
         peticion = Peticion()
         var parametrosPeticion = PeticionParameters(PeticionParameters.OBTENER_DATOS_PELICULA,idPelicula.toString())
-        var datosPelicula = peticion.execute(parametrosPeticion).get()
-        peticion.cancel(true)
+        var datosPelicula = peticion.enviarPeticion(parametrosPeticion)
 
         var pelicula = json.parsearPelicula(datosPelicula)
 

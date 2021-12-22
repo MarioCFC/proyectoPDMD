@@ -1,5 +1,7 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.fragments
 
+import android.app.Activity
+import android.os.AsyncTask
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +9,11 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.adapters.ListaPeliculasAdapter
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.ActivityDatabaseFilmSearcBinding
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeticionParameters
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.BuscadorPeliculas
 
 class FilmSearchFragment:Fragment() {
@@ -43,7 +48,7 @@ class FilmSearchFragment:Fragment() {
             }
 
             override fun onQueryTextSubmit(query: String): Boolean {
-                colocarRecycler(query)
+                ColocarRecycler(activity, binding.layoutDetallesPeliculaCollapse.rvFilmList).execute(query)
                 return false
             }
 
@@ -52,15 +57,19 @@ class FilmSearchFragment:Fragment() {
         return binding.root
     }
 
-    fun colocarRecycler(cadenaBuscada :String){
-        val layoutManager = GridLayoutManager(activity,2)
-        //En vez de buscar los datos de la pelicula clicada, son cargados los datos de todas las peliculas
-        //ya que la peticion a TMDB es lenta
-        var resultados = BuscadorPeliculas().datosDePeliculasBuscadas(cadenaBuscada)
-        val adapter = ListaPeliculasAdapter(resultados,activity)
+    class ColocarRecycler(var miActividad:Activity, var miRecyclerView:RecyclerView) : AsyncTask<String, Void, ArrayList<PeliculaJSON>>(){
+        override fun doInBackground(vararg params: String?): ArrayList<PeliculaJSON> {
+            return BuscadorPeliculas().datosDePeliculasBuscadas(params[0]!!)
+        }
 
-        binding.layoutDetallesPeliculaCollapse.rvFilmList.layoutManager = layoutManager
-        binding.layoutDetallesPeliculaCollapse.rvFilmList.adapter = adapter
+        override fun onPostExecute(result: ArrayList<PeliculaJSON>?) {
+            val layoutManager = GridLayoutManager(miActividad,2)
+            val adapter = ListaPeliculasAdapter(result!!,miActividad)
+
+            miRecyclerView.layoutManager = layoutManager
+            miRecyclerView.adapter = adapter
+        }
+
     }
 
 }

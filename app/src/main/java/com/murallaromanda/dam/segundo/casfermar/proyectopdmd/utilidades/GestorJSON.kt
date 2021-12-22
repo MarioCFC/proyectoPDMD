@@ -5,7 +5,6 @@ import android.app.Activity
 import com.google.gson.Gson
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.searchMovie.SearchMovies
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeticionParameters
 import java.io.File
 
 //Dan problemas todo lo relacionado con los inputStream
