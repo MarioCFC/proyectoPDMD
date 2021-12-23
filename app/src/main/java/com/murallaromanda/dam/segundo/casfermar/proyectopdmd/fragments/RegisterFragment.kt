@@ -23,7 +23,6 @@ class RegisterFragment : Fragment() {
     ): View? {
         binding = FragmentRegisterBinding.inflate(inflater,container,false)
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        (activity as AppCompatActivity).supportActionBar?.show()
 /*
         parentFragmentManager.addOnBackStackChangedListener(){
             if( parentFragmentManager.backStackEntryCount == 0)

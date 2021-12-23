@@ -14,6 +14,7 @@ class FragmentManagerActivity : AppCompatActivity() {
 
         //Probar como funciona
         supportFragmentManager.addOnBackStackChangedListener {
+            var a = supportFragmentManager.backStackEntryCount
             if(supportFragmentManager.backStackEntryCount > 1){
                 supportActionBar?.setDisplayHomeAsUpEnabled(true)
                 supportActionBar?.show()
