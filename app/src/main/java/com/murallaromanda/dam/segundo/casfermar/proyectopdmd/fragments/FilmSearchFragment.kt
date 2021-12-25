@@ -3,17 +3,16 @@ package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.fragments
 import android.app.Activity
 import android.os.AsyncTask
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.adapters.ListaPeliculasAdapter
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.ActivityDatabaseFilmSearcBinding
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeticionParameters
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.BuscadorPeliculas
 
 class FilmSearchFragment:Fragment() {
@@ -26,6 +25,8 @@ class FilmSearchFragment:Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         activity = getActivity() as AppCompatActivity
+        setHasOptionsMenu(true)
+
         binding = ActivityDatabaseFilmSearcBinding.inflate(inflater,container,false)
 
         //Eliminando el boton flotante
@@ -35,15 +36,25 @@ class FilmSearchFragment:Fragment() {
 
         binding.layoutDetallesPeliculaCollapse.rvFilmList.layoutManager = layoutManager
 
-        var searchView = binding.searchView
-        searchView.setIconified(false);
+        return binding.root
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        activity.menuInflater.inflate(R.menu.menu_search_film, menu)
+
+        var search = menu.findItem(R.id.search_view)
+        val searchView = search.actionView as SearchView
+
+        searchView.setIconifiedByDefault(false);
         searchView.clearFocus();
         searchView.setQueryHint("Introduce un titulo")
 
+        searchView.queryHint="Búsqueda"
 
-        searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
-            override fun onQueryTextChange(newText: String): Boolean {
+            override fun onQueryTextChange(query: String): Boolean {
                 return false
             }
 
@@ -54,7 +65,9 @@ class FilmSearchFragment:Fragment() {
 
         })
 
-        return binding.root
+        super.onCreateOptionsMenu(menu, inflater)
+
+
     }
 
     class ColocarRecycler(var miActividad:Activity, var miRecyclerView:RecyclerView) : AsyncTask<String, Void, ArrayList<PeliculaJSON>>(){
@@ -71,5 +84,7 @@ class FilmSearchFragment:Fragment() {
         }
 
     }
+
+
 
 }

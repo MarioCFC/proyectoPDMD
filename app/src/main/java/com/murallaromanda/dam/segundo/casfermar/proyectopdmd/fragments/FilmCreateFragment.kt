@@ -13,7 +13,6 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.FragmentCollapsingToolDetailFilmBinding
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.LayoutFilmDetailBinding
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Genres
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorLista
@@ -155,7 +154,7 @@ class FilmCreateFragment: Fragment() {
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        activity.menuInflater.inflate(R.menu.menu_add_search_film, menu)
+        activity.menuInflater.inflate(R.menu.menu_add_base, menu)
         menuItem = menu!!
         menuItem.add(300, 1, 1, getString(R.string.FilmCreateActivityMenuItemCreate)).setIcon(activity.getDrawable(R.drawable.ic_baseline_check))
         menuItem.getItem(0).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)

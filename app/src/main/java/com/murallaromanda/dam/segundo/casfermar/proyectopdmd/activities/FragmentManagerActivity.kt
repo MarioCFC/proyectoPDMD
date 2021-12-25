@@ -3,6 +3,7 @@ package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.appcompat.widget.Toolbar
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.fragments.LoginFragment
 
@@ -10,20 +11,18 @@ class FragmentManagerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fragment_manager)
+        var mTopToolbar =  findViewById(R.id.my_toolbar) as Toolbar;
+        setSupportActionBar(mTopToolbar);
 
-
-        //Probar como funciona
+       /* //Probar como funciona
         supportFragmentManager.addOnBackStackChangedListener {
-            var a = supportFragmentManager.backStackEntryCount
-            if(supportFragmentManager.backStackEntryCount > 1){
+            if(supportFragmentManager.backStackEntryCount > 0){
                 supportActionBar?.setDisplayHomeAsUpEnabled(true)
-                supportActionBar?.show()
             }else{
                 supportActionBar?.setDisplayHomeAsUpEnabled(false)
-                supportActionBar?.hide()
             }
         }
-
+*/
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.add(R.id.contenedor_fragments,LoginFragment())
         fragmentTransaction.commit()

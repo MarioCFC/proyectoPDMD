@@ -42,8 +42,7 @@ class FilmDetailFragment:Fragment() {
         setHasOptionsMenu(true)
         binding = FragmentCollapsingToolDetailFilmBinding.inflate(inflater, container, false)
 
-        activity.supportActionBar?.show()
-        activity.supportActionBar?.setTitle("")
+        activity.supportActionBar?.setTitle("Hola")
         //Obtenemos los datos. Hago referencia a la lista para poder modificar los datos con facilidad y poder guardar los cambios sin demasiada complicacion
 
         posicionEnLista = requireArguments().getInt("posicionEnLista")
@@ -102,7 +101,7 @@ class FilmDetailFragment:Fragment() {
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        activity.menuInflater.inflate(R.menu.menu_add_search_film, menu)
+        activity.menuInflater.inflate(R.menu.menu_add_base, menu)
         menuItem = menu!!
         //Boton borrar
         menuItem.add(300, 1, 1, getString(R.string.FilmDetailActivityMenuItemDeleteTitle)).setIcon(activity.getDrawable(R.drawable.ic_baseline_delete))

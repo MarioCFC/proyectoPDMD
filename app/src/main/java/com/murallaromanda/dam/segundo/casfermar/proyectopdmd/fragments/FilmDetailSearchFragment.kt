@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities.FragmentManagerActivity
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.FragmentCollapsingToolDetailFilmBinding
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Genres
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
@@ -52,7 +50,7 @@ class FilmDetailSearchFragment:Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
 
-        miActivity.menuInflater.inflate(R.menu.menu_add_search_film, menu)
+        miActivity.menuInflater.inflate(R.menu.menu_add_base, menu)
         menuItem = menu!!
         menuItem.add(300,1,1,getString(R.string.FilmDetailSerachActivityItemMenuAddTitle)).setIcon(miActivity.getDrawable(
             R.drawable.fab_add))

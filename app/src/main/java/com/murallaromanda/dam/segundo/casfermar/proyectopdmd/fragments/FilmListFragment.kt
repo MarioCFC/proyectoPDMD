@@ -1,9 +1,7 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,15 +15,14 @@ class FilmListFragment : Fragment() {
     private lateinit var binding: FragmentFilmListBinding
     private lateinit var resultados: ArrayList<PeliculaJSON>
     private lateinit var activity: AppCompatActivity
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         activity = getActivity() as AppCompatActivity
-        activity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
-
-
+        setHasOptionsMenu(true)
         binding = FragmentFilmListBinding.inflate(inflater,container,false)
 
         var gestor = GestorLista(activity)
@@ -52,6 +49,7 @@ class FilmListFragment : Fragment() {
         return binding.root
     }
 
+
     fun colocarRecycler(listaPelisculas: ArrayList<PeliculaJSON>) {
         var layoutManager = GridLayoutManager(activity, 2)
         val adapter = ListaPeliculasAdapter(listaPelisculas, activity)
@@ -63,7 +61,9 @@ class FilmListFragment : Fragment() {
         super.onResume()
         binding.fabMenu.close(false)
         colocarRecycler(resultados)
+
     }
+
 
 
 }
