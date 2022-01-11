@@ -23,6 +23,8 @@ class FilmListFragment : Fragment() {
     ): View? {
         activity = getActivity() as AppCompatActivity
         setHasOptionsMenu(true)
+        activity.supportActionBar?.setTitle("Mis peliculas")
+
         binding = FragmentFilmListBinding.inflate(inflater,container,false)
 
         var gestor = GestorLista(activity)

@@ -42,11 +42,12 @@ class FilmDetailFragment:Fragment() {
         setHasOptionsMenu(true)
         binding = FragmentCollapsingToolDetailFilmBinding.inflate(inflater, container, false)
 
-        activity.supportActionBar?.setTitle("Hola")
         //Obtenemos los datos. Hago referencia a la lista para poder modificar los datos con facilidad y poder guardar los cambios sin demasiada complicacion
-
         posicionEnLista = requireArguments().getInt("posicionEnLista")
         pelicula = gestorLista.getPeliculas().get(posicionEnLista)
+
+
+        activity.supportActionBar?.setTitle(pelicula.title!!)
 
         //Metemos los datos
         binding.layoutDetallesPeliculaCollapse.FilmDetailETDuracion.setText(pelicula.runtime.toString())
@@ -238,7 +239,6 @@ class FilmDetailFragment:Fragment() {
 
 
     fun cargarCambios() {
-        //binding.layoutDetallesPeliculaCollapse.FilmDetailTvDirector.setText("director/Cambiar")
         pelicula.genres[0].name =
             binding.layoutDetallesPeliculaCollapse.FilmDetailETGenero.getText().toString()
         pelicula.title =

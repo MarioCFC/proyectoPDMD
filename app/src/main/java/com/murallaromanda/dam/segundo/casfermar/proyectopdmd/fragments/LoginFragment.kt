@@ -1,5 +1,6 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities.FilmListFragmentManagerActivity
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.FragmentLoginBinding
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorSharedPreferences
 
@@ -56,10 +58,7 @@ class LoginFragment :Fragment(){
 
             if(!interruptorError){
                 /*En el caso de que el login se produzca*/
-                val ft = activity?.supportFragmentManager?.beginTransaction()
-                ft?.replace(R.id.contenedor_fragments,FilmListFragment())
-                ft?.addToBackStack(null)
-                ft?.commit()
+                startActivity(Intent(activity, FilmListFragmentManagerActivity::class.java))
             }
         }
 

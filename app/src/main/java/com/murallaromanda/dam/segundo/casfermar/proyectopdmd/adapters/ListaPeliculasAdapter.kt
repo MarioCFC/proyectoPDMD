@@ -10,7 +10,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities.FragmentManagerActivity
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities.FilmListFragmentManagerActivity
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.fragments.FilmDetailFragment
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.fragments.FilmDetailSearchFragment
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
@@ -47,7 +47,7 @@ class ListaPeliculasAdapter(val peliculas: ArrayList<PeliculaJSON>, val miActivt
 
         holder.layout_item.setOnClickListener() {
             //Detecta el fragment desde el que lo llaman
-            val ft = (miActivty as FragmentManagerActivity).supportFragmentManager?.beginTransaction()
+            val ft = (miActivty as FilmListFragmentManagerActivity).supportFragmentManager?.beginTransaction()
             var nombreFragment = miActivty.supportFragmentManager.findFragmentById(R.id.contenedor_fragments)!!.javaClass.name
 
             if (nombreFragment.contains("fragments.FilmListFragment")) {

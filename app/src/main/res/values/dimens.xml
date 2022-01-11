@@ -30,5 +30,5 @@
 	<dimen name="FilmDetailIvEditTextsMarginRight">20dp</dimen>
 	<dimen name="FilmDetailTvsMarginTop">10dp</dimen>
 	<dimen name="FilmDetailLayoutPadding">10dp</dimen>
-    <dimen name="collapsingToolDetailBarLayoutHeight">280dp</dimen>
+    <dimen name="collapsingToolDetailBarLayoutHeight">200dp</dimen>
 </resources>
