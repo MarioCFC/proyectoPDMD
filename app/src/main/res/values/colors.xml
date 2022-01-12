@@ -11,4 +11,8 @@
     <color name="enabled_color">#b6a39f</color>
     <color name="disabled_color">#000000</color>
     <color name="cardItemBackgroundColor">#f77f00</color>
+
+    <color name="pruebaFondo">#152FA9</color>
+    <color name="pruebaFuente1">#FFFFFF</color>
+    <color name="pruebaFondo2">#00B53D</color>
 </resources>

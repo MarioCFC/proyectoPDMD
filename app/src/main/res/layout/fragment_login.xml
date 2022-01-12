@@ -74,6 +74,7 @@
         android:layout_width="@dimen/loginBtLoginWidth"
         android:layout_height="@dimen/loginBtLoginHeigth"
         android:text="@string/login_btLogin"
+        android:backgroundTint="@color/pruebaFondo2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,6 +87,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/loginTvHasCountMarginTop"
         android:text="@string/loginTvHasCount"
+        android:textColor="@color/pruebaFuente1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
         app:layout_constraintHorizontal_bias="1.0"
@@ -115,6 +117,7 @@
         android:layout_marginStart="@dimen/loginTvEmailMarginStart"
         android:layout_marginTop="@dimen/loginTVsMarginTop"
         android:text="@string/loginTvEmail"
+        android:textColor="@color/pruebaFuente1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.0"
@@ -128,6 +131,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/loginTVsMarginTop"
         android:text="@string/loginTvPassword"
+        android:textColor="@color/pruebaFuente1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.0"
@@ -145,7 +149,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.064"
-        app:srcCompat="@drawable/logofinal" />
+        app:srcCompat="@drawable/logofinal"
+        android:visibility="gone"/>
+    />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

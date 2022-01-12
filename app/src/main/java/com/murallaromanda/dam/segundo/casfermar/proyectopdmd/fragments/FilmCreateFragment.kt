@@ -1,5 +1,6 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.fragments
 
+import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.FragmentCollapsingToolDetailFilmBinding
@@ -116,7 +118,7 @@ class FilmCreateFragment: Fragment() {
     private fun addEditText() {
         editText = EditText(activity)
         editText.setText(getString(R.string.FilmDetailTvTitulo))
-
+        editText.setTextColor(ContextCompat.getColor(requireContext(),R.color.pruebaFuente1))
         editText.setBackgroundResource(android.R.color.transparent);
         editText.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
