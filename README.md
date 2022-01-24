@@ -4,7 +4,7 @@ podemos listar diferentes peliculas que podemos obtenere de The movie datavase, 
 introducir y editar los datos de manera manual ya que estos se almacenan haciendo uso de un archivo JSON en la aplicación
 para poder usar la app sin conexíon y en todo momento.
 
-##Capturas de la app
+## Capturas de la app
 
 ![Alt text](/Screenshots/Lista.png?raw=true "Pantalla de la lista")
 ![Alt text](/Screenshots/Detalles.png?raw=true "Pantalla de los detalles de una pelicula")
