@@ -13,7 +13,11 @@ import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.adapters.ListaPeliculasAdapter
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.ActivityDatabaseFilmSearcBinding
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.searchMovie.Results
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.BuscadorPeliculas
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.RetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
 
 class FilmSearchFragment:Fragment() {
     private lateinit var binding: ActivityDatabaseFilmSearcBinding
@@ -59,11 +63,23 @@ class FilmSearchFragment:Fragment() {
             }
 
             override fun onQueryTextSubmit(query: String): Boolean {
-                ColocarRecycler(activity, binding.layoutDetallesPeliculaCollapse.rvFilmList).execute(query)
-                return false
-            }
+               // ColocarRecycler(activity, binding.layoutDetallesPeliculaCollapse.rvFilmList).execute(query)
 
-        })
+/*
+                var call : Call<Results> = RetrofitClient.getInstance().getResultados().getPeliculas(1,"shrek");
+                call.enqueue( object : Callback<List<Results>>{
+                    override fun onResponse(call: Call<List<Results>>?, response: Response<List<Movie>>?) {
+
+                        if(response?.body() != null)
+                            recyclerAdapter.setMovieListItems(response.body()!!)
+                    }
+
+                    override fun onFailure(call: Call<List<Movie>>?, t: Throwable?) {
+
+                    }
+                })
+                */
+ */
 
         super.onCreateOptionsMenu(menu, inflater)
 
