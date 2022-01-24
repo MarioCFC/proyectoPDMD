@@ -54,10 +54,18 @@ dependencies {
 
     implementation 'kr.co.prnd:readmore-textview:1.0.0'
 
+    //GSON
     implementation 'com.google.code.gson:gson:2.8.9'
 
     implementation 'com.github.clans:fab:1.6.4'
 
     //Toolbar
     implementation 'androidx.appcompat:appcompat:1.0.0'
+
+    //Retrofit
+    // https://mvnrepository.com/artifact/com.squareup.retrofit2/retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    // https://mvnrepository.com/artifact/com.squareup.retrofit2/converter-gson
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
 }
