@@ -1,36 +1,33 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades
 
-import com.google.gson.Gson
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.IO.ApiService
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.searchMovie.Results
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitClient {
 
     companion object {
-        private lateinit var miInstancia: RetrofitClient
+        private var miInstancia: RetrofitClient? = null
 
-        @Synchronized fun getInstance(): RetrofitClient {
+        @Synchronized
+        fun getInstance(): RetrofitClient {
             if (miInstancia == null) {
                 miInstancia = RetrofitClient()
             }
-            return miInstancia
+            return miInstancia!!
         }
     }
-    //Probablemente esto esté mal
-    private var api: ApiService
+
+    private var apiInstance: ApiService
 
     private constructor() {
 
-        var retrofit = Retrofit.Builder().baseUrl("https://api.themoviedb.org/3/")
+        var retrofit = Retrofit.Builder().baseUrl(ApiService.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create()).build()
-        api = retrofit.create(ApiService::class.java)
-        miInstancia.getResultados()
+        apiInstance = retrofit.create(ApiService::class.java)
     }
 
     fun getResultados(): ApiService {
-        return api
+        return apiInstance
     }
 }

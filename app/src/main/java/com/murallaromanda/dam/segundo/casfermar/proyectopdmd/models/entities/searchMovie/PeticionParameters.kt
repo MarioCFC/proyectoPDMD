@@ -1,4 +1,4 @@
-package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities
+package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.searchMovie
 
 import java.lang.Exception
 

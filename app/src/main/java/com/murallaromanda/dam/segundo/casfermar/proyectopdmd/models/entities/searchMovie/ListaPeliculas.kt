@@ -1,3 +1,5 @@
+package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.searchMovie
+
 import com.google.gson.annotations.SerializedName
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
 

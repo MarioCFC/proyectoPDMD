@@ -1,6 +1,6 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades
 
-import ListaPeliculas
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.searchMovie.ListaPeliculas
 import android.app.Activity
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
 

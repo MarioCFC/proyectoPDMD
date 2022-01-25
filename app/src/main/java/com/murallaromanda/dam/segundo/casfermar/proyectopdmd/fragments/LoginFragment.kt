@@ -41,7 +41,7 @@ class LoginFragment :Fragment(){
             var email = LoginFragment.gestSharedPreferences.getPreferencias("Email")
             var password = LoginFragment.gestSharedPreferences.getPreferencias("Password")
             var interruptorError:Boolean = false
-
+/*DESCOMENTAR
             if (!email.equals(binding.loginTieEmail.text.toString())){
                 binding.loginTilEmail.setError(getString(R.string.loginActivityEmailValidationError))
                 interruptorError = true
@@ -55,7 +55,7 @@ class LoginFragment :Fragment(){
             }else{
                 binding.loginTilPassword.setError("")
             }
-
+*/
             if(!interruptorError){
                 /*En el caso de que el login se produzca*/
                 startActivity(Intent(activity, FilmListFragmentManagerActivity::class.java))

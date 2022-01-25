@@ -2,15 +2,15 @@ package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades
 
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Genres
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeticionParameters
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.searchMovie.SearchMovies
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.searchMovie.PeticionParameters
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.searchMovie.ShortDataMovieSearchResult
 
 class BuscadorPeliculas {
 
     val json = GestorJSON()
     lateinit var peticion:Peticion
 
-    fun hacerBusqueda(cadenaBuscada:String): SearchMovies {
+    fun hacerBusqueda(cadenaBuscada:String): ShortDataMovieSearchResult {
         peticion = Peticion()
         var parametrosPeticion = PeticionParameters(PeticionParameters.BUSCAR_PELICULA,cadenaBuscada)
         var cadenaJsonPeliculasResultado = peticion.enviarPeticion(parametrosPeticion)
@@ -32,7 +32,7 @@ class BuscadorPeliculas {
 
     fun datosDePeliculasBuscadas(cadenaBuscada: String): ArrayList<PeliculaJSON> {
         var datosPeliculas = ArrayList<PeliculaJSON>()
-        hacerBusqueda(cadenaBuscada).results.forEach{
+        hacerBusqueda(cadenaBuscada).resultMovie.forEach{
             datosPeliculas.add(obtenerDatosPelicula(it.id!!))
         }
         return datosPeliculas

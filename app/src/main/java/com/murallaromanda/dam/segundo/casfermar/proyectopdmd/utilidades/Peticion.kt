@@ -1,7 +1,6 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades
 
-import android.os.AsyncTask
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeticionParameters
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.searchMovie.PeticionParameters
 import java.io.BufferedInputStream
 import java.net.URL
 import java.net.URLConnection
