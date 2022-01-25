@@ -29,7 +29,7 @@ class BuscadorPeliculas {
 
         return pelicula
     }
-
+/*
     fun datosDePeliculasBuscadas(cadenaBuscada: String): ArrayList<PeliculaJSON> {
         var datosPeliculas = ArrayList<PeliculaJSON>()
         hacerBusqueda(cadenaBuscada).resultMovie.forEach{
@@ -37,7 +37,7 @@ class BuscadorPeliculas {
         }
         return datosPeliculas
     }
-
+*/
     //Apaño para que no de problemas la carga de las imagenes
     fun modificarLinkImagenes(pelicula:PeliculaJSON){
             pelicula.posterPath = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2" +  pelicula.posterPath

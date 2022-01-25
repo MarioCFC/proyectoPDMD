@@ -9,20 +9,28 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.IO.ApiService
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities.FilmListFragmentManagerActivity
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.fragments.FilmDetailFragment
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.fragments.FilmDetailSearchFragment
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.searchMovie.ShortDataMovieSearchResult
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.RetrofitClient
 import com.squareup.picasso.Picasso
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class ListaPeliculasAdapter(val peliculas: ArrayList<PeliculaJSON>, val miActivty: Activity) :
+class ListaPeliculasAdapter(
+    val peliculas: List<ShortDataMovieSearchResult>,
+    val miActivty: Activity
+) :
     RecyclerView.Adapter<ListaPeliculasAdapter.PeliculaViewHolder>() {
     class PeliculaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val layout_item = itemView.findViewById<LinearLayout>(R.id.card_item)
-        val tvTitulo = itemView.findViewById<TextView>(R.id.CardTvTitulo)
-        val tvGenero = itemView.findViewById<TextView>(R.id.CardTvGenero)
         val ivCaratula = itemView.findViewById<ImageView>(R.id.CardIvCaratula)
+        val tvTitulo = itemView.findViewById<TextView>(R.id.CardTvTitulo)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PeliculaViewHolder {
@@ -36,40 +44,57 @@ class ListaPeliculasAdapter(val peliculas: ArrayList<PeliculaJSON>, val miActivt
         val pelicula = peliculas.get(position)
 
         holder.tvTitulo.setText(pelicula.title)
-        holder.tvGenero.setText(pelicula.genres[0].name.toString())
 
         Picasso.get().isLoggingEnabled = true
 
+
+        //Arreglar la url para cargar la imagen bien
         if (pelicula.posterPath != null)
             Picasso.get()
-                .load(pelicula.posterPath)
+                .load(ApiService.POSTER_PATH + pelicula.posterPath)
                 .into(holder.ivCaratula)
 
         holder.layout_item.setOnClickListener() {
-            //Detecta el fragment desde el que lo llaman
-            val ft = (miActivty as FilmListFragmentManagerActivity).supportFragmentManager?.beginTransaction()
-            var nombreFragment = miActivty.supportFragmentManager.findFragmentById(R.id.contenedor_fragments)!!.javaClass.name
+            val ft =
+                (miActivty as FilmListFragmentManagerActivity).supportFragmentManager?.beginTransaction()
 
-            if (nombreFragment.contains("fragments.FilmListFragment")) {
-                var datos = Bundle()
-                datos.putInt("posicionEnLista",position)
-                var nuevoFragment = FilmDetailFragment()
-                nuevoFragment.arguments = datos
+            var datos = Bundle()
+            datos.putSerializable("idPelicula", pelicula.id)
+            var nuevoFragment = FilmDetailSearchFragment()
+            nuevoFragment.arguments = datos
 
-                ft?.replace(R.id.contenedor_fragments, nuevoFragment)
-                ft?.addToBackStack(null)
-                ft?.commit()
+            ft?.replace(R.id.contenedor_fragments, nuevoFragment)
+            ft?.addToBackStack(null)
+            ft?.commit()
 
-            } else if (nombreFragment.contains("fragments.FilmSearchFragment")) {
-                var datos = Bundle()
-                datos.putSerializable("pelicula",pelicula)
-                var nuevoFragment = FilmDetailSearchFragment()
-                nuevoFragment.arguments = datos
+            /*
+            var call: Call<PeliculaJSON> = RetrofitClient.getInstance().getResultados()
+                .getMovieData(pelicula.id!!, ApiService.API_KEY)
 
-                ft?.replace(R.id.contenedor_fragments, nuevoFragment)
-                ft?.addToBackStack(null)
-                ft?.commit()
-            }
+
+
+            call.enqueue(object :Callback<PeliculaJSON>{
+                override fun onResponse(
+                    call: Call<PeliculaJSON>,
+                    response: Response<PeliculaJSON>
+                ) {
+                    var datos = Bundle()
+                    datos.putSerializable("pelicula", response.body())
+                    var nuevoFragment = FilmDetailSearchFragment()
+                    nuevoFragment.arguments = datos
+
+                    ft?.replace(R.id.contenedor_fragments, nuevoFragment)
+                    ft?.addToBackStack(null)
+                    ft?.commit()
+                }
+
+                override fun onFailure(call: Call<PeliculaJSON>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+
+            })*/
+
+
 
         }
 

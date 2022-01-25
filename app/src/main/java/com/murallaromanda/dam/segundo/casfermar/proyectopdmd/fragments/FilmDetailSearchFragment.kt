@@ -4,17 +4,21 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.IO.ApiService
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.FragmentCollapsingToolDetailFilmBinding
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Genres
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorLista
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.RetrofitClient
 import com.squareup.picasso.Picasso
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class FilmDetailSearchFragment:Fragment() {
 
     private lateinit var binding: FragmentCollapsingToolDetailFilmBinding
-    private lateinit var pelicula: PeliculaJSON
     private lateinit var menuItem: Menu
     private lateinit var miActivity :AppCompatActivity
     override fun onCreateView(
@@ -25,27 +29,49 @@ class FilmDetailSearchFragment:Fragment() {
         miActivity = (activity as AppCompatActivity)
         setHasOptionsMenu(true)
         binding = FragmentCollapsingToolDetailFilmBinding.inflate(inflater,container,false)
-        pelicula = (requireArguments().getSerializable("pelicula")) as PeliculaJSON
-        binding.layoutDetallesPeliculaCollapse.FilmDetailETDuracion.setText(pelicula.runtime.toString())
+        var idPelicula :Int = (requireArguments().getSerializable("idPelicula")) as Int
 
-        if (pelicula.genres.size == 0){
-            pelicula.genres = List<Genres>(0) { it -> Genres() }
-        }
-        binding.layoutDetallesPeliculaCollapse.FilmDetailETGenero.setText(pelicula.genres[0].name)
-        binding.layoutDetallesPeliculaCollapse.FilmDetailETTitulo.setText(pelicula.title)
+        //Pedimos los datos de la pelicula
+        var call: Call<PeliculaJSON> = RetrofitClient.getInstance().getResultados()
+            .getMovieData(idPelicula, ApiService.API_KEY)
 
-        binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.setText(pelicula.overview)
-        Picasso.get().isLoggingEnabled = true
+        call.enqueue(object :Callback<PeliculaJSON>{
+            override fun onResponse(call: Call<PeliculaJSON>, response: Response<PeliculaJSON>) {
+                binding.layoutDetallesPeliculaCollapse.FilmDetailETDuracion.setText(response.body()!!.runtime.toString())
 
-        if (pelicula.posterPath != null)
-            Picasso.get().load(pelicula.posterPath).into(binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula)
+                if (response.body()!!.genres.size == 0){
+                    response.body()!!.genres = List<Genres>(0) { it -> Genres() }
+                }
+                binding.layoutDetallesPeliculaCollapse.FilmDetailETGenero.setText(response.body()!!.genres[0].name)
+                binding.layoutDetallesPeliculaCollapse.FilmDetailETTitulo.setText(response.body()!!.title)
 
-        if (pelicula.backdropPath != null)
-            Picasso.get().load(pelicula.backdropPath).into(binding.collapsingToolDetailBarImagenFondo)
+                binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.setText(response.body()!!.overview)
+                Picasso.get().isLoggingEnabled = true
+
+                if (response.body()!!.posterPath != null)
+                    Picasso.get().load(ApiService.POSTER_PATH + response.body()!!.posterPath).into(binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula)
+
+                if (response.body()!!.backdropPath != null)
+                    Picasso.get().load(ApiService.POSTER_PATH + response.body()!!.backdropPath).into(binding.collapsingToolDetailBarImagenFondo)
+
+
+
+
+            }
+
+            override fun onFailure(call: Call<PeliculaJSON>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+        })
 
 
 
         return binding.root
+
+
+        /*Bindeado*/
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -58,16 +84,16 @@ class FilmDetailSearchFragment:Fragment() {
 
         super.onCreateOptionsMenu(menu, inflater)
     }
-
+/*A priori inutilizada
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id: Int = item.getItemId()
         if (id == menuItem.getItem(0).itemId) {
-            GestorLista(miActivity).añadirPelicula(pelicula)
+            GestorLista(miActivity).añadirPelicula(response)
             parentFragmentManager.popBackStack()
             return true
         }
         return false
     }
-
+*/
 
 }

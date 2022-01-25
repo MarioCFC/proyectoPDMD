@@ -15,12 +15,15 @@ import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.adapters.ListaPeliculasAdapter
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.ActivityDatabaseFilmSearcBinding
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.searchMovie.SearchResults
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.searchMovie.ShortDataMovieSearchResult
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.BuscadorPeliculas
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
+import kotlin.collections.ArrayList
 
 class FilmSearchFragment : Fragment() {
     private lateinit var binding: ActivityDatabaseFilmSearcBinding
@@ -69,22 +72,24 @@ class FilmSearchFragment : Fragment() {
                 // ColocarRecycler(activity, binding.layoutDetallesPeliculaCollapse.rvFilmList).execute(query)
 
 
-                var call: Call<ShortDataMovieSearchResult> =
-                    RetrofitClient.getInstance().getResultados().getPeliculas(1, "shrek",ApiService.API_KEY);
+                var call: Call<SearchResults> =
+                    RetrofitClient.getInstance().getResultados().getPeliculas(1, query,ApiService.API_KEY);
 
-
-                call.enqueue(object : Callback<ShortDataMovieSearchResult> {
+                call.enqueue(object : Callback<SearchResults> {
 
                     override fun onResponse(
-                        call: Call<ShortDataMovieSearchResult>,
-                        response: Response<ShortDataMovieSearchResult>
+                        call: Call<SearchResults>,
+                        response: Response<SearchResults>
                     ) {
 
-                        for (i in response.body()?.!!)
-                            Log.d("MainActivity", i.title.toString())
+                        val layoutManager = GridLayoutManager(activity, 2)
+                        val adapter = ListaPeliculasAdapter(response.body()!!.resultShortDataMovie, activity)
+
+                        binding.layoutDetallesPeliculaCollapse.rvFilmList.layoutManager = layoutManager
+                        binding.layoutDetallesPeliculaCollapse.rvFilmList.adapter = adapter
                     }
 
-                    override fun onFailure(call: Call<ShortDataMovieSearchResult>, t: Throwable) {
+                    override fun onFailure(call: Call<SearchResults>, t: Throwable) {
                         TODO("Error busqueda de pelicula en FilmSearchFragment.kt")
                     }
                 })
@@ -97,24 +102,6 @@ class FilmSearchFragment : Fragment() {
 
         super.onCreateOptionsMenu(menu, inflater)
     }
-
-    class ColocarRecycler(var miActividad: Activity, var miRecyclerView: RecyclerView) :
-        AsyncTask<String, Void, ArrayList<PeliculaJSON>>() {
-        override fun doInBackground(vararg params: String?): ArrayList<PeliculaJSON> {
-            return BuscadorPeliculas().datosDePeliculasBuscadas(params[0]!!)
-        }
-
-        override fun onPostExecute(result: ArrayList<PeliculaJSON>?) {
-            val layoutManager = GridLayoutManager(miActividad, 2)
-            val adapter = ListaPeliculasAdapter(result!!, miActividad)
-
-            miRecyclerView.layoutManager = layoutManager
-            miRecyclerView.adapter = adapter
-        }
-
-    }
-
-
 }
 
 

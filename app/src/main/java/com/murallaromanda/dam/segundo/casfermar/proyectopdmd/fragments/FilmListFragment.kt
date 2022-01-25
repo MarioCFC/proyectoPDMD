@@ -5,11 +5,17 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.IO.ApiService
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.adapters.ListaPeliculasAdapter
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.FragmentFilmListBinding
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.searchMovie.SearchResults
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorLista
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.RetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class FilmListFragment : Fragment() {
     private lateinit var binding: FragmentFilmListBinding
@@ -23,16 +29,30 @@ class FilmListFragment : Fragment() {
     ): View? {
         activity = getActivity() as AppCompatActivity
         setHasOptionsMenu(true)
-        activity.supportActionBar?.setTitle("Mis peliculas")
+        activity.supportActionBar?.setTitle("Peliculas mas populares de la semana")
 
         binding = FragmentFilmListBinding.inflate(inflater,container,false)
 
-        var gestor = GestorLista(activity)
-        resultados = gestor.getPeliculas()
+        var call: Call<SearchResults> =
+                    RetrofitClient.getInstance().getResultados().getTrendingMovie(1,ApiService.API_KEY);
 
+                call.enqueue(object : Callback<SearchResults> {
 
-        if (resultados != null)
-            colocarRecycler(resultados)
+                    override fun onResponse(
+                        call: Call<SearchResults>,
+                        response: Response<SearchResults>
+                    ) {
+                        val layoutManager = GridLayoutManager(activity, 2)
+                        val adapter = ListaPeliculasAdapter(response.body()!!.resultShortDataMovie, activity)
+
+                        binding.rvFilmList.layoutManager = layoutManager
+                        binding.rvFilmList.adapter = adapter
+                    }
+
+                    override fun onFailure(call: Call<SearchResults>, t: Throwable) {
+                        TODO("Error busqueda de pelicula en FilmSearchFragment.kt")
+                    }
+                })
 
         binding.fabUno.setOnClickListener() {
             val ft = activity?.supportFragmentManager?.beginTransaction()
@@ -51,7 +71,7 @@ class FilmListFragment : Fragment() {
         return binding.root
     }
 
-
+/*
     fun colocarRecycler(listaPelisculas: ArrayList<PeliculaJSON>) {
         var layoutManager = GridLayoutManager(activity, 2)
         val adapter = ListaPeliculasAdapter(listaPelisculas, activity)
@@ -65,7 +85,6 @@ class FilmListFragment : Fragment() {
         colocarRecycler(resultados)
 
     }
-
-
+*/
 
 }
