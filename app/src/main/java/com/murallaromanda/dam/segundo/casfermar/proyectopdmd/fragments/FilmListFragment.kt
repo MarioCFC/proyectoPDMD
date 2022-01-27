@@ -31,39 +31,40 @@ class FilmListFragment : Fragment() {
         setHasOptionsMenu(true)
         activity.supportActionBar?.setTitle("Peliculas mas populares de la semana")
 
-        binding = FragmentFilmListBinding.inflate(inflater,container,false)
+        binding = FragmentFilmListBinding.inflate(inflater, container, false)
 
         var call: Call<SearchResults> =
-                    RetrofitClient.getInstance().getResultados().getTrendingMovie(1,ApiService.API_KEY);
+            RetrofitClient.getInstance().getResultados().getTrendingMovie(1, ApiService.API_KEY);
 
-                call.enqueue(object : Callback<SearchResults> {
+        call.enqueue(object : Callback<SearchResults> {
 
-                    override fun onResponse(
-                        call: Call<SearchResults>,
-                        response: Response<SearchResults>
-                    ) {
-                        val layoutManager = GridLayoutManager(activity, 2)
-                        val adapter = ListaPeliculasAdapter(response.body()!!.resultShortDataMovie, activity)
+            override fun onResponse(
+                call: Call<SearchResults>,
+                response: Response<SearchResults>
+            ) {
+                val layoutManager = GridLayoutManager(activity, 2)
+                val adapter =
+                    ListaPeliculasAdapter(response.body()!!.resultShortDataMovie, activity)
 
-                        binding.rvFilmList.layoutManager = layoutManager
-                        binding.rvFilmList.adapter = adapter
-                    }
+                binding.rvFilmList.layoutManager = layoutManager
+                binding.rvFilmList.adapter = adapter
+            }
 
-                    override fun onFailure(call: Call<SearchResults>, t: Throwable) {
-                        TODO("Error busqueda de pelicula en FilmSearchFragment.kt")
-                    }
-                })
+            override fun onFailure(call: Call<SearchResults>, t: Throwable) {
+                TODO("Error busqueda de pelicula en FilmSearchFragment.kt")
+            }
+        })
 
         binding.fabUno.setOnClickListener() {
             val ft = activity?.supportFragmentManager?.beginTransaction()
-            ft?.replace(R.id.contenedor_fragments,FilmCreateFragment())
+            ft?.replace(R.id.contenedor_fragments, FilmCreateFragment())
             ft?.addToBackStack(null)
             ft?.commit()
         }
 
         binding.fabDos.setOnClickListener() {
             val ft = activity?.supportFragmentManager?.beginTransaction()
-            ft?.replace(R.id.contenedor_fragments,FilmSearchFragment())
+            ft?.replace(R.id.contenedor_fragments, FilmSearchFragment())
             ft?.addToBackStack(null)
             ft?.commit()
         }
@@ -71,20 +72,33 @@ class FilmListFragment : Fragment() {
         return binding.root
     }
 
-/*
-    fun colocarRecycler(listaPelisculas: ArrayList<PeliculaJSON>) {
-        var layoutManager = GridLayoutManager(activity, 2)
-        val adapter = ListaPeliculasAdapter(listaPelisculas, activity)
-        binding.rvFilmList.layoutManager = layoutManager
-        binding.rvFilmList.adapter = adapter
-    }
 
     override fun onResume() {
         super.onResume()
         binding.fabMenu.close(false)
-        colocarRecycler(resultados)
+        var call: Call<SearchResults> =
+            RetrofitClient.getInstance().getResultados().getTrendingMovie(1, ApiService.API_KEY);
+
+        call.enqueue(object : Callback<SearchResults> {
+
+            override fun onResponse(
+                call: Call<SearchResults>,
+                response: Response<SearchResults>
+            ) {
+                val layoutManager = GridLayoutManager(activity, 2)
+                val adapter =
+                    ListaPeliculasAdapter(response.body()!!.resultShortDataMovie, activity)
+
+                binding.rvFilmList.layoutManager = layoutManager
+                binding.rvFilmList.adapter = adapter
+            }
+
+            override fun onFailure(call: Call<SearchResults>, t: Throwable) {
+                TODO("Error busqueda de pelicula en FilmSearchFragment.kt")
+            }
+        })
 
     }
-*/
+
 
 }

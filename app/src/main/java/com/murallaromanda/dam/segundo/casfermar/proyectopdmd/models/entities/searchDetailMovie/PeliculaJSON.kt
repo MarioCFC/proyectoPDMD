@@ -6,7 +6,7 @@ import java.io.Serializable
 
 data class PeliculaJSON (
 //Datos de una película
-  @SerializedName("backdrop_path"         ) var backdropPath        : String?                   = "Sin fondo",
+  @SerializedName("backdrop_path"         ) var backdropPath        : String?                   = null,
   @SerializedName("genres"                ) var genres              : List<Genres>              = arrayListOf(),
   @SerializedName("overview"              ) var overview            : String?                   = "Sin sinopsis",
   @SerializedName("poster_path"           ) var posterPath          : String?                   = "Sin poster",
