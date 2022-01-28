@@ -5,21 +5,21 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.IO.ApiService
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.adapters.ListaPeliculasAdapter
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.FragmentFilmListBinding
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.searchMovie.SearchResults
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorLista
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Exception
 
 class FilmListFragment : Fragment() {
     private lateinit var binding: FragmentFilmListBinding
-    private lateinit var resultados: ArrayList<PeliculaJSON>
     private lateinit var activity: AppCompatActivity
 
     override fun onCreateView(
@@ -28,14 +28,18 @@ class FilmListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         activity = getActivity() as AppCompatActivity
+        //Cambios en la ToolBar
         setHasOptionsMenu(true)
         activity.supportActionBar?.setTitle("Peliculas mas populares de la semana")
 
+        //Enlazamos y ajustamos la disposicion y el numero de columnas del recycler
         binding = FragmentFilmListBinding.inflate(inflater, container, false)
 
+        val layoutManager = GridLayoutManager(activity, 2)
+        binding.rvFilmList.layoutManager = layoutManager
 
         /*Cargamos las peliculas mas populares en el RecyclerView*/
-        rellenarRecyclerView()
+        rellenarRecyclerView(binding.rvFilmList)
 
         binding.fabUno.setOnClickListener() {
             val ft = activity?.supportFragmentManager?.beginTransaction()
@@ -58,10 +62,14 @@ class FilmListFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         binding.fabMenu.close(false)
-        rellenarRecyclerView()
+        rellenarRecyclerView(binding.rvFilmList)
     }
 
-    fun rellenarRecyclerView(){
+
+    /**@param RecyclerView que será llenado
+     * @return LLamado para llenar el recyclerView con las peliculas populares de la semana
+     */
+    fun rellenarRecyclerView(recyclerView: RecyclerView) {
         var call: Call<SearchResults> =
             RetrofitClient.getInstance().getResultados().getTrendingMovie(1, ApiService.API_KEY);
 
@@ -71,20 +79,18 @@ class FilmListFragment : Fragment() {
                 call: Call<SearchResults>,
                 response: Response<SearchResults>
             ) {
-                val layoutManager = GridLayoutManager(activity, 2)
                 val adapter =
                     ListaPeliculasAdapter(response.body()!!.resultShortDataMovie, activity)
 
-                binding.rvFilmList.layoutManager = layoutManager
-                binding.rvFilmList.adapter = adapter
+
+                recyclerView.adapter = adapter
             }
 
             override fun onFailure(call: Call<SearchResults>, t: Throwable) {
-                TODO("Error busqueda de pelicula en FilmSearchFragment.kt")
+                throw Exception("Error al realizar petticion")
             }
         })
 
     }
-
 
 }

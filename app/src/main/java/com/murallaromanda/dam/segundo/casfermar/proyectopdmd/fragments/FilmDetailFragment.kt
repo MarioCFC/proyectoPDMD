@@ -49,7 +49,7 @@ class FilmDetailFragment:Fragment() {
 
         activity.supportActionBar?.setTitle(pelicula.title!!)
 
-        //Metemos los datos
+        //Bindeamos los datos
         binding.layoutDetallesPeliculaCollapse.FilmDetailETDuracion.setText(pelicula.runtime.toString())
         binding.layoutDetallesPeliculaCollapse.FilmDetailETGenero.setText(pelicula.genres[0].name)
         binding.layoutDetallesPeliculaCollapse.FilmDetailETTitulo.setText(pelicula.title)
@@ -69,7 +69,7 @@ class FilmDetailFragment:Fragment() {
                 .into(binding.collapsingToolDetailBarImagenFondo)
 
 
-
+        //Introducción de una URL para cargar otra imagen
         binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.setOnClickListener() {
             if (!estaEnEdicion) {
                 val builder: android.app.AlertDialog.Builder =
@@ -108,6 +108,7 @@ class FilmDetailFragment:Fragment() {
         menuItem.add(300, 1, 1, getString(R.string.FilmDetailActivityMenuItemDeleteTitle)).setIcon(activity.getDrawable(R.drawable.ic_baseline_delete))
         menuItem.getItem(0).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
 
+        //Boton de búsqueda del titulo en el navegador
         menuItem.add(300,2,2,getString(R.string.FilmDetailActivityMenuItemBrowserTitle)).setIcon(activity.getDrawable(R.drawable.ic_baseline_browser))
         menuItem.getItem(1).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
 
@@ -151,7 +152,7 @@ class FilmDetailFragment:Fragment() {
     }
 
     fun cambiarModoEdicionComponentes() {
-        //Cambiando las labels
+        //Activamos/Desactivamos los EditTextt permitiendo la edición de los datos
         binding.layoutDetallesPeliculaCollapse.FilmDetailETDuracion.setEnabled(estaEnEdicion)
         binding.layoutDetallesPeliculaCollapse.FilmDetailETGenero.setEnabled(estaEnEdicion)
         binding.layoutDetallesPeliculaCollapse.FilmDetailETTitulo.setEnabled(estaEnEdicion)
@@ -188,6 +189,9 @@ class FilmDetailFragment:Fragment() {
         }
     }
 
+    /**
+     * @return Modificca los iconos de la toolbar ocultando/mostrando los correspondientes al modo edicion
+     */
     fun cambiarModoEdicionMenu() {
         if (estaEnEdicion) {
             menuItem.setGroupVisible(300,false)
@@ -198,6 +202,9 @@ class FilmDetailFragment:Fragment() {
         }
     }
 
+    /**
+     *@return Oculta el componente ReadMore y crea en su sitio un EditText con el contenido del primero
+     */
     private fun addEditText() {
         editText = EditText(activity)
         editText.setText(pelicula.overview)
@@ -237,7 +244,9 @@ class FilmDetailFragment:Fragment() {
 
     }
 
-
+    /**
+     *@return Carga los texto de los EditText en el objeto PeliculaJSON
+     */
     fun cargarCambios() {
         pelicula.genres[0].name =
             binding.layoutDetallesPeliculaCollapse.FilmDetailETGenero.getText().toString()
@@ -247,6 +256,9 @@ class FilmDetailFragment:Fragment() {
 
     }
 
+    /**
+     *@return Indica si se han realizado cambios en los datos dela pelicula volcados en los componentes de la vista
+     */
     fun hayCambios():Boolean{
         return binding.layoutDetallesPeliculaCollapse.FilmDetailETTitulo.getText().toString() != pelicula.title ||
                 binding.layoutDetallesPeliculaCollapse.FilmDetailETGenero.getText().toString() != pelicula.genres[0].name ||
@@ -254,6 +266,9 @@ class FilmDetailFragment:Fragment() {
     }
 
 
+    /**
+     * @return Muestra un aviso para eliminar la pelicula actual
+     */
     fun avisoBorrarPelicula() {
         val dialogBuilder = AlertDialog.Builder(activity)
         dialogBuilder.setTitle(getString(R.string.AlertDialogDeleteTitle))

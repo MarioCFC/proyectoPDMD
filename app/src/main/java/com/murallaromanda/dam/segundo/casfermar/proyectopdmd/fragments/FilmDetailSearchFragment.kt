@@ -9,7 +9,6 @@ import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.FragmentCollapsingToolDetailFilmBinding
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Genres
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorLista
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.RetrofitClient
 import com.squareup.picasso.Picasso
 import retrofit2.Call
@@ -35,6 +34,7 @@ class FilmDetailSearchFragment:Fragment() {
         var call: Call<PeliculaJSON> = RetrofitClient.getInstance().getResultados()
             .getMovieData(idPelicula, ApiService.API_KEY)
 
+        //Cargado de los detalles de la pelicula
         call.enqueue(object :Callback<PeliculaJSON>{
             override fun onResponse(call: Call<PeliculaJSON>, response: Response<PeliculaJSON>) {
                 binding.layoutDetallesPeliculaCollapse.FilmDetailETDuracion.setText(response.body()!!.runtime.toString())
@@ -54,9 +54,6 @@ class FilmDetailSearchFragment:Fragment() {
                 if (response.body()!!.backdropPath != null)
                     Picasso.get().load(ApiService.POSTER_PATH + response.body()!!.backdropPath).into(binding.collapsingToolDetailBarImagenFondo)
 
-
-
-
             }
 
             override fun onFailure(call: Call<PeliculaJSON>, t: Throwable) {
@@ -65,17 +62,10 @@ class FilmDetailSearchFragment:Fragment() {
 
         })
 
-
-
         return binding.root
-
-
-        /*Bindeado*/
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-
         miActivity.menuInflater.inflate(R.menu.menu_add_base, menu)
         menuItem = menu!!
         menuItem.add(300,1,1,getString(R.string.FilmDetailSerachActivityItemMenuAddTitle)).setIcon(miActivity.getDrawable(
