@@ -41,7 +41,8 @@ class LoginFragment :Fragment(){
             var email = LoginFragment.gestSharedPreferences.getPreferencias("Email")
             var password = LoginFragment.gestSharedPreferences.getPreferencias("Password")
             var interruptorError:Boolean = false
-/*DESCOMENTAR
+
+/* Realizar cambios para hacerlo cara el servidor
             if (!email.equals(binding.loginTieEmail.text.toString())){
                 binding.loginTilEmail.setError(getString(R.string.loginActivityEmailValidationError))
                 interruptorError = true

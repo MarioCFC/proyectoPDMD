@@ -23,14 +23,8 @@ class RegisterFragment : Fragment() {
     ): View? {
         binding = FragmentRegisterBinding.inflate(inflater,container,false)
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-/*
-        parentFragmentManager.addOnBackStackChangedListener(){
-            if( parentFragmentManager.backStackEntryCount == 0)
-                (activity as AppCompatActivity).supportActionBar?.hide()
 
-        }
-*/
-        //supportActionBar?.setTitle("")
+
         binding.registerBtRegister.setOnClickListener(){
             var interruptorError:Boolean = false
             var email:String = binding.registerTieEmail.text.toString()
