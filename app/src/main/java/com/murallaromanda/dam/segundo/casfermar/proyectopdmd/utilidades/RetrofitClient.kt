@@ -3,6 +3,7 @@ package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.IO.ApiService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
 
 class RetrofitClient {
 
@@ -20,11 +21,11 @@ class RetrofitClient {
 
     private var apiInstance: ApiService
 
-    private constructor() {
+    private constructor(interfazUsada:Class<InterfacePattern>, oApi:ApiService) {
 
-        var retrofit = Retrofit.Builder().baseUrl(ApiService.BASE_URL)
+        var retrofit = Retrofit.Builder().baseUrl(oApi.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create()).build()
-        apiInstance = retrofit.create(ApiService::class.java)
+        apiInstance = retrofit.create(::class.java)
     }
 
     fun getResultados(): ApiService {

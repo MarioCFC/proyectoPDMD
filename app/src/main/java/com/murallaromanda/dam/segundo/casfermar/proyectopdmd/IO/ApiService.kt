@@ -10,20 +10,19 @@ import retrofit2.http.Query
 
 public interface ApiService {
     //Apaño rapido
+var hola: String
+        get() = ""
+        set(value) = TODO()
 
-    companion object {
-        var API_KEY: String
+    val API_KEY: String
             get() = "1e07834b3cf658fea5163c09e574b152"
-            set(value) = TODO()
 
-        var BASE_URL: String
+        val BASE_URL: String
             get() = "https://api.themoviedb.org/3/"
-            set(value) = TODO()
 
-        var POSTER_PATH:String
+        val POSTER_PATH:String
             get()="https://image.tmdb.org/t/p/original/"
-            set(value) = TODO()
-    }
+
     @GET("search/movie")
     fun getPeliculas(@Query("page") pagina:Int,@Query("query") movieName:String,@Query("api_key") key:String): Call<SearchResults>
 

@@ -62,25 +62,25 @@ class FilmListFragment : Fragment() {
     }
 
     fun rellenarRecyclerView(){
-        var call: Call<SearchResults> =
-            RetrofitClient.getInstance().getResultados().getTrendingMovie(1, ApiService.API_KEY);
+             var call: Call<SearchResults> =
+                    RetrofitClient.getInstance().getResultados().getTrendingMovie(1, ApiService.API_KEY);
 
-        call.enqueue(object : Callback<SearchResults> {
+                call.enqueue(object : Callback<SearchResults> {
 
-            override fun onResponse(
-                call: Call<SearchResults>,
-                response: Response<SearchResults>
-            ) {
-                val layoutManager = GridLayoutManager(activity, 2)
-                val adapter =
-                    ListaPeliculasAdapter(response.body()!!.resultShortDataMovie, activity)
+                    override fun onResponse(
+                        call: Call<SearchResults>,
+                        response: Response<SearchResults>
+                    ) {
+                        val layoutManager = GridLayoutManager(activity, 2)
+                        val adapter =
+                            ListaPeliculasAdapter(response.body()!!.resultShortDataMovie, activity)
 
-                binding.rvFilmList.layoutManager = layoutManager
-                binding.rvFilmList.adapter = adapter
-            }
+                        binding.rvFilmList.layoutManager = layoutManager
+                        binding.rvFilmList.adapter = adapter
+                    }
 
-            override fun onFailure(call: Call<SearchResults>, t: Throwable) {
-                TODO("Error busqueda de pelicula en FilmSearchFragment.kt")
+                    override fun onFailure(call: Call<SearchResults>, t: Throwable) {
+                        TODO("Error busqueda de pelicula en FilmSearchFragment.kt")
             }
         })
 
