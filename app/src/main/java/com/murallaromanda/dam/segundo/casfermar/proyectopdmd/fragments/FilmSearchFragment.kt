@@ -11,7 +11,7 @@ import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.adapters.ListaPeliculasAdapter
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.ActivityDatabaseFilmSearcBinding
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.searchMovie.SearchResults
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.RetrofitClient
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.RetrofitService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -65,7 +65,7 @@ class FilmSearchFragment : Fragment() {
 
 
                 var call: Call<SearchResults> =
-                    RetrofitClient.getInstance().getResultados().getPeliculas(1, query,ApiService.API_KEY);
+                    RetrofitService.getInstance().getResultados().getPeliculas(1, query,ApiService.API_KEY);
 
                 call.enqueue(object : Callback<SearchResults> {
 

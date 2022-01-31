@@ -9,15 +9,17 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.IO.ApiService
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.IO.DAMApiService
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities.FilmListFragmentManagerActivity
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.fragments.FilmDetailSearchFragment
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.searchMovie.ShortDataMovieSearchResult
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Movie
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.RetrofitService
 import com.squareup.picasso.Picasso
+import retrofit2.Call
 
 class ListaPeliculasAdapter(
-    val peliculas: List<ShortDataMovieSearchResult>,
+    val peliculas: List<Movie>,
     val miActivty: Activity
 ) :
     RecyclerView.Adapter<ListaPeliculasAdapter.PeliculaViewHolder>() {
@@ -43,9 +45,9 @@ class ListaPeliculasAdapter(
 
 
         //Arreglar la url para cargar la imagen bien
-        if (pelicula.posterPath != null)
+        if (pelicula.imageUrl != null)
             Picasso.get()
-                .load(ApiService.POSTER_PATH + pelicula.posterPath)
+                .load(pelicula.imageUrl)
                 .into(holder.ivCaratula)
 
         holder.layout_item.setOnClickListener() {
@@ -61,9 +63,9 @@ class ListaPeliculasAdapter(
             ft?.addToBackStack(null)
             ft?.commit()
 
-            /*
-            var call: Call<PeliculaJSON> = RetrofitClient.getInstance().getResultados()
-                .getMovieData(pelicula.id!!, ApiService.API_KEY)
+
+            var call: Call<Movie> = RetrofitService.getInstance().getResultados()
+                .getMovieData(pelicula.id!!, DAMApiService.API_KEY)
 
 
 
@@ -86,7 +88,7 @@ class ListaPeliculasAdapter(
                     TODO("Not yet implemented")
                 }
 
-            })*/
+            })
 
 
 

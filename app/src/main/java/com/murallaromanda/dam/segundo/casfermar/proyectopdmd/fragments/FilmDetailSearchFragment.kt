@@ -9,7 +9,7 @@ import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.FragmentCollapsingToolDetailFilmBinding
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Genres
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.RetrofitClient
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.RetrofitService
 import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
@@ -31,7 +31,7 @@ class FilmDetailSearchFragment:Fragment() {
         var idPelicula :Int = (requireArguments().getSerializable("idPelicula")) as Int
 
         //Pedimos los datos de la pelicula
-        var call: Call<PeliculaJSON> = RetrofitClient.getInstance().getResultados()
+        var call: Call<PeliculaJSON> = RetrofitService.getInstance().getResultados()
             .getMovieData(idPelicula, ApiService.API_KEY)
 
         //Cargado de los detalles de la pelicula

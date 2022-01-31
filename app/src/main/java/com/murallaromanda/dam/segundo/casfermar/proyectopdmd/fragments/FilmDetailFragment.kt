@@ -23,7 +23,6 @@ import com.squareup.picasso.Picasso
 class FilmDetailFragment:Fragment() {
 
     private lateinit var binding: FragmentCollapsingToolDetailFilmBinding
-    private lateinit var gestorLista: GestorLista
     private lateinit var pelicula: PeliculaJSON
     private var posicionEnLista: Int = 0
     private lateinit var menuItem: Menu
@@ -38,12 +37,13 @@ class FilmDetailFragment:Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         activity = getActivity() as AppCompatActivity
-        gestorLista = GestorLista(activity)
         setHasOptionsMenu(true)
         binding = FragmentCollapsingToolDetailFilmBinding.inflate(inflater, container, false)
 
         //Obtenemos los datos. Hago referencia a la lista para poder modificar los datos con facilidad y poder guardar los cambios sin demasiada complicacion
         posicionEnLista = requireArguments().getInt("posicionEnLista")
+
+
         pelicula = gestorLista.getPeliculas().get(posicionEnLista)
 
 

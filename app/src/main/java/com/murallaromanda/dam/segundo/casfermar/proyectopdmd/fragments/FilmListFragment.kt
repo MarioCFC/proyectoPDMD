@@ -1,18 +1,16 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.fragments
 
+import android.app.appsearch.SearchResults
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.IO.ApiService
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.adapters.ListaPeliculasAdapter
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.FragmentFilmListBinding
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.searchMovie.SearchResults
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.RetrofitClient
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.RetrofitService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -71,8 +69,8 @@ class FilmListFragment : Fragment() {
      */
     fun rellenarRecyclerView(recyclerView: RecyclerView) {
         var call: Call<SearchResults> =
-            RetrofitClient.getInstance().getResultados().getTrendingMovie(1, ApiService.API_KEY);
-
+            RetrofitService().getMovieService().
+        RetrofitService().getUserService().
         call.enqueue(object : Callback<SearchResults> {
 
             override fun onResponse(
