@@ -1,6 +1,5 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.fragments
 
-import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
@@ -15,16 +14,14 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.FragmentCollapsingToolDetailFilmBinding
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Genres
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorLista
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Movie
 import com.squareup.picasso.Picasso
 
 class FilmCreateFragment: Fragment() {
     lateinit var binding:FragmentCollapsingToolDetailFilmBinding
     private lateinit var editText: EditText
     private lateinit var menuItem: Menu
-    private var pelicula = PeliculaJSON()
+    private var pelicula = Movie()
     private lateinit var activity:AppCompatActivity
 
     override fun onCreateView(
@@ -51,7 +48,7 @@ class FilmCreateFragment: Fragment() {
         cambiarModoEdicion()
         addEditText()
 
-
+/*
         binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.setOnClickListener() {
             val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(activity)
             builder.setTitle("Url de la caraturla")
@@ -103,7 +100,7 @@ class FilmCreateFragment: Fragment() {
 
             builder.show()
         }
-
+*/
 
 
         return binding.root
@@ -168,14 +165,14 @@ class FilmCreateFragment: Fragment() {
         //Dandole a eliminar muestra un aviso, este metodo nos permite pasarle otro metodo para que ejecute en caso afirmativo
         when (id) {
             menuItem.getItem(0).itemId -> {
-                GestorLista(activity).añadirPelicula(almacenarDatosPelicula())
+                //GestorLista(activity).añadirPelicula(almacenarDatosPelicula())
                 parentFragmentManager.popBackStack()
                 return true
             }
         }
         return false
     }
-
+/*
     fun almacenarDatosPelicula(): PeliculaJSON {
         pelicula.title = binding.layoutDetallesPeliculaCollapse.FilmDetailETTitulo.text.toString()
 
@@ -188,5 +185,5 @@ class FilmCreateFragment: Fragment() {
         pelicula.runtime = binding.layoutDetallesPeliculaCollapse.FilmDetailETDuracion.text.toString().toInt()
         return pelicula
     }
-
+*/
 }

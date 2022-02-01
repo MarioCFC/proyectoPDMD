@@ -1,15 +1,23 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.fragments
 
 import android.app.appsearch.SearchResults
+import android.media.session.MediaSession
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.adapters.ListaPeliculasAdapter
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.FragmentFilmListBinding
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.ErrorResponse
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.LoginToken
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Movie
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.User
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.RetrofitService
 import retrofit2.Call
 import retrofit2.Callback
@@ -67,28 +75,29 @@ class FilmListFragment : Fragment() {
     /**@param RecyclerView que será llenado
      * @return LLamado para llenar el recyclerView con las peliculas populares de la semana
      */
+
+    //REFACTORIZAR
     fun rellenarRecyclerView(recyclerView: RecyclerView) {
-        var call: Call<SearchResults> =
-            RetrofitService().getMovieService().
-        RetrofitService().getUserService().
-        call.enqueue(object : Callback<SearchResults> {
+        var call = RetrofitService().getMovieService().getAllMovies()
 
-            override fun onResponse(
-                call: Call<SearchResults>,
-                response: Response<SearchResults>
-            ) {
-                val adapter =
-                    ListaPeliculasAdapter(response.body()!!.resultShortDataMovie, activity)
+        call.enqueue(object : Callback<List<Movie>> {
+            override fun onResponse(call: Call<List<Movie>>, response: Response<List<Movie>>) {
+                if (response.code() > 200 && response.code() < 300) {
+                    val adapter =
+                        ListaPeliculasAdapter(response.body()!!, activity)
+                    recyclerView.adapter = adapter
 
-
-                recyclerView.adapter = adapter
+                } else {
+                    var error: ErrorResponse =
+                        Gson().fromJson(response.errorBody()!!.string(), ErrorResponse::class.java)
+                    throw Exception(error.message!!)
+                }
             }
 
-            override fun onFailure(call: Call<SearchResults>, t: Throwable) {
-                throw Exception("Error al realizar petticion")
+            override fun onFailure(call: Call<List<Movie>>, t: Throwable) {
+                TODO("Not yet implemented")
             }
         })
-
     }
 
 }

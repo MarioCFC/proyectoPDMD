@@ -63,7 +63,7 @@ class ListaPeliculasAdapter(
             ft?.addToBackStack(null)
             ft?.commit()
 
-
+/*
             var call: Call<Movie> = RetrofitService.getInstance().getResultados()
                 .getMovieData(pelicula.id!!, DAMApiService.API_KEY)
 
@@ -90,7 +90,7 @@ class ListaPeliculasAdapter(
 
             })
 
-
+*/
 
         }
 

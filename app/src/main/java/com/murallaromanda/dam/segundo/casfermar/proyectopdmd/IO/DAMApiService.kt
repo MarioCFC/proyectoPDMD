@@ -1,11 +1,12 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.IO
 
+import android.media.session.MediaSession
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.LoginToken
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Movie
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.User
 import retrofit2.Call
 import retrofit2.Callback
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 public interface DAMApiService {
     //Apaño rapido
@@ -16,12 +17,14 @@ public interface DAMApiService {
 
 
     public interface UserService: DAMApiService  {
-        fun  hola()
+        @POST("users/login")
+        fun login(@Body user:User):Call<LoginToken>
+
     }
 
     public interface MovieService : DAMApiService {
         @GET("movies")
-        fun getAllMovies():Callback<Movie>
+        fun getAllMovies():Call<List<Movie>>
     }
 
 

@@ -16,14 +16,12 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.FragmentCollapsingToolDetailFilmBinding
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.PeliculaJSON
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorLista
 import com.squareup.picasso.Picasso
 
 class FilmDetailFragment:Fragment() {
 
     private lateinit var binding: FragmentCollapsingToolDetailFilmBinding
-    private lateinit var pelicula: PeliculaJSON
+    private lateinit var pelicula: Movie
     private var posicionEnLista: Int = 0
     private lateinit var menuItem: Menu
     private lateinit var editText: EditText
@@ -44,7 +42,7 @@ class FilmDetailFragment:Fragment() {
         posicionEnLista = requireArguments().getInt("posicionEnLista")
 
 
-        pelicula = gestorLista.getPeliculas().get(posicionEnLista)
+     //   pelicula = gestorLista.getPeliculas().get(posicionEnLista)
 
 
         activity.supportActionBar?.setTitle(pelicula.title!!)
