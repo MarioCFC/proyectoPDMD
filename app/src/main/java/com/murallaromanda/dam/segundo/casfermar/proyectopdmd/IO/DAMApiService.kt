@@ -13,6 +13,9 @@ public interface DAMApiService {
     companion object {
         val BASE_URL: String
             get() = "https://damapi.herokuapp.com/api/v1/"
+
+        val BASE_PERSONAL_TOKEN: String
+            get() = "Bearer "
     }
 
 
@@ -20,11 +23,18 @@ public interface DAMApiService {
         @POST("users/login")
         fun login(@Body user:User):Call<LoginToken>
 
+        @POST("users/signup")
+        fun singUp(@Body user:User):Call<Any>
+
     }
 
     public interface MovieService : DAMApiService {
+
         @GET("movies")
-        fun getAllMovies():Call<List<Movie>>
+        fun getAllMovies(@Header("Authorization") token:String ):Call<List<Movie>>
+
+        @GET("movies")
+        fun getMovieByID(@Header("Authorization") token:String , @Query("id") id:Int):Call<Movie>
     }
 
 

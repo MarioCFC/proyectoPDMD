@@ -16,6 +16,7 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.FragmentCollapsingToolDetailFilmBinding
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Movie
 import com.squareup.picasso.Picasso
 
 class FilmDetailFragment:Fragment() {
@@ -34,19 +35,15 @@ class FilmDetailFragment:Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity = getActivity() as AppCompatActivity
         setHasOptionsMenu(true)
+        activity = getActivity() as AppCompatActivity
         binding = FragmentCollapsingToolDetailFilmBinding.inflate(inflater, container, false)
 
         //Obtenemos los datos. Hago referencia a la lista para poder modificar los datos con facilidad y poder guardar los cambios sin demasiada complicacion
         posicionEnLista = requireArguments().getInt("posicionEnLista")
 
-
-     //   pelicula = gestorLista.getPeliculas().get(posicionEnLista)
-
-
         activity.supportActionBar?.setTitle(pelicula.title!!)
-
+/*
         //Bindeamos los datos
         binding.layoutDetallesPeliculaCollapse.FilmDetailETDuracion.setText(pelicula.runtime.toString())
         binding.layoutDetallesPeliculaCollapse.FilmDetailETGenero.setText(pelicula.genres[0].name)
@@ -94,7 +91,7 @@ class FilmDetailFragment:Fragment() {
 
 
         }
-
+*/
         return binding.root
     }
 
@@ -119,7 +116,7 @@ class FilmDetailFragment:Fragment() {
     }
 
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+   /* override fun onOptionsItemSelected(item: MenuItem): Boolean {
         var id: Int = item.itemId
         //Dandole a eliminar muestra un aviso, este metodo nos permite pasarle otro metodo para que ejecute en caso afirmativo
         when (id) {
@@ -203,6 +200,8 @@ class FilmDetailFragment:Fragment() {
     /**
      *@return Oculta el componente ReadMore y crea en su sitio un EditText con el contenido del primero
      */
+
+
     private fun addEditText() {
         editText = EditText(activity)
         editText.setText(pelicula.overview)
@@ -284,5 +283,5 @@ class FilmDetailFragment:Fragment() {
         alert.setTitle(getString(R.string.AlertDialogDeleteTitle))
         alert.show()
     }
-    
+    */
 }

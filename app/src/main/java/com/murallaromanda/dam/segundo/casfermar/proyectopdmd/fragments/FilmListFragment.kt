@@ -1,6 +1,7 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.fragments
 
 import android.app.appsearch.SearchResults
+import android.content.SharedPreferences
 import android.media.session.MediaSession
 import android.os.Bundle
 import android.util.Log
@@ -18,6 +19,7 @@ import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Err
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.LoginToken
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Movie
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.User
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorSharedPreferences
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.RetrofitService
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,6 +30,7 @@ class FilmListFragment : Fragment() {
     private lateinit var binding: FragmentFilmListBinding
     private lateinit var activity: AppCompatActivity
 
+    //TODO: Mirar de integrar la busqueda aquí ya que creo que no tenemos una lista tipo "mis peliculas" por lo que esta lista seria SearchList
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,16 +50,11 @@ class FilmListFragment : Fragment() {
         /*Cargamos las peliculas mas populares en el RecyclerView*/
         rellenarRecyclerView(binding.rvFilmList)
 
+
+        //TODO:Poner un unico boton de crear
         binding.fabUno.setOnClickListener() {
             val ft = activity?.supportFragmentManager?.beginTransaction()
             ft?.replace(R.id.contenedor_fragments, FilmCreateFragment())
-            ft?.addToBackStack(null)
-            ft?.commit()
-        }
-
-        binding.fabDos.setOnClickListener() {
-            val ft = activity?.supportFragmentManager?.beginTransaction()
-            ft?.replace(R.id.contenedor_fragments, FilmSearchFragment())
             ft?.addToBackStack(null)
             ft?.commit()
         }
@@ -71,18 +69,12 @@ class FilmListFragment : Fragment() {
         rellenarRecyclerView(binding.rvFilmList)
     }
 
-
-    /**@param RecyclerView que será llenado
-     * @return LLamado para llenar el recyclerView con las peliculas populares de la semana
-     */
-
-    //REFACTORIZAR
     fun rellenarRecyclerView(recyclerView: RecyclerView) {
-        var call = RetrofitService().getMovieService().getAllMovies()
-
+        //TODO:Error al añadir al token Bearer, se produce una NumberFormatException
+        var call = RetrofitService().getMovieService().getAllMovies("BearereyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZjhlZGRkMGFiYjI3OGE5YzQ1Mjg0NCIsImlhdCI6MTY0Mzk3NjUxMCwiZXhwIjoxNjQ0MDYyOTEwfQ.junzfK8PBDaZaBdWKsDI007vn7AxAWitOgiI4w68ckU")
         call.enqueue(object : Callback<List<Movie>> {
             override fun onResponse(call: Call<List<Movie>>, response: Response<List<Movie>>) {
-                if (response.code() > 200 && response.code() < 300) {
+                if (response.isSuccessful) {
                     val adapter =
                         ListaPeliculasAdapter(response.body()!!, activity)
                     recyclerView.adapter = adapter
@@ -90,12 +82,12 @@ class FilmListFragment : Fragment() {
                 } else {
                     var error: ErrorResponse =
                         Gson().fromJson(response.errorBody()!!.string(), ErrorResponse::class.java)
-                    throw Exception(error.message!!)
+                    Log.d("Main",error.message!!)
                 }
             }
 
             override fun onFailure(call: Call<List<Movie>>, t: Throwable) {
-                TODO("Not yet implemented")
+                Log.d("Main",t.message!!)
             }
         })
     }

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 
 data class Movie (
-
+//Los parametros obligatorios son title,rating,runtimeMinutes
     @SerializedName("id"                  ) var id                  : String? = null,
     @SerializedName("title"               ) var title               : String? = null,
     @SerializedName("rating"              ) var rating              : Int?    = null,

@@ -30,7 +30,6 @@ class FilmCreateFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
-
         activity = getActivity() as AppCompatActivity
         binding = FragmentCollapsingToolDetailFilmBinding.inflate(inflater,container,false)
 

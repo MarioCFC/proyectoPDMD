@@ -6,18 +6,12 @@ class GestorSharedPreferences(val context: Context){
     val nombreArchivo = "baseDatos"
     val preferencias = context.getSharedPreferences(nombreArchivo,0)
 
-    fun setPreferencias(email:String, contraseña:String){
-        preferencias.edit().putString("Email", email).commit()
-        preferencias.edit().putString("Password", contraseña).commit()
+    fun setPersonalToken( personalToken:String){
+        preferencias.edit().putString("personalToken", personalToken).commit()
     }
 
-
-    fun getPreferencias(datoRecuperar:String):String?{
-            if (datoRecuperar.equals("Email")){
-                return preferencias.getString("Email","")
-            }else if (datoRecuperar.equals("Password")){
-                return preferencias.getString("Password", "")
-            }
-        return null
+    fun getPersonalToken():String?{
+        return preferencias.getString("personalToken","erro")
     }
+
 }
