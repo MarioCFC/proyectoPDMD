@@ -7,7 +7,7 @@ data class Movie (
 //Los parametros obligatorios son title,rating,runtimeMinutes
     @SerializedName("id"                  ) var id                  : String? = null,
     @SerializedName("title"               ) var title               : String? = null,
-    @SerializedName("rating"              ) var rating              : Int?    = null,
+    @SerializedName("rating"              ) var rating              : Float?    = null,
     @SerializedName("runtimeMinutes"      ) var runtimeMinutes      : Int?    = null,
     @SerializedName("genre"               ) var genre               : String? = null,
     @SerializedName("description"         ) var description         : String? = null,
