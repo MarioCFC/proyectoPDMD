@@ -71,7 +71,8 @@ class FilmListFragment : Fragment() {
 
     fun rellenarRecyclerView(recyclerView: RecyclerView) {
         //TODO:Error al añadir al token Bearer, se produce una NumberFormatException
-        var call = RetrofitService().getMovieService().getAllMovies("BearereyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZjhlZGRkMGFiYjI3OGE5YzQ1Mjg0NCIsImlhdCI6MTY0Mzk3NjUxMCwiZXhwIjoxNjQ0MDYyOTEwfQ.junzfK8PBDaZaBdWKsDI007vn7AxAWitOgiI4w68ckU")
+        var token:String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZmU3M2E1ZjE2MmUwZmM4ZjU5MmQ1YyIsImlhdCI6MTY0NDA2NTcxOCwiZXhwIjoxNjQ0MTUyMTE4fQ.T07OETPpRLEHzuwNxsbxRd0BGGWCxFosK72GgBe1oIY"
+        var call = RetrofitService().getMovieService().getAllMovies("Bearer " + token)
         call.enqueue(object : Callback<List<Movie>> {
             override fun onResponse(call: Call<List<Movie>>, response: Response<List<Movie>>) {
                 if (response.isSuccessful) {
