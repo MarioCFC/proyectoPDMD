@@ -54,9 +54,9 @@ class FilmListFragment : Fragment() {
         //TODO:Poner un unico boton de crear
         binding.fabUno.setOnClickListener() {
             val ft = activity?.supportFragmentManager?.beginTransaction()
-            ft?.replace(R.id.contenedor_fragments, FilmCreateFragment())
+           /* ft?.replace(R.id.contenedor_fragments, FilmCreateFragment())
             ft?.addToBackStack(null)
-            ft?.commit()
+            ft?.commit()*/
         }
 
         return binding.root
@@ -71,8 +71,8 @@ class FilmListFragment : Fragment() {
 
     fun rellenarRecyclerView(recyclerView: RecyclerView) {
         //TODO:Error al añadir al token Bearer, se produce una NumberFormatException
-        var token:String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZmU3M2E1ZjE2MmUwZmM4ZjU5MmQ1YyIsImlhdCI6MTY0NDA2NTcxOCwiZXhwIjoxNjQ0MTUyMTE4fQ.T07OETPpRLEHzuwNxsbxRd0BGGWCxFosK72GgBe1oIY"
-        var call = RetrofitService().getMovieService().getAllMovies("Bearer " + token)
+        var token:String = GestorSharedPreferences(requireContext()).getPersonalToken()!!
+        var call = RetrofitService().getMovieService().getAllMovies(token)
         call.enqueue(object : Callback<List<Movie>> {
             override fun onResponse(call: Call<List<Movie>>, response: Response<List<Movie>>) {
                 if (response.isSuccessful) {

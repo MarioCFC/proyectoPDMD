@@ -6,22 +6,41 @@ import com.google.gson.annotations.SerializedName
 data class Movie (
 //Los parametros obligatorios son title,rating,runtimeMinutes
     @SerializedName("id"                  ) var id                  : String? = null,
-    @SerializedName("title"               ) var title               : String? = null,
-    @SerializedName("rating"              ) var rating              : Float?    = null,
-    @SerializedName("runtimeMinutes"      ) var runtimeMinutes      : Int?    = null,
+    @SerializedName("title"               ) var title               : String,
+    @SerializedName("rating"              ) var rating              : String? = null,
+    @SerializedName("runtimeMinutes"      ) var runtimeMinutes      : String?,
     @SerializedName("genre"               ) var genre               : String? = null,
     @SerializedName("description"         ) var description         : String? = null,
     @SerializedName("imageUrl"            ) var imageUrl            : String? = null,
     @SerializedName("trailerUrl"          ) var trailerUrl          : String? = null,
-    @SerializedName("releaseYear"         ) var releaseYear         : Int?    = null,
-    @SerializedName("country"             ) var country             : String? = null,
-    @SerializedName("ageRating"           ) var ageRating           : String? = null,
-    @SerializedName("directorFirstname"   ) var directorFirstname   : String? = null,
-    @SerializedName("directorLastname"    ) var directorLastname    : String? = null,
+    //@SerializedName("releaseYear"         ) var releaseYear         : Int?    = null,
+    //@SerializedName("country"             ) var country             : String? = null,
+    //@SerializedName("ageRating"           ) var ageRating           : String? = null,
+    //@SerializedName("directorFirstname"   ) var directorFirstname   : String? = null,
+    //@SerializedName("directorLastname"    ) var directorLastname    : String? = null,
     @SerializedName("directorFullname"    ) var directorFullname    : String? = null,
-    @SerializedName("directorPhone"       ) var directorPhone       : String? = null,
+    //@SerializedName("directorPhone"       ) var directorPhone       : String? = null,
     @SerializedName("musicDirector"       ) var musicDirector       : String? = null,
-    @SerializedName("photographyDirector" ) var photographyDirector : String? = null,
-    @SerializedName("Screenwriters"       ) var Screenwriters       : String? = null
+    //@SerializedName("photographyDirector" ) var photographyDirector : String? = null,
+    //@SerializedName("Screenwriters"       ) var Screenwriters       : String? = null
 
-)
+){
+    fun validarDatos(){
+        if(genre == null){
+            genre = "Sin genero"
+        }
+
+        if (description == null){
+            description = "Sin sinopsis"
+        }
+
+        if (directorFullname == null){
+            directorFullname = "Sin director"
+        }
+
+        if (musicDirector == null){
+            musicDirector = "Sin director"
+        }
+    }
+
+}

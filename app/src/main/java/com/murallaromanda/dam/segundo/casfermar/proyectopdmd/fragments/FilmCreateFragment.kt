@@ -16,7 +16,7 @@ import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.FragmentCollapsingToolDetailFilmBinding
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Movie
 import com.squareup.picasso.Picasso
-
+/*
 class FilmCreateFragment: Fragment() {
     lateinit var binding:FragmentCollapsingToolDetailFilmBinding
     private lateinit var editText: EditText
@@ -171,7 +171,7 @@ class FilmCreateFragment: Fragment() {
         }
         return false
     }
-/*
+
     fun almacenarDatosPelicula(): PeliculaJSON {
         pelicula.title = binding.layoutDetallesPeliculaCollapse.FilmDetailETTitulo.text.toString()
 
@@ -184,5 +184,7 @@ class FilmCreateFragment: Fragment() {
         pelicula.runtime = binding.layoutDetallesPeliculaCollapse.FilmDetailETDuracion.text.toString().toInt()
         return pelicula
     }
-*/
+
 }
+
+ */

@@ -33,8 +33,8 @@ public interface DAMApiService {
         @GET("movies")
         fun getAllMovies(@Header("Authorization:") token:String ):Call<List<Movie>>
 
-        @GET("movies")
-        fun getMovieByID(@Header("Authorization:") token:String , @Query("id") id:Int):Call<Movie>
+        @GET("movies/{id}")
+        fun getMovieByID(@Header("Authorization:") token:String , @Path("id") id:String):Call<Movie>
     }
 
 
