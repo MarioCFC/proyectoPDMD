@@ -14,8 +14,11 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.IO.DAMApiService
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.FragmentCollapsingToolDetailFilmBinding
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Movie
@@ -52,19 +55,14 @@ class FilmDetailFragment:Fragment() {
         call.enqueue(object :Callback<Movie>{
             override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
                 pelicula = response.body()!!
+                textViewDataLoad()
+                loadMoviePicture()
             }
 
             override fun onFailure(call: Call<Movie>, t: Throwable) {
                 Log.d("Main",t.message!!)
             }
         })
-
-
-        //Obtenemos los datos. Hago referencia a la lista para poder modificar los datos con facilidad y poder guardar los cambios sin demasiada complicacion
-
-
-
-
 
         return binding.root
     }
@@ -94,21 +92,20 @@ class FilmDetailFragment:Fragment() {
         var id: Int = item.itemId
         //Dandole a eliminar muestra un aviso, este metodo nos permite pasarle otro metodo para que ejecute en caso afirmativo
         when (id) {
-           // menuItem.getItem(0).itemId ->avisoBorrarPelicula()
+           menuItem.getItem(0).itemId ->avisoBorrarPelicula()
 
             menuItem.getItem(1).itemId -> {
                 val myIntent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.GoogleQueryString) + pelicula.title))
                 startActivity(myIntent)
             }
-/*
+
             menuItem.getItem(2).itemId -> {
                 if (!estaEnEdicion && hayCambios()) {
-                    cargarCambios()
-                    gestorLista.guardarPelicula()
+                   //Guardar cambios
                 }
                 cambiarModoEdicion()
             }
-*/
+
         }
         return super.onOptionsItemSelected(item)
     }
@@ -126,6 +123,7 @@ class FilmDetailFragment:Fragment() {
         binding.layoutDetallesPeliculaCollapse.FilmDetailETDuracion.setEnabled(estaEnEdicion)
         binding.layoutDetallesPeliculaCollapse.FilmDetailETGenero.setEnabled(estaEnEdicion)
         binding.layoutDetallesPeliculaCollapse.FilmDetailETTitulo.setEnabled(estaEnEdicion)
+        binding.layoutDetallesPeliculaCollapse.FilmDetailETValoracion.setEnabled(estaEnEdicion)
 
         if (estaEnEdicion) {
             //Ocultamos el ReadMore y creamos el edit text
@@ -152,10 +150,12 @@ class FilmDetailFragment:Fragment() {
             Picasso.get()
                 .load(pelicula.imageUrl)
                 .into(binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula)
+            binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.pruebaFondo))
 
             Picasso.get()
                 .load(pelicula.imageUrl)
                 .into(binding.collapsingToolDetailBarImagenFondo)
+            binding.collapsingToolDetailBarImagenFondo.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.pruebaFondo))
         }
     }
 
@@ -172,20 +172,14 @@ class FilmDetailFragment:Fragment() {
         }
     }
 
-    /**
-     *@return Oculta el componente ReadMore y crea en su sitio un EditText con el contenido del primero
-     */
-
-
-
     //Bindeamos los datos
         fun textViewDataLoad() {
             binding.layoutDetallesPeliculaCollapse.FilmDetailETDuracion.setText(pelicula.runtimeMinutes.toString())
             binding.layoutDetallesPeliculaCollapse.FilmDetailETGenero.setText(pelicula.genre)
             binding.layoutDetallesPeliculaCollapse.FilmDetailETTitulo.setText(pelicula.title)
             binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.setText(pelicula.description)
+            binding.layoutDetallesPeliculaCollapse.FilmDetailETValoracion.setText(pelicula.rating)
         }
-
 
         fun loadMoviePicture() {
             //Imagenes
@@ -230,7 +224,6 @@ class FilmDetailFragment:Fragment() {
             }
         }
 
-
     private fun addEditText() {
         editText = EditText(activity)
         editText.setText(pelicula.description)
@@ -263,16 +256,14 @@ class FilmDetailFragment:Fragment() {
         constraintSet.connect(
             editText.getId(),
             ConstraintSet.TOP,
-            binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.id,
+            binding.layoutDetallesPeliculaCollapse.FilmDetailETValoracion.id,
             ConstraintSet.BOTTOM
         );
+
         constraintSet.applyTo(constraintLayout)
 
     }
 
-    /**
-     *@return Carga los texto de los EditText en el objeto PeliculaJSON
-     */
     fun cargarCambios() {
         pelicula.genre =
             binding.layoutDetallesPeliculaCollapse.FilmDetailETGenero.getText().toString()
@@ -292,18 +283,29 @@ class FilmDetailFragment:Fragment() {
     }
 
 
-    /**
-     * @return Muestra un aviso para eliminar la pelicula actual
-     */
-    /*
+
     fun avisoBorrarPelicula() {
         val dialogBuilder = AlertDialog.Builder(activity)
         dialogBuilder.setTitle(getString(R.string.AlertDialogDeleteTitle))
         dialogBuilder.setMessage(getString(R.string.FilmDetailActivityDeleteMessage))
             .setCancelable(false)
             .setPositiveButton(getString(R.string.AlertDialogPositiveButton), DialogInterface.OnClickListener { dialog, id ->
-                gestorLista.borrarPelicula(pelicula)
-                parentFragmentManager.popBackStack()
+
+                val call = RetrofitService().getMovieService().deleteMovieByID(GestorSharedPreferences(requireContext()).getPersonalToken()!!,pelicula.id!!)
+                call.enqueue(object :Callback<Unit>{
+                    override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                        if(response.isSuccessful){
+                            parentFragmentManager.popBackStack()
+                        }else{
+                            Log.d("Main",response.message())
+                        }
+                    }
+                    override fun onFailure(call: Call<Unit>, t: Throwable) {
+                        TODO("Not yet implemented")
+                    }
+
+                })
+
             })
             .setNegativeButton(getString(R.string.AlertDialogNegativeButton), DialogInterface.OnClickListener { dialog, id ->
                 dialog.cancel()
@@ -313,7 +315,7 @@ class FilmDetailFragment:Fragment() {
         alert.setTitle(getString(R.string.AlertDialogDeleteTitle))
         alert.show()
     }
-*/
+
 
 
 }

@@ -54,9 +54,9 @@ class FilmListFragment : Fragment() {
         //TODO:Poner un unico boton de crear
         binding.fabUno.setOnClickListener() {
             val ft = activity?.supportFragmentManager?.beginTransaction()
-           /* ft?.replace(R.id.contenedor_fragments, FilmCreateFragment())
+            ft?.replace(R.id.contenedor_fragments, FilmCreateFragment())
             ft?.addToBackStack(null)
-            ft?.commit()*/
+            ft?.commit()
         }
 
         return binding.root
@@ -65,7 +65,6 @@ class FilmListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        binding.fabMenu.close(false)
         rellenarRecyclerView(binding.rvFilmList)
     }
 

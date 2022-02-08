@@ -69,7 +69,7 @@ class LoginFragment : Fragment() {
 
 
                 override fun onFailure(call: Call<LoginToken>, t: Throwable) {
-                    TODO("Not yet implemented")
+                    Log.d("Main",t.message!!)
                 }
             })
 

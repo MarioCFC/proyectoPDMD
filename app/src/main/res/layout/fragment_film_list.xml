@@ -27,37 +27,19 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             />
-
-
-        <com.github.clans.fab.FloatingActionMenu
-            android:id="@+id/fabMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fabMenuMargin"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            app:menu_fab_label="@string/FilmListFabMenuLabel"
-            app:menu_labels_showShadow="true"
-            app:menu_openDirection="up">
-
-            <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/fabDos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@android:drawable/ic_menu_search"
-                app:fabSize="mini"
-                app:fab_label="@string/FilmListFabOneLabel" />
-
+        <!--TODO:Cambiar icono boton-->
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/fabUno"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@android:drawable/ic_menu_slideshow"
+                android:layout_margin="@dimen/fabMenuMargin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
+                android:src="@android:drawable/alert_dark_frame"
                 app:fabSize="mini"
                 app:fab_label="@string/FilmListFabTwoLabel" />
 
-        </com.github.clans.fab.FloatingActionMenu>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

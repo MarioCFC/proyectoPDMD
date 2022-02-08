@@ -47,7 +47,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
         <EditText
-            android:id="@+id/FilmDetailETValoracion"
+            android:id="@+id/FilmDetailETGenero"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/FilmDetailIvEditTextsMarginRight"
@@ -55,7 +55,6 @@
             android:enabled="false"
             android:inputType="textMultiLine"
             android:maxLines="2"
-            android:text="@string/FilmDetailETGenero"
             android:textColor="@color/pruebaFuente1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -73,18 +72,33 @@
             android:maxLines="2"
             android:text="@string/FilmDetailETDuracion"
             android:textColor="@color/pruebaFuente1"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/textView4"
-            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        <EditText
+            android:id="@+id/FilmDetailETValoracion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/FilmDetailIvEditTextsMarginRight"
+            android:background="@android:color/transparent"
+            android:enabled="false"
+            android:inputType="textMultiLine"
+            android:maxLines="2"
+            android:textColor="@color/pruebaFuente1"
+            app:layout_constraintBottom_toTopOf="@+id/FilmDetailTvSinopsis"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
             app:layout_constraintVertical_bias="0.0" />
 
         <kr.co.prnd.readmore.ReadMoreTextView
             android:id="@+id/FilmDetailTvSinopsis"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="30dp"
             android:inputType="none"
             android:lineSpacingExtra="2dp"
             android:textColor="@color/pruebaFuente1"
@@ -99,15 +113,15 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:background="@android:color/transparent"
             android:inputType="none"
             android:text="@string/FilmDetailTvTitulo"
             android:textColor="@color/pruebaFuente1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.18"
+            app:layout_constraintHorizontal_bias="0.181"
             app:layout_constraintStart_toEndOf="@+id/FilmDetaiIvCaratula"
-            app:layout_constraintTop_toTopOf="@+id/FilmDetaiIvCaratula" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView3"
@@ -115,7 +129,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:inputType="none"
-            android:text="@string/FilmDetailTvGenero"
+            android:text="@string/FilmDetailETGenero"
             android:textColor="@color/pruebaFuente1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -132,8 +146,8 @@
             android:textColor="@color/pruebaFuente1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/FilmDetailETValoracion"
-            app:layout_constraintTop_toBottomOf="@+id/FilmDetailETValoracion" />
+            app:layout_constraintStart_toStartOf="@+id/FilmDetailETGenero"
+            app:layout_constraintTop_toBottomOf="@+id/FilmDetailETGenero" />
 
         <TextView
             android:id="@+id/textView5"
@@ -149,20 +163,7 @@
             app:layout_constraintStart_toStartOf="@+id/FilmDetailETDuracion"
             app:layout_constraintTop_toBottomOf="@+id/FilmDetailETDuracion" />
 
-        <TextView
-            android:id="@+id/FilmDetailETGenero"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:enabled="false"
-            android:inputType="textMultiLine"
-            android:maxLines="2"
-            android:text="TextView"
-            android:textColor="@color/pruebaFuente1"
 
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView5"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

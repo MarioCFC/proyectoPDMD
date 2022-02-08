@@ -4,6 +4,7 @@ import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.util.TypedValue
 import android.view.*
 import android.widget.EditText
@@ -15,8 +16,13 @@ import androidx.fragment.app.Fragment
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.FragmentCollapsingToolDetailFilmBinding
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Movie
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorSharedPreferences
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.RetrofitService
 import com.squareup.picasso.Picasso
-/*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
 class FilmCreateFragment: Fragment() {
     lateinit var binding:FragmentCollapsingToolDetailFilmBinding
     private lateinit var editText: EditText
@@ -47,7 +53,7 @@ class FilmCreateFragment: Fragment() {
         cambiarModoEdicion()
         addEditText()
 
-/*
+
         binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.setOnClickListener() {
             val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(activity)
             builder.setTitle("Url de la caraturla")
@@ -61,9 +67,9 @@ class FilmCreateFragment: Fragment() {
                 DialogInterface.OnClickListener { dialog, which ->
                     {
                         //Guardar url de imagen y cargarla
-                        pelicula.posterPath = input.text.toString()
+                        pelicula.imageUrl = input.text.toString()
                         Picasso.get()
-                            .load(pelicula.posterPath)
+                            .load(pelicula.imageUrl)
                             .into(binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula)
                     }
                 })
@@ -73,35 +79,6 @@ class FilmCreateFragment: Fragment() {
             builder.show()
         }
 
-
-
-
-
-        binding.collapsingToolDetailBarImagenFondo.setOnClickListener(){
-            val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(activity)
-            builder.setTitle(getString(R.string.filmDetailActivityBackgroundAlertDialogTitle))
-            builder.setMessage(getString(R.string.filmDetailActvityPictureAlertDialogMessage))
-
-            val input = EditText(activity)
-            input.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_CLASS_TEXT
-            builder.setView(input)
-
-            builder.setPositiveButton(getString(R.string.AlertDialogPositiveButton),
-                DialogInterface.OnClickListener { dialog, which ->
-                    {
-                        //Guardamos la url de imagen y cargarla
-                        pelicula.backdropPath = input.text.toString()
-                        Picasso.get().load(pelicula.backdropPath).into(binding.collapsingToolDetailBarImagenFondo)
-                    }
-                })
-            builder.setNegativeButton(getString(R.string.AlertDialogNegativeButton),
-                DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
-
-            builder.show()
-        }
-*/
-
-
         return binding.root
     }
 
@@ -109,6 +86,8 @@ class FilmCreateFragment: Fragment() {
         binding.layoutDetallesPeliculaCollapse.FilmDetailETDuracion.setEnabled(true)
         binding.layoutDetallesPeliculaCollapse.FilmDetailETGenero.setEnabled(true)
         binding.layoutDetallesPeliculaCollapse.FilmDetailETTitulo.setEnabled(true)
+        binding.layoutDetallesPeliculaCollapse.FilmDetailETValoracion.setEnabled(true)
+
     }
 
     private fun addEditText() {
@@ -164,7 +143,7 @@ class FilmCreateFragment: Fragment() {
         //Dandole a eliminar muestra un aviso, este metodo nos permite pasarle otro metodo para que ejecute en caso afirmativo
         when (id) {
             menuItem.getItem(0).itemId -> {
-                //GestorLista(activity).añadirPelicula(almacenarDatosPelicula())
+                almacenarDatosPelicula()
                 parentFragmentManager.popBackStack()
                 return true
             }
@@ -172,19 +151,32 @@ class FilmCreateFragment: Fragment() {
         return false
     }
 
-    fun almacenarDatosPelicula(): PeliculaJSON {
+    fun almacenarDatosPelicula() {
         pelicula.title = binding.layoutDetallesPeliculaCollapse.FilmDetailETTitulo.text.toString()
 
-        pelicula.genres = List<Genres>(1) { it -> Genres() }
-        pelicula.genres[0].name =
-            binding.layoutDetallesPeliculaCollapse.FilmDetailETGenero.text.toString()
+        pelicula.genre =binding.layoutDetallesPeliculaCollapse.FilmDetailETTitulo.text.toString()
         //Sinopsis
-        pelicula.overview = editText.text.toString()
+        pelicula.description = binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.text.toString()
 
-        pelicula.runtime = binding.layoutDetallesPeliculaCollapse.FilmDetailETDuracion.text.toString().toInt()
-        return pelicula
+        pelicula.runtimeMinutes = binding.layoutDetallesPeliculaCollapse.FilmDetailETDuracion.text.toString()
+
+
+        var call = RetrofitService().getMovieService().createMovie(GestorSharedPreferences(requireContext()).getPersonalToken()!!,pelicula)
+        call.enqueue(object : Callback<Unit>{
+            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                if(response.isSuccessful){
+                    parentFragmentManager.popBackStack()
+                }else{
+                    Log.d("Main",response.message())
+                }
+            }
+
+            override fun onFailure(call: Call<Unit>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+        })
     }
 
 }
 
- */
