@@ -29,7 +29,7 @@
     <string name="FilmDetailTvGenero">Genero</string>
     <string name="FilmDetailTvDuracion">Duracion</string>
     <string name="FilmDetailETTitulo">Sin titulo</string>
-    <string name="FilmDetailETGenero">Sin genero</string>
+    <string name="FilmDetailETGenero">Género</string>
     <string name="FilmDetailETDuracion">0</string>
     <string name="FilmDetailRMText">\nMostrar mas</string>
     <string name="collapsingToolbarTitulo">Fondo pelicula</string>
@@ -52,5 +52,5 @@
     <string name="FilmDetailActivityDeleteMessage">Deseas elimanar la pelicula?</string>
     <string name="AlertDialogDeleteTitle">Alerta</string>
     <string name="FilmCreateActivityMenuItemCreate">Crear</string>
-    <string name="FilmDetailTvValoracion">Género</string>
+    <string name="FilmDetailTvValoracion">Valoración</string>
 </resources>
