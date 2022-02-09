@@ -40,8 +40,7 @@ public interface DAMApiService {
         fun deleteMovieByID(@Header("Authorization:") token:String , @Path("id") id:String):Call<Unit>
 
         @POST("movies")
-        fun createMovie(@Header("Authorization") token: String,
-                   @Body pelicula: Movie): Call<Unit>
+        fun createMovie(@Header("Authorization") token: String,@Body pelicula: Movie): Call<Unit>
     }
 
 
