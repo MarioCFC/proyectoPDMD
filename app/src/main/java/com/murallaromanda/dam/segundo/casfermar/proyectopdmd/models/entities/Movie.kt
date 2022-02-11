@@ -13,15 +13,13 @@ data class Movie (
     @SerializedName("description"         ) var description         : String? = null,
     @SerializedName("imageUrl"            ) var imageUrl            : String? = null,
     @SerializedName("trailerUrl"          ) var trailerUrl          : String? = null,
-    @SerializedName("releaseYear"         ) var releaseYear         : String? = null,
-    @SerializedName("country"             ) var country             : String? = null,
-    @SerializedName("ageRating"           ) var ageRating           : String? = null,
-    @SerializedName("directorFirstname"   ) var directorFirstname   : String? = null,
-    @SerializedName("directorLastname"    ) var directorLastname    : String? = null,
-    @SerializedName("directorFullname"    ) var directorFullname    : String? = null,
-    @SerializedName("directorPhone"       ) var directorPhone       : String? = null,
-    @SerializedName("musicDirector"       ) var musicDirector       : String? = null,
-    @SerializedName("photographyDirector" ) var photographyDirector : String? = null,
-    @SerializedName("Screenwriters"       ) var Screenwriters       : String? = null
 
-)
+){
+    fun getDataEditTextDataArray(): Array<String?> {
+        return arrayOf(title,genre,runtimeMinutes,rating,description)
+    }
+    //TODO:Cambiar de sitio
+    fun getCadenasDatosPeliculaNull(): Array<String>{
+        return arrayOf("Sin titulo","Sin genero","Sin duracion","Sin valoraciones","Sin sinopsis")
+    }
+}

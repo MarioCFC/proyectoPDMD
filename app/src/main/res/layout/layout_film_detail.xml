@@ -18,6 +18,7 @@
             android:layout_width="@dimen/FilmDetailIvCaratulaWidth"
             android:layout_height="@dimen/FilmDetailIvCaratulaHeight"
             android:layout_marginRight="@dimen/FilmDetailIvCaratulaMarginRight"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
