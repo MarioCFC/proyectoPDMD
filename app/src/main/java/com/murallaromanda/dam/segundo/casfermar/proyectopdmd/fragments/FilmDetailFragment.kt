@@ -27,15 +27,16 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class FilmDetailFragment:Fragment() {
+class FilmDetailFragment : Fragment() {
 //TODO:Mirar movimiento imagen al activar/desactivar el modo edicion
 
-    private lateinit var peliculaData: Array<String?>
+    private lateinit var peliculaEditTextData: Array<String?>
+    private var posibleNuevaURLCaratula : String? = null
     private lateinit var editsTextOfLayout: Array<EditText>
     private lateinit var cadenasDatosPeliculaNull: Array<String>
     private lateinit var editText: EditText
 
-    private lateinit var pelicula: Movie
+    //private lateinit var pelicula: Movie
     private lateinit var binding: FragmentCollapsingToolDetailFilmBinding
     private lateinit var menuItem: Menu
     private var estaEnEdicion: Boolean = true
@@ -53,16 +54,7 @@ class FilmDetailFragment:Fragment() {
 
 
         //LOCALIZACION DE LOS EDITTEXT
-        var editTextContenidas = ArrayList<EditText>()
-
-        for (cont :View in binding.layoutDetallesPeliculaCollapse.constraintFilmDetailLayout.iterator()){
-            if (cont is EditText){
-                editTextContenidas.add(cont)
-            }
-        }
-
-        editsTextOfLayout = editTextContenidas.toTypedArray()
-
+        editsTextOfLayout = getEditText()
 
         var idPelicula = requireArguments().getString("idPelicula")
 
@@ -70,14 +62,11 @@ class FilmDetailFragment:Fragment() {
             GestorSharedPreferences(requireContext()).getPersonalToken()!!,
             idPelicula!!
         )
-
         call.enqueue(object : Callback<Movie> {
             override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
-                pelicula = response.body()!!
-
-
+                peliculaEditTextData = response.body()!!.getDataEditTextDataArray()
                 textViewDataLoad()
-                //  loadMoviePicture()
+                loadMoviePicture()
             }
 
             override fun onFailure(call: Call<Movie>, t: Throwable) {
@@ -121,16 +110,16 @@ class FilmDetailFragment:Fragment() {
             menuItem.getItem(1).itemId -> {
                 val myIntent = Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse(getString(R.string.GoogleQueryString) + pelicula.title)
+                    Uri.parse(getString(R.string.GoogleQueryString) + peliculaEditTextData[1])
                 )
                 startActivity(myIntent)
             }
 
             menuItem.getItem(2).itemId -> {
-                if (!estaEnEdicion && hayCambios()) {
-                    //Guardar cambios
+                if (!estaEnEdicion) {
+                    avisoGuardarPelicula()
                 }
-                cambiarModoEdicion()
+
             }
 
         }
@@ -156,7 +145,7 @@ class FilmDetailFragment:Fragment() {
             //Ocultamos el ReadMore y creamos el edit text
             binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.visibility = View.GONE
             addEditText()
-
+            editTextEditModeLoad()
             //Imagenes
             binding.collapsingToolDetailBarImagenFondo.setImageDrawable(activity.getDrawable(R.drawable.ic_baseline_camera_alt_24))
             binding.collapsingToolDetailBarImagenFondo.setBackgroundColor(Color.GRAY)
@@ -175,25 +164,22 @@ class FilmDetailFragment:Fragment() {
             //Hacemos visible el ReadMore y le colocamos el texto del EditText
             binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.visibility =
                 View.VISIBLE
-            binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.setText(pelicula.description)
+            binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.setText(peliculaEditTextData[peliculaEditTextData.size - 2])
+
+            textViewDataLoad()
 
             //Imagenes
-            Picasso.get()
-                .load(pelicula.imageUrl)
-                .into(binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula)
             binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.setBackgroundColor(
                 ContextCompat.getColor(requireContext(), R.color.pruebaFondo)
             )
 
-            Picasso.get()
-                .load(pelicula.imageUrl)
-                .into(binding.collapsingToolDetailBarImagenFondo)
             binding.collapsingToolDetailBarImagenFondo.setBackgroundColor(
                 ContextCompat.getColor(
                     requireContext(),
                     R.color.pruebaFondo
                 )
             )
+            loadMoviePicture()
         }
     }
 
@@ -212,70 +198,101 @@ class FilmDetailFragment:Fragment() {
 
 
     fun textViewDataLoad() {
-        peliculaData = pelicula.getDataEditTextDataArray()
-        cadenasDatosPeliculaNull = pelicula.getCadenasDatosPeliculaNull()
+        cadenasDatosPeliculaNull = Movie.getCadenasDatosPeliculaNull()
 
-        for (i in 0 .. editsTextOfLayout.size - 1)
-        {
-            if (peliculaData[i] != null)
-                editsTextOfLayout[i].setText(peliculaData[i])
+        for (i in 1..editsTextOfLayout.size) {
+            if (peliculaEditTextData[i] != null)
+                editsTextOfLayout[i - 1].setText(peliculaEditTextData[i])
             else
-                editsTextOfLayout[i].setText(cadenasDatosPeliculaNull[i])
+                editsTextOfLayout[i - 1].setText(cadenasDatosPeliculaNull[i])
         }
         //TODO:Refactorizar
-        if (peliculaData[peliculaData.size - 1] != null)
-            binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.setText(peliculaData[peliculaData.size - 1])
+        if (peliculaEditTextData[peliculaEditTextData.size - 2] != null)
+            binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.setText(peliculaEditTextData[peliculaEditTextData.size - 2])
         else
-            binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.setText(cadenasDatosPeliculaNull[peliculaData.size - 1])
+            binding.layoutDetallesPeliculaCollapse.FilmDetailTvSinopsis.setText(
+                cadenasDatosPeliculaNull[peliculaEditTextData.size - 2]
+            )
 
     }
 
-        fun loadMoviePicture() {
-            //Imagenes
-            Picasso.get().isLoggingEnabled = true
-            if (pelicula.imageUrl != null)
-                Picasso.get()
-                    .load(pelicula.imageUrl)
-                    .into(binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula)
-
-            if (pelicula.imageUrl != null)
-                Picasso.get()
-                    .load(pelicula.imageUrl)
-                    .into(binding.collapsingToolDetailBarImagenFondo)
-
-
-            //Introducción de una URL para cargar otra imagen
-            binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.setOnClickListener() {
-                if (!estaEnEdicion) {
-                    val builder: android.app.AlertDialog.Builder =
-                        android.app.AlertDialog.Builder(activity)
-                    builder.setTitle(getString(R.string.filmDetailActivityPosterAlertDialogTitle))
-                    builder.setMessage(getString(R.string.filmDetailActvityPictureAlertDialogMessage))
-
-                    val input = EditText(activity)
-                    input.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_CLASS_TEXT
-                    builder.setView(input)
-
-                    builder.setPositiveButton(getString(R.string.AlertDialogPositiveButton),
-                        DialogInterface.OnClickListener { dialog, which ->
-                            pelicula.imageUrl = input.text.toString()
-                            Picasso.get()
-                                .load(pelicula.imageUrl)
-                                .into(binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula)
-                        })
-                    builder.setNegativeButton(getString(R.string.AlertDialogNegativeButton),
-                        DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
-
-                    builder.show()
-                }
-
-
+    fun editTextEditModeLoad() {
+        for (i in 1..editsTextOfLayout.size - 2) {
+            if (peliculaEditTextData[i] != null) {
+                editsTextOfLayout[i - 1].setText(peliculaEditTextData[i])
+            } else {
+                editsTextOfLayout[i - 1].setText("")
+                editsTextOfLayout[i - 1].setHint(cadenasDatosPeliculaNull[i])
             }
         }
 
+        if (peliculaEditTextData[peliculaEditTextData.size - 2] != null)
+            editText.setText(peliculaEditTextData[peliculaEditTextData.size - 2])
+        else
+            editText.setText("")
+        editText.setHint(cadenasDatosPeliculaNull[peliculaEditTextData.size - 2])
+    }
+
+    fun loadMoviePicture() {
+        //Imagenes
+        Picasso.get().isLoggingEnabled = true
+        var urlImagenPeliculaCargada = peliculaEditTextData[peliculaEditTextData.size - 1]
+
+        if (urlImagenPeliculaCargada != null)
+            Picasso.get()
+                .load(urlImagenPeliculaCargada)
+                .into(binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula)
+
+        if (urlImagenPeliculaCargada != null)
+            Picasso.get()
+                .load(urlImagenPeliculaCargada)
+                .into(binding.collapsingToolDetailBarImagenFondo)
+
+
+        //Introducción de una URL para cargar otra imagen
+        binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.setOnClickListener() {
+            if (!estaEnEdicion) {
+                val builder: android.app.AlertDialog.Builder =
+                    android.app.AlertDialog.Builder(activity)
+                builder.setTitle(getString(R.string.filmDetailActivityPosterAlertDialogTitle))
+                builder.setMessage(getString(R.string.filmDetailActvityPictureAlertDialogMessage))
+
+                val input = EditText(activity)
+                input.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_CLASS_TEXT
+                builder.setView(input)
+
+                builder.setPositiveButton(getString(R.string.AlertDialogPositiveButton),
+                    DialogInterface.OnClickListener { dialog, which ->
+
+                        var urlIntroducida = input.text.toString()
+                        if (urlIntroducida.equals("")){
+                            posibleNuevaURLCaratula = null
+                        }else{
+                            posibleNuevaURLCaratula = urlIntroducida
+                            Picasso.get()
+                                .load(urlIntroducida)
+                                .into(binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula)
+
+                            Picasso.get()
+                                .load(urlIntroducida)
+                                .into(binding.collapsingToolDetailBarImagenFondo)
+                        }
+
+                    })
+
+                builder.setNegativeButton(getString(R.string.AlertDialogNegativeButton),
+                    DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+
+                builder.show()
+            }
+
+
+        }
+    }
+
     private fun addEditText() {
         editText = EditText(activity)
-        editText.setText(pelicula.description)
+        editText.setText(peliculaEditTextData[peliculaEditTextData.size - 2])
         editText.setTextColor(getResources().getColor(R.color.enabled_color))
 
         editText.setBackgroundResource(android.R.color.transparent);
@@ -313,56 +330,111 @@ class FilmDetailFragment:Fragment() {
 
     }
 
-    fun cargarCambios() {
-        pelicula.genre =
-            binding.layoutDetallesPeliculaCollapse.FilmDetailETGenero.getText().toString()
-        pelicula.title =
-            binding.layoutDetallesPeliculaCollapse.FilmDetailETTitulo.getText().toString()
-        pelicula.imageUrl = editText.text.toString()
+    fun guardarCambiosDatosPelicula() {
+        var textoEditText: String
+        //EditTexts
+        for (i in 1..editsTextOfLayout.size - 2) {
+            textoEditText = editsTextOfLayout[i].text.toString()
+            if (textoEditText.equals("")) {
+                peliculaEditTextData[i] = null
+            } else if (!textoEditText.equals(peliculaEditTextData[i])) {
+                peliculaEditTextData[i] = textoEditText
+            }
+        }
+
+        //Sinopsis
+        textoEditText = editText.text.toString()
+        if (textoEditText.equals("")) {
+            peliculaEditTextData[peliculaEditTextData.size - 2] = null
+        } else if (!textoEditText.equals(peliculaEditTextData[peliculaEditTextData.size - 2])) {
+            peliculaEditTextData[peliculaEditTextData.size - 2] = textoEditText
+        }
+
+        //Imagen
+        peliculaEditTextData[peliculaEditTextData.size - 1] = posibleNuevaURLCaratula
+
 
     }
 
     /**
      *@return Indica si se han realizado cambios en los datos dela pelicula volcados en los componentes de la vista
      */
-    fun hayCambios():Boolean{
-        return binding.layoutDetallesPeliculaCollapse.FilmDetailETTitulo.getText().toString() != pelicula.title ||
-                binding.layoutDetallesPeliculaCollapse.FilmDetailETGenero.getText().toString() != pelicula.description ||
-                editText.text.toString() != pelicula.description
-    }
-
-
-
     fun avisoBorrarPelicula() {
         val dialogBuilder = AlertDialog.Builder(activity)
         dialogBuilder.setTitle(getString(R.string.AlertDialogDeleteTitle))
         dialogBuilder.setMessage(getString(R.string.FilmDetailActivityDeleteMessage))
             .setCancelable(false)
-            .setPositiveButton(getString(R.string.AlertDialogPositiveButton), DialogInterface.OnClickListener { dialog, id ->
+            .setPositiveButton(
+                getString(R.string.AlertDialogPositiveButton),
+                DialogInterface.OnClickListener { dialog, id ->
 
-                val call = RetrofitService().getMovieService().deleteMovieByID(GestorSharedPreferences(requireContext()).getPersonalToken()!!,pelicula.id!!)
-                call.enqueue(object :Callback<Unit>{
-                    override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-                        if(response.isSuccessful){
-                            parentFragmentManager.popBackStack()
-                        }else{
-                            Log.d("Main",response.message())
+                    val call = RetrofitService().getMovieService().deleteMovieByID(
+                        GestorSharedPreferences(requireContext()).getPersonalToken()!!,
+                        peliculaEditTextData[0]!!
+                    )
+                    call.enqueue(object : Callback<Unit> {
+                        override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                            if (response.isSuccessful) {
+                                parentFragmentManager.popBackStack()
+                            } else {
+                                Log.d("Main", response.message())
+                            }
                         }
-                    }
-                    override fun onFailure(call: Call<Unit>, t: Throwable) {
-                        TODO("Not yet implemented")
-                    }
+
+                        override fun onFailure(call: Call<Unit>, t: Throwable) {
+                            TODO("Not yet implemented")
+                        }
+
+                    })
 
                 })
-
-            })
-            .setNegativeButton(getString(R.string.AlertDialogNegativeButton), DialogInterface.OnClickListener { dialog, id ->
-                dialog.cancel()
-            })
+            .setNegativeButton(
+                getString(R.string.AlertDialogNegativeButton),
+                DialogInterface.OnClickListener { dialog, id ->
+                    dialog.cancel()
+                })
 
         val alert = dialogBuilder.create()
         alert.setTitle(getString(R.string.AlertDialogDeleteTitle))
         alert.show()
     }
 
+    fun avisoGuardarPelicula() {
+        val dialogBuilder = AlertDialog.Builder(activity)
+        dialogBuilder.setTitle(getString(R.string.AlertDialogDeleteTitle))
+        dialogBuilder.setMessage(getString(R.string.FilmDetailActivityDeleteMessage))
+            .setCancelable(false)
+            .setPositiveButton(
+                getString(R.string.AlertDialogPositiveButton),
+                DialogInterface.OnClickListener { dialog, id ->
+
+                guardarCambiosDatosPelicula()
+
+
+                })
+            .setNegativeButton(
+                getString(R.string.AlertDialogNegativeButton),
+                DialogInterface.OnClickListener { dialog, id ->
+                    dialog.cancel()
+                    loadMoviePicture()
+                    textViewDataLoad()
+                })
+
+        val alert = dialogBuilder.create()
+        alert.setTitle(getString(R.string.AlertDialogDeleteTitle))
+        alert.show()
+    }
+
+    fun getEditText(): Array<EditText> {
+        var editTextContenidas = ArrayList<EditText>()
+
+        for (cont: View in binding.layoutDetallesPeliculaCollapse.constraintFilmDetailLayout.iterator()) {
+            if (cont is EditText) {
+                editTextContenidas.add(cont)
+            }
+        }
+
+        return editTextContenidas.toTypedArray()
+
+    }
 }

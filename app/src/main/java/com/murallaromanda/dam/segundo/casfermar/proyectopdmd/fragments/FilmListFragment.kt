@@ -39,7 +39,7 @@ class FilmListFragment : Fragment() {
         activity = getActivity() as AppCompatActivity
         //Cambios en la ToolBar
         setHasOptionsMenu(true)
-        activity.supportActionBar?.setTitle("Peliculas mas populares de la semana")
+        activity.supportActionBar?.setTitle("Peliculas")
 
         //Enlazamos y ajustamos la disposicion y el numero de columnas del recycler
         binding = FragmentFilmListBinding.inflate(inflater, container, false)

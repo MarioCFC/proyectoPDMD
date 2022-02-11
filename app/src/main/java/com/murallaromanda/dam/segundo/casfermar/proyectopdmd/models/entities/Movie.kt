@@ -16,10 +16,30 @@ data class Movie (
 
 ){
     fun getDataEditTextDataArray(): Array<String?> {
-        return arrayOf(title,genre,runtimeMinutes,rating,description)
+        return arrayOf(id,title, genre, runtimeMinutes, rating, description,imageUrl)
     }
+
+    fun setEditTextDataOfArray(datos: Array<String?>) {
+        id = datos[0]
+        title = datos[1]!!
+        genre = datos[2]
+        runtimeMinutes = datos[3]
+        rating = datos[4]
+        description = datos[5]
+        imageUrl = datos[6]
+    }
+
     //TODO:Cambiar de sitio
-    fun getCadenasDatosPeliculaNull(): Array<String>{
-        return arrayOf("Sin titulo","Sin genero","Sin duracion","Sin valoraciones","Sin sinopsis")
+    companion object {
+        fun getCadenasDatosPeliculaNull(): Array<String> {
+            return arrayOf(
+                "Sin id",
+                "Sin titulo",
+                "Sin genero",
+                "Sin duracion",
+                "Sin valoraciones",
+                "Sin sinopsis"
+            )
+        }
     }
 }
