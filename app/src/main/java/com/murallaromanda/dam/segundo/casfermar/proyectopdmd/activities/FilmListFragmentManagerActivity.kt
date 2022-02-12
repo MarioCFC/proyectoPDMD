@@ -1,14 +1,24 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat.startActivity
+import androidx.fragment.app.FragmentActivity
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.fragments.FilmListFragment
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.fragments.LoginFragment
 
 class FilmListFragmentManagerActivity : AppCompatActivity() {
+    companion object{
+        fun vueltaAlLogin(context: Context){
+            //TODO:Crear metodo para borrar el token y iniciar de nuevo el login
+            startActivity(Intent())
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fragment_manager)
