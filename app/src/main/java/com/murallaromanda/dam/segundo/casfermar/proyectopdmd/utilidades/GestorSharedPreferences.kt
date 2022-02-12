@@ -14,4 +14,7 @@ class GestorSharedPreferences(val context: Context){
         return preferencias.getString("personalToken","erro")
     }
 
+    fun resetPersonalToken():Unit{
+        setPersonalToken("")
+    }
 }

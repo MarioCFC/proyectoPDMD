@@ -32,7 +32,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/FilmDetailIvEditTextsMarginRight"
-            android:background="@color/pruebaFondo"
             android:enabled="false"
             android:fontFamily="sans-serif-black"
             android:inputType="textMultiLine"

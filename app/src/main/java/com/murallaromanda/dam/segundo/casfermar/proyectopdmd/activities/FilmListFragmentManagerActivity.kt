@@ -11,14 +11,10 @@ import androidx.fragment.app.FragmentActivity
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.fragments.FilmListFragment
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.fragments.LoginFragment
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorSharedPreferences
 
 class FilmListFragmentManagerActivity : AppCompatActivity() {
-    companion object{
-        fun vueltaAlLogin(context: Context){
-            //TODO:Crear metodo para borrar el token y iniciar de nuevo el login
-            startActivity(Intent())
-        }
-    }
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fragment_manager)
