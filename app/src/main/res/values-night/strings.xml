@@ -21,8 +21,6 @@
     <string name="FilmListFabMenuLabel">Añadir</string>
     <string name="FilmListFabOneLabel">Añadir pelicula</string>
     <string name="FilmDetailTvDuracion">Duracion</string>
-    <string name="FilmDetailETTitulo">Sin titulo</string>
-    <string name="FilmDetailETDuracion">0</string>
     <string name="collapsingToolbarTitulo">Fondo pelicula</string>
     <string name="loginActivityEmailValidationError">Email no valido</string>
     <string name="loginActivityPasswordValidationError">Contraseña no valida</string>
@@ -44,4 +42,6 @@
     <string name="AlertDialogDeleteTitle">Alerta</string>
     <string name="FilmCreateActivityMenuItemCreate">Crear</string>
     <string name="FilmDetailTvValoracion">Valoración</string>
+    <string name="AlertDialogDSaveChangesTitle">Guardar cambios</string>
+    <string name="FilmDetailActivitySaveChangesMessage">¿Desea guardar los cambios?</string>
 </resources>

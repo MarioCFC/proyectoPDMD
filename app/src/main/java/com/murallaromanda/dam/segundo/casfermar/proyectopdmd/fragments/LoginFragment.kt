@@ -60,7 +60,8 @@ class LoginFragment : Fragment() {
                         GestorSharedPreferences(requireContext()).setPersonalToken(DAMApiService.BASE_PERSONAL_TOKEN + response.body()!!.token!!)
                         var a = GestorSharedPreferences(requireContext()).getPersonalToken()
                         startActivity(Intent(activity, FilmListFragmentManagerActivity::class.java))
-
+                        //Para que en la lista no se pueda volver al login
+                        activity!!.finish()
                     }else{
                         var mensajeError = Gson().fromJson(response.errorBody()!!.string(),ErrorResponse::class.java)
                         Log.d("MainActivity",mensajeError.message!!)

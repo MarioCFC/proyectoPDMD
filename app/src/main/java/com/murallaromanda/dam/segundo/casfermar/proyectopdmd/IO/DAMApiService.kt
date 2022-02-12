@@ -19,28 +19,37 @@ public interface DAMApiService {
     }
 
 
-    public interface UserService: DAMApiService  {
+    public interface UserService : DAMApiService {
         @POST("users/login")
-        fun login(@Body user:User):Call<LoginToken>
+        fun login(@Body user: User): Call<LoginToken>
 
         @POST("users/signup")
-        fun singUp(@Body user:User):Call<Any>
+        fun singUp(@Body user: User): Call<Any>
 
     }
 
     public interface MovieService : DAMApiService {
 
         @GET("movies")
-        fun getAllMovies(@Header("Authorization:") token:String ):Call<List<Movie>>
+        fun getAllMovies(@Header("Authorization:") token: String): Call<List<Movie>>
 
         @GET("movies/{id}")
-        fun getMovieByID(@Header("Authorization:") token:String , @Path("id") id:String):Call<Movie>
+        fun getMovieByID(
+            @Header("Authorization:") token: String,
+            @Path("id") id: String
+        ): Call<Movie>
 
         @DELETE("movies/{id}")
-        fun deleteMovieByID(@Header("Authorization:") token:String , @Path("id") id:String):Call<Unit>
+        fun deleteMovieByID(
+            @Header("Authorization:") token: String,
+            @Path("id") id: String
+        ): Call<Unit>
 
         @POST("movies")
-        fun createMovie(@Header("Authorization") token: String,@Body pelicula: Movie): Call<Unit>
+        fun createMovie(@Header("Authorization") token: String, @Body pelicula: Movie): Call<Unit>
+
+        @PUT("movies")
+        fun editMOvie(@Header("Authorization") token: String, @Body pelicula: Movie): Call<Unit>
     }
 
 
