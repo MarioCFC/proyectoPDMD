@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:layout_marginHorizontal="@dimen/cardItemMarginHorizontal"
         android:layout_marginBottom="@dimen/cardItemMarginBottom"
-        app:cardBackgroundColor="@color/cardItemBackgroundColor"
+        app:cardBackgroundColor="@color/secondColor"
         app:cardCornerRadius="@dimen/cardItemCornerRadius"
         >
 
@@ -37,7 +37,8 @@
                 android:layout_gravity="center"
                 android:fontFamily="sans-serif-black"
                 android:maxLines="2"
-                android:textSize="@dimen/CardItemTvTextSize" />
+                android:textSize="@dimen/CardItemTvTextSize"
+                android:textColor="@color/cardsText"/>
 
 
         </LinearLayout>

@@ -26,6 +26,7 @@ class LoginAndRegisterActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fragment_manager)
         var mTopToolbar =  findViewById(R.id.my_toolbar) as Toolbar;
+        mTopToolbar.setTitle("")
         setSupportActionBar(mTopToolbar);
 
          supportFragmentManager.addOnBackStackChangedListener {

@@ -2,6 +2,7 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/mainBackgroundColor"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="right"
@@ -15,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!--TODO:Cambiar icono boton-->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvFilmList"
             android:layout_width="0dp"
@@ -22,14 +24,14 @@
             android:layout_marginTop="@dimen/rvFilmListMarginTop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            />
-        <!--TODO:Cambiar icono boton-->
-            <com.github.clans.fab.FloatingActionButton
+            app:layout_constraintVertical_bias="1.0" />
+
+        <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/fabUno"
+                app:fab_colorNormal="@color/addButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/fabMenuMargin"
@@ -37,7 +39,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="1.0"
-                android:src="@android:drawable/alert_dark_frame"
+                android:src="@drawable/ic_baseline_add_24"
                 app:fabSize="mini"
                 app:fab_label="@string/FilmListFabTwoLabel" />
 
