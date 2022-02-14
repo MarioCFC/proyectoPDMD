@@ -86,12 +86,12 @@ class RegisterFragment : Fragment() {
                                 ErrorResponse::class.java
                             )
 
-                            Log.d("MainActivity", mensajeError.message!!)
+                            Toast.makeText(context!!,response.message(),Toast.LENGTH_SHORT).show()
                         }
                     }
 
                     override fun onFailure(call: Call<Any>, t: Throwable) {
-                        TODO("Not yet implemented")
+                        Toast.makeText(context!!,"No se ha podido establecer la conexion con la BD",Toast.LENGTH_SHORT).show()
                     }
                 })
 

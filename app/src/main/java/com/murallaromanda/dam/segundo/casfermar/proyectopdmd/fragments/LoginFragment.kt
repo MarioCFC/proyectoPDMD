@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.gson.Gson
@@ -50,29 +51,64 @@ class LoginFragment : Fragment() {
         }
 
         binding.loginBtLogin.setOnClickListener() {
-            var user = User(binding.loginTieEmail.text.toString(), binding.loginTiePassword.text.toString())
-            var call = RetrofitService().getUserService().login(user)
+            var user = User()
+            var email = binding.loginTieEmail.text.toString()
+            var contraseña = binding.loginTiePassword.text.toString()
 
-            //TODO: Mirar como indicar el error que se produce
-            call.enqueue(object : Callback<LoginToken> {
-                override fun onResponse(call: Call<LoginToken>, response: Response<LoginToken>) {
-                    if (response.isSuccessful) {
-                        GestorSharedPreferences(requireContext()).setPersonalToken(DAMApiService.BASE_PERSONAL_TOKEN + response.body()!!.token!!)
-                        var a = GestorSharedPreferences(requireContext()).getPersonalToken()
-                        startActivity(Intent(activity, FilmListFragmentManagerActivity::class.java))
-                        //Para que en la lista no se pueda volver al login
-                        activity!!.finish()
-                    }else{
-                        var mensajeError = Gson().fromJson(response.errorBody()!!.string(),ErrorResponse::class.java)
-                        Log.d("MainActivity",mensajeError.message!!)
-                    }
+            //TODO:Cambiar el siguiente bloque de condiciones anidadas
+            if (user.validarEmail(email)) {
+                user.email = email
+
+                binding.loginTilEmail.setError("")
+
+                if (!contraseña.equals("")) {
+                    user.password = contraseña
+
+                    var call = RetrofitService().getUserService().login(user)
+                    call.enqueue(object : Callback<LoginToken> {
+                        override fun onResponse(
+                            call: Call<LoginToken>,
+                            response: Response<LoginToken>
+                        ) {
+                            if (response.isSuccessful) {
+                                GestorSharedPreferences(requireContext()).setPersonalToken(
+                                    DAMApiService.BASE_PERSONAL_TOKEN + response.body()!!.token!!
+                                )
+                                var a = GestorSharedPreferences(requireContext()).getPersonalToken()
+                                startActivity(
+                                    Intent(
+                                        activity,
+                                        FilmListFragmentManagerActivity::class.java
+                                    )
+                                )
+                                //Para que en la lista no se pueda volver al login
+                                activity!!.finish()
+                            } else {
+                                var mensajeError = Gson().fromJson(
+                                    response.errorBody()!!.string(),
+                                    ErrorResponse::class.java
+                                )
+                                Toast.makeText(context!!, mensajeError.message, Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                        }
+
+
+                        override fun onFailure(call: Call<LoginToken>, t: Throwable) {
+                            Toast.makeText(
+                                context!!,
+                                "No se ha podido establecer la conexion con la BD",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    })
+                    binding.loginTilPassword.setError("")
+                } else {
+                    binding.loginTilPassword.setError("Contraseña no válida")
                 }
-
-
-                override fun onFailure(call: Call<LoginToken>, t: Throwable) {
-                    Log.d("Main",t.message!!)
-                }
-            })
+            } else {
+                binding.loginTilEmail.setError("Email no válido")
+            }
 
 
         }

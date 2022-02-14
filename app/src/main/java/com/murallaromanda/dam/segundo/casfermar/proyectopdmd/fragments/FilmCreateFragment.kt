@@ -9,6 +9,7 @@ import android.util.TypedValue
 import android.view.*
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintSet
@@ -17,6 +18,7 @@ import androidx.core.view.iterator
 import androidx.fragment.app.Fragment
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.FragmentCollapsingToolDetailFilmBinding
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.ErrorResponse
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Movie
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorSharedPreferences
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.RetrofitService
@@ -203,12 +205,12 @@ class FilmCreateFragment : Fragment() {
                 if (response.isSuccessful) {
                     parentFragmentManager.popBackStack()
                 } else {
-                    Log.d("Main", response.message())
+                    ErrorResponse.gestionarError(response.errorBody().toString(), activity)
                 }
             }
 
             override fun onFailure(call: Call<Unit>, t: Throwable) {
-                TODO("Not yet implemented")
+                Toast.makeText(context!!,"No se ha podido establecer la conexion con la BD", Toast.LENGTH_SHORT).show()
             }
 
         })

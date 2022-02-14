@@ -12,12 +12,12 @@
     <color name="disabled_color">#000000</color>
 <!--TODO: Cambiar nombre de los colores
     <color name="mainBackgroundColor">#363235</color>-->
-    <color name="mainBackgroundColor">#232323</color>
+    <color name="mainBackgroundColor">#121212</color>
     <color name="secondColor">#E3B02C</color>
     <color name="iconColor">#D4D4D4</color>
 
     <!--<color name="toolBarColor">#788B91</color>-->
-    <color name="toolBarColor">#585D87</color>
+    <color name="toolBarColor">#788B91</color>
     <color name="generalText">#FFFFFF</color>
     <color name="cardsText">#363235</color>
     <color name="linkFont">#0C7DCE</color>

@@ -11,6 +11,7 @@ import android.util.TypedValue
 import android.view.*
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintSet
@@ -19,6 +20,7 @@ import androidx.core.view.iterator
 import androidx.fragment.app.Fragment
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.FragmentCollapsingToolDetailFilmBinding
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.ErrorResponse
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Movie
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorSharedPreferences
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.RetrofitService
@@ -63,14 +65,18 @@ class FilmDetailFragment : Fragment() {
         )
         call.enqueue(object : Callback<Movie> {
             override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
-                peliculaEditTextData = response.body()!!.getDataEditTextDataArray()
-                posibleNuevaURLCaratula = peliculaEditTextData[peliculaEditTextData.size - 1]
-                textViewDataLoad()
-                loadMoviePicture()
+                if (response.isSuccessful) {
+                    peliculaEditTextData = response.body()!!.getDataEditTextDataArray()
+                    posibleNuevaURLCaratula = peliculaEditTextData[peliculaEditTextData.size - 1]
+                    textViewDataLoad()
+                    loadMoviePicture()
+                } else {
+                    ErrorResponse.gestionarError(response.errorBody()!!.toString(), activity)
+                }
             }
 
             override fun onFailure(call: Call<Movie>, t: Throwable) {
-                Log.d("Main", t.message!!)
+                Toast.makeText(context!!,"No se ha podido establecer la conexion con la BD", Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -118,9 +124,9 @@ class FilmDetailFragment : Fragment() {
             menuItem.getItem(2).itemId -> {
                 if (!estaEnEdicion && !editsTextOfLayout[0].text.toString().equals("")) {
                     avisoGuardarPelicula()
-                }else if(!estaEnEdicion && editsTextOfLayout[0].text.toString().equals("")) {
+                } else if (!estaEnEdicion && editsTextOfLayout[0].text.toString().equals("")) {
                     editsTextOfLayout[0].setError("Introduce el titulo")
-                }else{
+                } else {
                     cambiarModoEdicion()
                 }
             }
@@ -221,7 +227,7 @@ class FilmDetailFragment : Fragment() {
 
     fun editTextEditModeLoad() {
         //Recordar que el bucle for en este caso es desde 1 hasta el tamaño del array,inluido
-        for (i in 1 .. editsTextOfLayout.size) {
+        for (i in 1..editsTextOfLayout.size) {
             if (peliculaEditTextData[i] != null) {
                 editsTextOfLayout[i - 1].setText(peliculaEditTextData[i])
             } else {
@@ -238,7 +244,7 @@ class FilmDetailFragment : Fragment() {
         editText.setHint(cadenasDatosPeliculaNull[peliculaEditTextData.size - 2])
     }
 
-    fun setPictures(){
+    fun setPictures() {
         if (posibleNuevaURLCaratula != null)
             Picasso.get()
                 .load(posibleNuevaURLCaratula)
@@ -281,7 +287,8 @@ class FilmDetailFragment : Fragment() {
 
                 builder.setNegativeButton(getString(R.string.AlertDialogNegativeButton),
                     DialogInterface.OnClickListener { dialog, which ->
-                        dialog.cancel() })
+                        dialog.cancel()
+                    })
 
                 builder.show()
             }
@@ -291,7 +298,7 @@ class FilmDetailFragment : Fragment() {
     private fun addEditText() {
         editText = EditText(activity)
         editText.setText(peliculaEditTextData[peliculaEditTextData.size - 2])
-        editText.setTextColor(ContextCompat.getColor(requireContext(),R.color.enabled_color))
+        editText.setTextColor(ContextCompat.getColor(requireContext(), R.color.enabled_color))
 
         editText.setBackgroundResource(android.R.color.transparent);
         editText.layoutParams = LinearLayout.LayoutParams(
@@ -355,19 +362,22 @@ class FilmDetailFragment : Fragment() {
 
         var peliculaModificadaEnviadaAPI = Movie()
         peliculaModificadaEnviadaAPI.setEditTextDataOfArray(peliculaEditTextData)
-        var call = RetrofitService().getMovieService().editMOvie(GestorSharedPreferences(requireContext()).getPersonalToken()!!,peliculaModificadaEnviadaAPI)
+        var call = RetrofitService().getMovieService().editMOvie(
+            GestorSharedPreferences(requireContext()).getPersonalToken()!!,
+            peliculaModificadaEnviadaAPI
+        )
 
-        call.enqueue(object :Callback<Unit>{
+        call.enqueue(object : Callback<Unit> {
             override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-                if (response.isSuccessful){
-                    Log.d("Main","Todo perfect")
-                }else{
-                    Log.d("Main","Todo mal")
+                if (response.isSuccessful) {
+                    Log.d("Main", "Todo perfect")
+                } else {
+                    Log.d("Main", "Todo mal")
                 }
             }
 
             override fun onFailure(call: Call<Unit>, t: Throwable) {
-                Log.d("Main",t.message!!)
+                Log.d("Main", t.message!!)
             }
 
         })

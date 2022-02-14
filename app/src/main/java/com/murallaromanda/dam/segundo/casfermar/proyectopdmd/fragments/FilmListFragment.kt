@@ -2,14 +2,13 @@ package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.fragments
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.activities.LoginAndRegisterActivity
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.adapters.ListaPeliculasAdapter
@@ -67,7 +66,7 @@ class FilmListFragment : Fragment() {
 
     fun rellenarRecyclerView(recyclerView: RecyclerView) {
         //TODO:Error al añadir al token Bearer, se produce una NumberFormatException
-        var token: String = GestorSharedPreferences(requireContext()).getPersonalToken()!!
+        var token: String = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZDk4ZjU5ODE1OTQ4YTdjNGNiZTQ3ZCIsImlhdCI6MTY0MTY0Nzk4MiwiZXhwIjoxNjQxNzM0MzgyfQ.QUAyu4gDnJBtqu_v7VOm4Z3JiB6KKfvVJCJ5FD41QYc"//GestorSharedPreferences(requireContext()).getPersonalToken()!!
         var call = RetrofitService().getMovieService().getAllMovies(token)
         call.enqueue(object : Callback<List<Movie>> {
             override fun onResponse(call: Call<List<Movie>>, response: Response<List<Movie>>) {
@@ -76,15 +75,14 @@ class FilmListFragment : Fragment() {
                         ListaPeliculasAdapter(response.body()!!, activity)
                     recyclerView.adapter = adapter
 
-                } else {
-                    var error: ErrorResponse =
-                        Gson().fromJson(response.errorBody()!!.string(), ErrorResponse::class.java)
-                    Log.d("Main", error.message!!)
+                } else{
+                    var a = response.errorBody()?.string()
+                //    ErrorResponse.gestionarError(response.errorBody()!!.string().toString(), activity)
                 }
             }
 
             override fun onFailure(call: Call<List<Movie>>, t: Throwable) {
-                Log.d("Main", t.message!!)
+                Toast.makeText(context!!,"No se ha podido establecer la conexion con la BD",Toast.LENGTH_SHORT).show()
             }
         })
     }
