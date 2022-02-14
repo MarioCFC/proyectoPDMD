@@ -81,12 +81,7 @@ class RegisterFragment : Fragment() {
                         if (response.isSuccessful) {
                             parentFragmentManager.popBackStack()
                         } else {
-                            var mensajeError = Gson().fromJson(
-                                response.errorBody()!!.string(),
-                                ErrorResponse::class.java
-                            )
-
-                            Toast.makeText(context!!,response.message(),Toast.LENGTH_SHORT).show()
+                            ErrorResponse.gestionarError(response.errorBody()!!.string(), activity as AppCompatActivity)
                         }
                     }
 

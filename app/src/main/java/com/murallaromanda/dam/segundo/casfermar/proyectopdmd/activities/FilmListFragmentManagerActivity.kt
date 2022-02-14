@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.FragmentActivity
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
@@ -19,7 +20,9 @@ class FilmListFragmentManagerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fragment_manager)
         var mTopToolbar =  findViewById(R.id.my_toolbar) as Toolbar;
+        mTopToolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.generalText))
         setSupportActionBar(mTopToolbar);
+        getSupportActionBar()!!.setHomeAsUpIndicator(getDrawable(R.drawable.ic_baseline_arrow_back_24));
 
         supportFragmentManager.addOnBackStackChangedListener {
             if(supportFragmentManager.backStackEntryCount > 0){

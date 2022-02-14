@@ -150,7 +150,7 @@ class FilmCreateFragment : Fragment() {
         activity.menuInflater.inflate(R.menu.menu_add_base, menu)
         menuItem = menu!!
         menuItem.add(300, 1, 1, getString(R.string.FilmCreateActivityMenuItemCreate))
-            .setIcon(activity.getDrawable(R.drawable.ic_baseline_check))
+            .setIcon(activity.getDrawable(R.drawable.ic_baseline_add_24))
         menuItem.getItem(0).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
         super.onCreateOptionsMenu(menu, inflater)
     }
@@ -205,12 +205,16 @@ class FilmCreateFragment : Fragment() {
                 if (response.isSuccessful) {
                     parentFragmentManager.popBackStack()
                 } else {
-                    ErrorResponse.gestionarError(response.errorBody().toString(), activity)
+                    ErrorResponse.gestionarError(response.errorBody()!!.string(), activity)
                 }
             }
 
             override fun onFailure(call: Call<Unit>, t: Throwable) {
-                Toast.makeText(context!!,"No se ha podido establecer la conexion con la BD", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context!!,
+                    "No se ha podido establecer la conexion con la BD",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
         })

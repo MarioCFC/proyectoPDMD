@@ -20,6 +20,7 @@ import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.Retrofit
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.LocalDate
 
 class FilmListFragment : Fragment() {
     private lateinit var binding: FragmentFilmListBinding
@@ -36,6 +37,7 @@ class FilmListFragment : Fragment() {
         //Cambios en la ToolBar
         setHasOptionsMenu(true)
         activity.supportActionBar?.setTitle("Peliculas")
+
 
         //Enlazamos y ajustamos la disposicion y el numero de columnas del recycler
         binding = FragmentFilmListBinding.inflate(inflater, container, false)
@@ -66,18 +68,18 @@ class FilmListFragment : Fragment() {
 
     fun rellenarRecyclerView(recyclerView: RecyclerView) {
         //TODO:Error al añadir al token Bearer, se produce una NumberFormatException
-        var token: String = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZDk4ZjU5ODE1OTQ4YTdjNGNiZTQ3ZCIsImlhdCI6MTY0MTY0Nzk4MiwiZXhwIjoxNjQxNzM0MzgyfQ.QUAyu4gDnJBtqu_v7VOm4Z3JiB6KKfvVJCJ5FD41QYc"//GestorSharedPreferences(requireContext()).getPersonalToken()!!
+        var token: String = GestorSharedPreferences(requireContext()).getPersonalToken()!!
         var call = RetrofitService().getMovieService().getAllMovies(token)
         call.enqueue(object : Callback<List<Movie>> {
             override fun onResponse(call: Call<List<Movie>>, response: Response<List<Movie>>) {
                 if (response.isSuccessful) {
+
                     val adapter =
                         ListaPeliculasAdapter(response.body()!!, activity)
                     recyclerView.adapter = adapter
 
                 } else{
-                    var a = response.errorBody()?.string()
-                //    ErrorResponse.gestionarError(response.errorBody()!!.string().toString(), activity)
+                    ErrorResponse.gestionarError( response.errorBody()!!.string(), activity)
                 }
             }
 
@@ -93,7 +95,7 @@ class FilmListFragment : Fragment() {
         menuItem = menu!!
         //Boton borrar
         menuItem.add(300, 0, 0, "Cerrar sesion")
-            .setIcon(activity.getDrawable(R.drawable.ic_baseline_delete))
+            .setIcon(activity.getDrawable(R.drawable.ic_baseline_exit_to_app_24))
         menuItem.getItem(0).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
     }
 
@@ -105,8 +107,6 @@ class FilmListFragment : Fragment() {
             menuItem.getItem(0).itemId -> {
                 avisoCerrarSesion(activity)
             }
-
-
         }
         return super.onOptionsItemSelected(item)
     }

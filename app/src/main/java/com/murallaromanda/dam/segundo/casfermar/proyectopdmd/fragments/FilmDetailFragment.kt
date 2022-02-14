@@ -19,6 +19,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.iterator
 import androidx.fragment.app.Fragment
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.adapters.ListaPeliculasAdapter
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.FragmentCollapsingToolDetailFilmBinding
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.ErrorResponse
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Movie
@@ -89,17 +90,17 @@ class FilmDetailFragment : Fragment() {
         menuItem = menu!!
         //Boton borrar
         menuItem.add(300, 1, 1, getString(R.string.FilmDetailActivityMenuItemDeleteTitle))
-            .setIcon(activity.getDrawable(R.drawable.ic_baseline_delete))
+            .setIcon(activity.getDrawable(R.drawable.ic_baseline_delete_24))
         menuItem.getItem(0).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
 
         //Boton de búsqueda del titulo en el navegador
         menuItem.add(300, 2, 2, getString(R.string.FilmDetailActivityMenuItemBrowserTitle))
-            .setIcon(activity.getDrawable(R.drawable.ic_baseline_browser))
+            .setIcon(activity.getDrawable(R.drawable.ic_baseline_add_24))
         menuItem.getItem(1).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
 
         //Boton editar
         menuItem.add(301, 3, 3, getString(R.string.FilmDetailActivityMenuItemEditTitle))
-            .setIcon(activity.getDrawable(R.drawable.ic_baseline_edit))
+            .setIcon(activity.getDrawable(R.drawable.ic_baseline_mode_edit))
         menuItem.getItem(2).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
 
         super.onCreateOptionsMenu(menu, inflater)
@@ -198,10 +199,10 @@ class FilmDetailFragment : Fragment() {
     fun cambiarModoEdicionMenu() {
         if (estaEnEdicion) {
             menuItem.setGroupVisible(300, false)
-            menuItem.getItem(2).setIcon(activity.getDrawable(R.drawable.ic_baseline_check))
+            menuItem.getItem(2).setIcon(activity.getDrawable(R.drawable.ic_baseline_add_24))
         } else {
             menuItem.setGroupVisible(300, true)
-            menuItem.getItem(2).setIcon(activity.getDrawable(R.drawable.ic_baseline_edit))
+            menuItem.getItem(2).setIcon(activity.getDrawable(R.drawable.ic_baseline_mode_edit))
         }
     }
 
@@ -370,9 +371,9 @@ class FilmDetailFragment : Fragment() {
         call.enqueue(object : Callback<Unit> {
             override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
                 if (response.isSuccessful) {
-                    Log.d("Main", "Todo perfect")
-                } else {
-                    Log.d("Main", "Todo mal")
+                    Toast.makeText(context!!,"Pelicula editada",Toast.LENGTH_SHORT).show()
+                } else{
+                    ErrorResponse.gestionarError( response.errorBody()!!.string(), activity)
                 }
             }
 
@@ -404,8 +405,8 @@ class FilmDetailFragment : Fragment() {
                         override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
                             if (response.isSuccessful) {
                                 parentFragmentManager.popBackStack()
-                            } else {
-                                Log.d("Main", response.message())
+                            }else{
+                                ErrorResponse.gestionarError( response.errorBody()!!.string(), activity)
                             }
                         }
 

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.fragments.LoginFragment
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.utilidades.GestorSharedPreferences
@@ -15,7 +16,7 @@ class LoginAndRegisterActivity : AppCompatActivity(){
         fun logOut(activity: AppCompatActivity){
             //TODO:Crear metodo para borrar el token y iniciar de nuevo el login
             activity.startActivity(
-                Intent(activity,this::class.java).addFlags(
+                Intent(activity,LoginAndRegisterActivity::class.java).addFlags(
                     Intent.FLAG_ACTIVITY_CLEAR_TOP ).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP))
             GestorSharedPreferences(activity).resetPersonalToken()
             activity.finish()
@@ -27,7 +28,9 @@ class LoginAndRegisterActivity : AppCompatActivity(){
         setContentView(R.layout.activity_fragment_manager)
         var mTopToolbar =  findViewById(R.id.my_toolbar) as Toolbar;
         mTopToolbar.setTitle("")
+        mTopToolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.generalText))
         setSupportActionBar(mTopToolbar);
+        getSupportActionBar()!!.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
 
          supportFragmentManager.addOnBackStackChangedListener {
              if(supportFragmentManager.backStackEntryCount > 0){
