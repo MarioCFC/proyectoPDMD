@@ -80,8 +80,10 @@ class LoginFragment : Fragment() {
                                     Intent(
                                         activity,
                                         FilmListFragmentManagerActivity::class.java
-                                    )
-                                )
+                                    ).addFlags(
+                                        Intent.FLAG_ACTIVITY_CLEAR_TOP ).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP))
+                                (requireActivity() as AppCompatActivity).finish()
+
                                 //Para que en la lista no se pueda volver al login
                                 activity!!.finish()
                             } else {

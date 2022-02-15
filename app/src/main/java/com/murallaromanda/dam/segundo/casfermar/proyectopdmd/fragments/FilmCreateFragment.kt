@@ -109,7 +109,7 @@ class FilmCreateFragment : Fragment() {
 
     private fun addEditText() {
         editText = EditText(activity)
-        editText.setText(getString(R.string.FilmDetailTvTitulo))
+        editText.setText(getString(R.string.stringNulDescriptionMovie))
         editText.setTextColor(ContextCompat.getColor(requireContext(), R.color.generalText))
         editText.setBackgroundResource(android.R.color.transparent);
         editText.layoutParams = LinearLayout.LayoutParams(

@@ -199,7 +199,7 @@ class FilmDetailFragment : Fragment() {
     fun cambiarModoEdicionMenu() {
         if (estaEnEdicion) {
             menuItem.setGroupVisible(300, false)
-            menuItem.getItem(2).setIcon(activity.getDrawable(R.drawable.ic_baseline_add_24))
+            menuItem.getItem(2).setIcon(activity.getDrawable(R.drawable.ic_baseline_done_24))
         } else {
             menuItem.setGroupVisible(300, true)
             menuItem.getItem(2).setIcon(activity.getDrawable(R.drawable.ic_baseline_mode_edit))
@@ -208,7 +208,7 @@ class FilmDetailFragment : Fragment() {
 
 
     fun textViewDataLoad() {
-        cadenasDatosPeliculaNull = Movie.getCadenasDatosPeliculaNull()
+        cadenasDatosPeliculaNull = Movie.getCadenasDatosPeliculaNull(context!!)
 
         for (i in 1..editsTextOfLayout.size) {
             if (peliculaEditTextData[i] != null)

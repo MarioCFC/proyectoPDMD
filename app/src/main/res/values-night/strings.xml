@@ -44,4 +44,6 @@
     <string name="FilmDetailTvValoracion">Valoración</string>
     <string name="AlertDialogDSaveChangesTitle">Guardar cambios</string>
     <string name="FilmDetailActivitySaveChangesMessage">¿Desea guardar los cambios?</string>
+    <string name="stringNullIdMovie">Sin id</string>
+    <string name="stringNulDescriptionMovie">Sin sinopsis</string>
 </resources>

@@ -36,7 +36,7 @@ class FilmListFragment : Fragment() {
         activity = getActivity() as AppCompatActivity
         //Cambios en la ToolBar
         setHasOptionsMenu(true)
-        activity.supportActionBar?.setTitle("Peliculas")
+        activity.supportActionBar?.setTitle("")
 
 
         //Enlazamos y ajustamos la disposicion y el numero de columnas del recycler

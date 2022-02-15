@@ -1,6 +1,8 @@
 package com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities
 
+import android.content.Context
 import com.google.gson.annotations.SerializedName
+import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
 
 
 data class Movie (
@@ -31,14 +33,14 @@ data class Movie (
 
     //TODO:Cambiar de sitio
     companion object {
-        fun getCadenasDatosPeliculaNull(): Array<String> {
+        fun getCadenasDatosPeliculaNull(context: Context): Array<String> {
             return arrayOf(
-                "Sin id",
-                "Sin titulo",
-                "Sin genero",
-                "Sin duracion",
-                "Sin valoraciones",
-                "Sin sinopsis"
+                context.getString(R.string.stringNullIdMovie),
+                context.getString(R.string.stringNullTitleMovie),
+                context.getString(R.string.stringNullGenreMovie),
+                context.getString(R.string.stringNullRunTimeMovie),
+                context.getString(R.string.stringNullRatingMovie),
+                context.getString(R.string.stringNulDescriptionMovie)
             )
         }
     }
