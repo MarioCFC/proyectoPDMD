@@ -1,11 +1,10 @@
 # Aplicacon de PMDM
-Proyecto realizado a lo largo del curso de la asignatura de PDMD el cual consiste en una aplicacion donde 
-podemos listar diferentes peliculas que podemos obtenere de The movie datavase, por medio de su API, o tambien podemos
-introducir y editar los datos de manera manual ya que estos se almacenan haciendo uso de un archivo JSON en la aplicación
-para poder usar la app sin conexíon y en todo momento.
+Proyecto realizado a lo largo del curso de la asignatura de PDMD el cual consiste en una aplicacion donde
+obtenemos una lista de peliculas y detalles ademas de poder editarlas y crearlas, todo esto por medio de peticiones
+a una API.
 
 ## Capturas de la app
-
-![Alt text](/Screenshots/Lista.png?raw=true "Pantalla de la lista")
-![Alt text](/Screenshots/Detalles.png?raw=true "Pantalla de los detalles de una pelicula")
-![Alt text](/Screenshots/Edicion.png?raw=true "Edición de una película almacenada")
+![Alt text](/Screenshots/login.jpg?raw=true "Pantalla de login.")
+![Alt text](/Screenshots/lista.jpg?raw=true "Pantalla de la lista de películas.")
+![Alt text](/Screenshots/detalles.jpg?raw=true "Pantalla de detalles de una película.")
+![Alt text](/Screenshots/creacion.jpg?raw=true "Pantalla de creación de una nueva película.")

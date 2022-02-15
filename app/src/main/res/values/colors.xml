@@ -7,20 +7,15 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="Enlace">#0C7DCE</color>
     <color name="enabled_color">#b6a39f</color>
     <color name="disabled_color">#000000</color>
-<!--TODO: Cambiar nombre de los colores
-    <color name="mainBackgroundColor">#363235</color>-->
-    <color name="mainBackgroundColor">#121212</color>
+<!--TODO: Cambiar nombre de los colores-->
+    <color name="backgroundColor">#121212</color>
     <color name="secondColor">#003c8f</color>
     <color name="iconColor">#D4D4D4</color>
 
-    <!--<color name="toolBarColor">#788B91</color>-->
-    <color name="toolBarColor">#121212</color>
     <color name="generalText">#FFFFFF</color>
-    <color name="cardsText">#FFFFFF</color>
     <color name="linkFont">#0C7DCE</color>
-    <color name="addButton">#003c8f</color>
+
 
 </resources>

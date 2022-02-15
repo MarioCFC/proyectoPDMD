@@ -2,7 +2,7 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/mainBackgroundColor"
+    android:background="@color/backgroundColor"
     android:id="@+id/scroll_film_detail_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -30,6 +30,7 @@
 
         <EditText
             android:id="@+id/FilmDetailETTitulo"
+            style="@style/editTextStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/FilmDetailIvEditTextsMarginRight"
@@ -39,7 +40,6 @@
             android:inputType="textMultiLine"
             android:maxLines="2"
             android:scrollHorizontally="true"
-            android:textColor="@color/generalText"
             app:layout_constrainedHeight="false"
             app:layout_constrainedWidth="false"
             app:layout_constraintEnd_toEndOf="parent"
@@ -50,6 +50,7 @@
 
         <EditText
             android:id="@+id/FilmDetailETGenero"
+            style="@style/editTextStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/FilmDetailIvEditTextsMarginRight"
@@ -57,7 +58,6 @@
             android:enabled="false"
             android:inputType="textMultiLine"
             android:maxLines="2"
-            android:textColor="@color/generalText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/FilmDetailETTitulo"
@@ -66,6 +66,7 @@
 
         <EditText
             android:id="@+id/FilmDetailETDuracion"
+            style="@style/editTextStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/FilmDetailIvEditTextsMarginRight"
@@ -73,7 +74,6 @@
             android:enabled="false"
             android:inputType="textMultiLine"
             android:maxLines="2"
-            android:textColor="@color/generalText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/textView4"
@@ -81,6 +81,7 @@
 
         <EditText
             android:id="@+id/FilmDetailETValoracion"
+            style="@style/editTextStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/FilmDetailIvEditTextsMarginRight"
@@ -88,7 +89,6 @@
             android:enabled="false"
             android:inputType="textMultiLine"
             android:maxLines="2"
-            android:textColor="@color/generalText"
             app:layout_constraintBottom_toTopOf="@+id/FilmDetailTvSinopsis"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.2"

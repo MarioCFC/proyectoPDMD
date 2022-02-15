@@ -19,7 +19,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.iterator
 import androidx.fragment.app.Fragment
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.R
-import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.adapters.ListaPeliculasAdapter
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.databinding.FragmentCollapsingToolDetailFilmBinding
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.ErrorResponse
 import com.murallaromanda.dam.segundo.casfermar.proyectopdmd.models.entities.Movie
@@ -77,7 +76,11 @@ class FilmDetailFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<Movie>, t: Throwable) {
-                Toast.makeText(context!!,"No se ha podido establecer la conexion con la BD", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context!!,
+                    "No se ha podido establecer la conexion con la BD",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
 
@@ -180,13 +183,13 @@ class FilmDetailFragment : Fragment() {
 
             //Imagenes
             binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.setBackgroundColor(
-                ContextCompat.getColor(requireContext(), R.color.mainBackgroundColor)
+                ContextCompat.getColor(requireContext(), R.color.backgroundColor)
             )
 
             binding.collapsingToolDetailBarImagenFondo.setBackgroundColor(
                 ContextCompat.getColor(
                     requireContext(),
-                    R.color.mainBackgroundColor
+                    R.color.backgroundColor
                 )
             )
             loadMoviePicture()
@@ -208,7 +211,7 @@ class FilmDetailFragment : Fragment() {
 
 
     fun textViewDataLoad() {
-        cadenasDatosPeliculaNull = Movie.getCadenasDatosPeliculaNull(context!!)
+        cadenasDatosPeliculaNull = Movie.getCadenasDatosPeliculaNull(requireContext())
 
         for (i in 1..editsTextOfLayout.size) {
             if (peliculaEditTextData[i] != null)
@@ -240,21 +243,32 @@ class FilmDetailFragment : Fragment() {
         //Sinopsiss ya que el edit text rota con el ReadMore
         if (peliculaEditTextData[peliculaEditTextData.size - 2] != null)
             editText.setText(peliculaEditTextData[peliculaEditTextData.size - 2])
-        else
+        else {
             editText.setText("")
-        editText.setHint(cadenasDatosPeliculaNull[peliculaEditTextData.size - 2])
+            editText.setHint(cadenasDatosPeliculaNull[peliculaEditTextData.size - 2])
+        }
     }
 
     fun setPictures() {
-        if (posibleNuevaURLCaratula != null)
+        if (posibleNuevaURLCaratula != null) {
             Picasso.get()
                 .load(posibleNuevaURLCaratula)
                 .into(binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula)
+        }else{
+            binding.collapsingToolDetailBarImagenFondo.setImageDrawable(activity.getDrawable(R.drawable.ic_baseline_camera_alt_24))
+        }
 
-        if (posibleNuevaURLCaratula != null)
+        if (posibleNuevaURLCaratula != null) {
             Picasso.get()
                 .load(posibleNuevaURLCaratula)
                 .into(binding.collapsingToolDetailBarImagenFondo)
+        }else{
+            binding.layoutDetallesPeliculaCollapse.FilmDetaiIvCaratula.setImageDrawable(
+                activity.getDrawable(
+                    R.drawable.ic_baseline_camera_alt_24
+                )
+            )
+        }
     }
 
     fun loadMoviePicture() {
@@ -298,8 +312,7 @@ class FilmDetailFragment : Fragment() {
 
     private fun addEditText() {
         editText = EditText(activity)
-        editText.setText(peliculaEditTextData[peliculaEditTextData.size - 2])
-        editText.setTextColor(ContextCompat.getColor(requireContext(), R.color.enabled_color))
+        editText.setTextColor(ContextCompat.getColor(requireContext(), R.color.generalText))
 
         editText.setBackgroundResource(android.R.color.transparent);
         editText.layoutParams = LinearLayout.LayoutParams(
@@ -371,9 +384,9 @@ class FilmDetailFragment : Fragment() {
         call.enqueue(object : Callback<Unit> {
             override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
                 if (response.isSuccessful) {
-                    Toast.makeText(context!!,"Pelicula editada",Toast.LENGTH_SHORT).show()
-                } else{
-                    ErrorResponse.gestionarError( response.errorBody()!!.string(), activity)
+                    Toast.makeText(context!!, "Pelicula editada", Toast.LENGTH_SHORT).show()
+                } else {
+                    ErrorResponse.gestionarError(response.errorBody()!!.string(), activity)
                 }
             }
 
@@ -405,8 +418,11 @@ class FilmDetailFragment : Fragment() {
                         override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
                             if (response.isSuccessful) {
                                 parentFragmentManager.popBackStack()
-                            }else{
-                                ErrorResponse.gestionarError( response.errorBody()!!.string(), activity)
+                            } else {
+                                ErrorResponse.gestionarError(
+                                    response.errorBody()!!.string(),
+                                    activity
+                                )
                             }
                         }
 

@@ -19,10 +19,10 @@ class FilmListFragmentManagerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fragment_manager)
-        var mTopToolbar =  findViewById(R.id.my_toolbar) as Toolbar;
+        var mTopToolbar =  findViewById(R.id.my_toolbar) as Toolbar
         mTopToolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.generalText))
-        setSupportActionBar(mTopToolbar);
-        getSupportActionBar()!!.setHomeAsUpIndicator(getDrawable(R.drawable.ic_baseline_arrow_back_24));
+        setSupportActionBar(mTopToolbar)
+        getSupportActionBar()!!.setHomeAsUpIndicator(getDrawable(R.drawable.ic_baseline_arrow_back_24))
 
         supportFragmentManager.addOnBackStackChangedListener {
             if(supportFragmentManager.backStackEntryCount > 0){

@@ -101,16 +101,26 @@ class FilmCreateFragment : Fragment() {
 
     fun cambiarModoEdicion() {
         binding.layoutDetallesPeliculaCollapse.FilmDetailETDuracion.setEnabled(true)
+        binding.layoutDetallesPeliculaCollapse.FilmDetailETDuracion.setHint(requireActivity().getString(R.string.stringNullRunTimeMovie))
+
         binding.layoutDetallesPeliculaCollapse.FilmDetailETGenero.setEnabled(true)
+        binding.layoutDetallesPeliculaCollapse.FilmDetailETGenero.setHint(requireActivity().getString(R.string.stringNullGenreMovie))
+
         binding.layoutDetallesPeliculaCollapse.FilmDetailETTitulo.setEnabled(true)
+        binding.layoutDetallesPeliculaCollapse.FilmDetailETTitulo.setHint(requireActivity().getString(R.string.stringNullTitleMovie))
+
         binding.layoutDetallesPeliculaCollapse.FilmDetailETValoracion.setEnabled(true)
+        binding.layoutDetallesPeliculaCollapse.FilmDetailETValoracion.setHint(requireActivity().getString(R.string.stringNullRatingMovie))
+
 
     }
 
     private fun addEditText() {
         editText = EditText(activity)
-        editText.setText(getString(R.string.stringNulDescriptionMovie))
+        editText.setHint( requireActivity().getString(R.string.stringNulDescriptionMovie))
         editText.setTextColor(ContextCompat.getColor(requireContext(), R.color.generalText))
+        editText.setHintTextColor(ContextCompat.getColor(requireContext(), R.color.iconColor))
+
         editText.setBackgroundResource(android.R.color.transparent);
         editText.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,

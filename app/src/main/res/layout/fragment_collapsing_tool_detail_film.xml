@@ -17,7 +17,6 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:contentScrim="@color/secondColor"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
             app:title="@string/collapsingToolbarTitulo"
             android:id="@+id/collapsing_toolbar">
@@ -29,7 +28,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:scaleType="centerCrop"
-                android:src="@color/secondColor"
+                android:src="@color/backgroundColor"
                 app:layout_collapseMode="parallax" />
 
 
